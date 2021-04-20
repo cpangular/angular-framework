@@ -19,7 +19,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "web-components": [
+        "dist/web-components/web-components",
+        "dist/web-components"
+      ],
+      "web-utils": [
+        "dist/web-utils/web-utils",
+        "dist/web-utils"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
