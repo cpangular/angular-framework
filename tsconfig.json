@@ -21,6 +21,10 @@
       "dom"
     ],
     "paths": {
+      "web-cdk": [
+        "dist/web-cdk/web-cdk",
+        "dist/web-cdk"
+      ],
       "web-components": [
         "dist/web-components/web-components",
         "dist/web-components"

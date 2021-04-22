@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ResizeObservable } from 'web-utils';
+import { Component, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'test-app';
+
+  constructor(
+    elmRef: ElementRef<Element>
+  ) {
+    const t = new ResizeObservable();
+    t.add(elmRef.nativeElement);
+    t.subscribe(v => { });
+    t.subscribe(v => {
+      console.log(v)
+    });
+  }
 }

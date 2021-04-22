@@ -202,6 +202,46 @@
           }
         }
       }
+    },
+    "web-cdk": {
+      "projectType": "library",
+      "root": "projects/web-cdk",
+      "sourceRoot": "projects/web-cdk/src",
+      "prefix": "cp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/web-cdk/tsconfig.lib.json",
+            "project": "projects/web-cdk/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-cdk/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/web-cdk/src/test.ts",
+            "tsConfig": "projects/web-cdk/tsconfig.spec.json",
+            "karmaConfig": "projects/web-cdk/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/web-cdk/tsconfig.lib.json",
+              "projects/web-cdk/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "web-utils"
