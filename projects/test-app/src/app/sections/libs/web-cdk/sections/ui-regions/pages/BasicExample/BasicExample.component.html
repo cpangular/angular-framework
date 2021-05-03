@@ -1,0 +1,55 @@
+<h1 cpUseRegion="app.postTitle">&nbsp;- Basic Example</h1>
+
+<h2>Display an element in a region</h2>
+
+<div class="half">
+  <div class="host" cpRegion="basicExampleHost1"></div>
+
+
+
+  <div class="attachment-wrapper">
+    'Example 1' was defined here:
+    <div class="defined">
+      <div class="attachment" cpUseRegion="basicExampleHost1">
+        Example 1
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Dynamically change an elements display region</h2>
+
+<div class="half">
+  <div class="basicExampleHost2">
+    <h3>Region 1</h3>
+    <div class="host small" cpRegion="basicExampleHost2.1">
+    </div>
+    <h3>Region 2</h3>
+    <div class="host small" cpRegion="basicExampleHost2.2">
+    </div>
+    <h3>Region 3</h3>
+    <div class="host small" cpRegion="basicExampleHost2.3">
+    </div>
+  </div>
+  <div class="attachment-wrapper">
+    'Example 2' was defined here:
+    <div class="defined">
+      <div class="attachment" [cpUseRegion]="rbg.value" [inlineOnMissingRegion]="ifo.value === '1'">
+        Example 2
+      </div>
+    </div>
+    Display in:
+    <mat-radio-group #rbg="matRadioGroup" value="basicExampleHost2.Missing">
+      <mat-radio-button value="basicExampleHost2.1">Region 1</mat-radio-button>
+      <mat-radio-button value="basicExampleHost2.2">Region 2</mat-radio-button>
+      <mat-radio-button value="basicExampleHost2.3">Region 3</mat-radio-button>
+      <mat-radio-button value="basicExampleHost2.Missing">Missing Region</mat-radio-button>
+    </mat-radio-group>
+
+    inline failover on missing region:
+    <mat-radio-group #ifo="matRadioGroup" value="1">
+      <mat-radio-button value="1">true</mat-radio-button>
+      <mat-radio-button value="0">false</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>

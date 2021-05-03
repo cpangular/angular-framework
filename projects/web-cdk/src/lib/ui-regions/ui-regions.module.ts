@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UIRegionHostDirective } from './ui-region-host.directive';
 import { UIRegionDirective } from './ui-region.directive';
+import { UIRegionAttachmentDirective } from './ui-region-attachment.directive';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    UIRegionHostDirective,
-    UIRegionDirective
+    UIRegionDirective,
+    UIRegionAttachmentDirective
    ],
   exports: [
-    UIRegionHostDirective,
-    UIRegionDirective
+    UIRegionDirective,
+    UIRegionAttachmentDirective
   ]
 })
 export class UIRegionsModule { }

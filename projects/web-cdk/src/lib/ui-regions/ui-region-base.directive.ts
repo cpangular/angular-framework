@@ -1,35 +1,36 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IUIAttachment } from './IUIAttachment';
+import { Directive, OnDestroy, OnInit } from '@angular/core';
+import { IUIRegion } from './IUIRegion';
 import { UIRegionService } from './ui-region.service';
 
-@Injectable()
-export abstract class UIRegionBaseDirective implements IUIAttachment, OnInit, OnDestroy {
-  private _id: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
+@Directive()
+export abstract class UIRegionBaseDirective implements IUIRegion, OnInit, OnDestroy {
+  private attachments: Set<Element> = new Set();
+  public id?: string;
+
 
   constructor(
     protected readonly regionService: UIRegionService
   ) { }
 
-  public get id(): string | undefined {
-    return this._id.value;
-  }
-  public set id(val: string | undefined) {
-    if (this.id !== val) {
-      this._id.next(val);
-    }
+  public addElement(element: Element): void {
+    this.attachments.add(element);
   }
 
-  public get idChange(): Observable<string | undefined> {
-    return this._id.asObservable();
+  public removeElement(element: Element): void {
+    this.attachments.delete(element);
+  }
+
+  public get elementCount(): number {
+    return this.attachments.size;
   }
 
   ngOnInit(): void {
-    this.regionService.attachmentCreated(this);
+    this.regionService.regionCreated(this);
+
+  }
+  ngOnDestroy(): void {
+    this.regionService.regionDestroyed(this);
   }
 
-  ngOnDestroy(): void {
-    this.regionService.attachmentDestroyed(this);
-  }
 
 }

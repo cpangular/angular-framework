@@ -1,13 +1,13 @@
+import { ResizeModule } from './resize/resize.module';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
+    ResizeModule
   ],
   exports: [
-
+    ResizeModule
   ]
 })
 export class WebCdkModule { }

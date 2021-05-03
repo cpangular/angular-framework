@@ -108,6 +108,7 @@
               "projects/test-app/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "projects/test-app/src/styles.scss"
             ],
             "scripts": []
@@ -171,6 +172,7 @@
               "projects/test-app/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "projects/test-app/src/styles.scss"
             ],
             "scripts": []
@@ -242,6 +244,11 @@
           }
         }
       }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
     }
   },
   "defaultProject": "web-utils"

@@ -8,6 +8,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "preserveConstEnums": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -30,7 +31,6 @@
         "dist/web-components"
       ],
       "web-utils": [
-        "dist/web-utils/web-utils",
         "dist/web-utils"
       ]
     }

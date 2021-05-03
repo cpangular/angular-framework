@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+  position: relative;
+}
+
+/*
+:host-context(.float-app-right-panel) :host-context(.float-app-left-panel) {
+  .fixed-container {
+    grid-template-columns: 0 1fr 0;
+  }
+}
+
+:host-context(.float-app-left-panel:not(.float-app-right-panel)){
+  .fixed-container {
+    grid-template-columns: 0 1fr auto;
+  }
+}
+
+:host-context(.float-app-right-panel:not(.float-app-left-panel)){
+  .fixed-container {
+    grid-template-columns: auto 1fr 0;
+  }
+}
+*/
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .fixed-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: var(--scrollbar-width, 0);
+    pointer-events: none;
+    display: grid;
+    grid-template-areas:
+      "t t t"
+      "l c r"
+      "b b b";
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
+
+    .panel-container {
+      &.top {
+        grid-area: t;
+        header {
+          pointer-events: all;
+        }
+      }
+      &.bottom {
+        grid-area: b;
+        footer {
+          pointer-events: all;
+        }
+      }
+      &.left {
+
+        grid-area: l;
+      }
+      &.right {
+        grid-area: r;
+      }
+    }
+    .content {
+      grid-area: c;
+    }
+  }
+
+  .content-container {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: var(--content-top, 0);
+    padding-left: var(--content-left, 0);
+    padding-right: var(--content-right, 0);
+    padding-bottom: var(--content-bottom, 0);
+  }
+}
+/*
+:host {
+  .fixed-container {
+    .panel-container.top {
+      header {
+        overflow: hidden;
+        > div {
+          transform: translateY(0%);
+          transition: transform 0.25s;
+        }
+      }
+    }
+  }
+
+  &.hide-header {
+    .fixed-container {
+      .panel-container.top {
+        header {
+          > div {
+            transform: translateY(-100%);
+          }
+        }
+      }
+    }
+  }
+}
+*/
+
+:host {
+  .modal-route-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+
+:host{
+  .modal-bg {
+    pointer-events: all;
+    background-color: rgba(black, 0.42);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 991.98px){
+  .panel-tray.left{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:100%;
+    width: auto;
+  }
+  .panel-tray.right{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right:100%;
+    width: auto;
+  }
+}
+
+
+.panel-tray{
+  max-width: 40rem;
+  height: 100%;
+  .panel{
+
+    height: 100%;
+    background-color: var(--some, #ebebeb);
+    min-width: 150px;
+  }
+}
+
+
+
+
+[cpRegion="app.header"] {
+  display: flex;
+  flex-direction: column;
+}

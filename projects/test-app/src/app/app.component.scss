@@ -1,3 +1,16 @@
 :host{
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  mat-toolbar{
+    flex: 0 0 auto;
+  }
+  mat-drawer-container{
+    flex: 1 1 100%;
+  }
+  mat-drawer{
+    min-width: 15rem;
+    padding: 1rem;
+  }
 }

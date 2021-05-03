@@ -1,29 +1,39 @@
-import { Directive, Input, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { UIRegionBaseDirective } from './ui-region-base.directive';
 import { UIRegionService } from './ui-region.service';
 
 @Directive({
   selector: '[cpRegion]'
 })
-export class UIRegionDirective extends UIRegionBaseDirective {
+export class UIRegionDirective extends UIRegionBaseDirective implements OnInit {
+
   @Input()
-  public get cpRegion(): string | undefined {
-    return this.id;
-  }
-  public set cpRegion(val: string | undefined) {
-    this.id = val;
-  }
+  public cpRegion?: string;
 
   constructor(
-    private readonly elementRef: ElementRef,
+    private readonly elementRef: ElementRef<Node>,
     regionService: UIRegionService
   ) {
     super(regionService);
   }
 
-  public get element(): Element | undefined {
-    return this.elementRef.nativeElement;
+  public ngOnInit() {
+    this.id = this.cpRegion;
+    super.ngOnInit();
   }
 
+  public addElement(element: Element): void {
+    const elm = this.elementRef.nativeElement;
+    if(elm.ELEMENT_NODE === elm.nodeType){
+      elm.appendChild(element);
+    }else{
+      elm.parentElement?.insertBefore(element, elm);
+    }
+    super.addElement(element);
+  }
+  public removeElement(element: Element): void {
+    super.removeElement(element);
+    element.remove();
+  }
 
 }

@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  position: relative;
+
+
+  overflow: hidden;
+
+  &[anchor="bottom"],
+  &[anchor="top"] {
+    height: auto;
+    > div {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &[anchor="left"],
+  &[anchor="right"] {
+    display: inline-block;
+    width: auto;
+    > div {
+      height: 100%;
+      width: auto;
+
+    }
+  }
+
+  &[anchor="bottom"] {
+    > div {
+      bottom: 0;
+    }
+  }
+
+  &[anchor="top"] {
+    > div {
+      top: 0;
+    }
+  }
+
+  &[anchor="left"] {
+    > div {
+      left: 0;
+    }
+  }
+
+  &[anchor="right"] {
+    > div {
+      right: 0;
+    }
+  }
+}
