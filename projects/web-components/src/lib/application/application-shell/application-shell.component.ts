@@ -1,9 +1,9 @@
 import { Subscription } from 'rxjs';
-import { ApplicationService } from './../application/application.service';
+import { ApplicationService } from '../application.service';
 import { NgComponentOutlet } from '@angular/common';
 import { Component, ComponentFactoryResolver, Input, OnInit, Type, ViewChild, ViewContainerRef, OnChanges, SimpleChanges, ComponentRef } from '@angular/core';
-import { ApplicationLayoutComponent } from '../application-layout/application-layout.component';
-import { IApplicationLayoutComponent } from '../application-layout/IApplicationLayoutComponent';
+import { ApplicationLayoutComponent } from '../../application-layout/application-layout.component';
+import { IApplicationLayoutComponent } from '../../application-layout/IApplicationLayoutComponent';
 import { ApplicationLayoutOptions } from './application-layout-options';
 
 @Component({

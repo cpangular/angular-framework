@@ -2,7 +2,7 @@ import { UIRegionsModule } from '@cpangular/web-cdk';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicationShellComponent } from './application-shell.component';
-import { ApplicationLayoutModule } from '../application-layout/application-layout.module';
+import { ApplicationLayoutModule } from '../../application-layout/application-layout.module';
 
 @NgModule({
   imports: [
