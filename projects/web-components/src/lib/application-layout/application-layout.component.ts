@@ -1,13 +1,18 @@
+import { ModalInOutAnimation } from './animations/modal';
 import { Subscription } from 'rxjs';
 import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, HostBinding, Input, OnChanges, SimpleChanges, ChangeDetectorRef, NgZone } from '@angular/core';
 import { IApplicationLayoutComponent } from './IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
+import { BreakpointService } from 'web-cdk';
 
 @Component({
   selector: 'cp-application-layout',
   templateUrl: './application-layout.component.html',
-  styleUrls: ['./application-layout.component.scss']
+  styleUrls: ['./application-layout.component.scss'],
+  animations: [
+    ModalInOutAnimation
+  ]
 })
 export class ApplicationLayoutComponent implements IApplicationLayoutComponent, OnInit, OnDestroy {
   private _hideHeaderOnScroll: boolean = false;
@@ -17,14 +22,31 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
   private _scrollDispatcher!: ScrollDispatcher;
   private _scrollElm!: ElementRef<HTMLElement>;
   private _headerHidden: boolean = false;
-  private requireModal: Set<string> = new Set();
+  private _orientation: 'landscape' | 'portrait' = 'landscape';
+  private _screenSize: number = 0;
+  private _showingModalRoute: boolean = false;
 
   public leftPanelOpened: boolean = true;
   public rightPanelOpened: boolean = true;
 
 
 
+  @HostBinding('class.landscape')
+  public get isLandscape(): boolean {
+    return this._orientation === 'landscape';
+  }
 
+  @HostBinding('class.portrait')
+  public get isPortrait(): boolean {
+    return !this.isLandscape;
+  }
+
+  @HostBinding('class.modal')
+  public get showModalBg(): boolean {
+    return this._showingModalRoute
+      || (this.leftPanelOpened && this._screenSize <= 2)
+      || (this.rightPanelOpened && this._screenSize <= 2)
+  }
 
   @ViewChild('contentContainer', { static: true, read: CdkScrollable })
   private contentContainer!: CdkScrollable;
@@ -32,6 +54,7 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
   public get hideHeaderOnScroll(): boolean {
     return this._hideHeaderOnScroll;
   }
+
   public set hideHeaderOnScroll(val: boolean) {
     if (this._hideHeaderOnScroll !== val) {
       this._hideHeaderOnScroll = val;
@@ -45,18 +68,72 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
     return this._headerHidden;
   }
 
+
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly ngZone: NgZone,
-    private readonly appService: ApplicationService
+    private readonly appService: ApplicationService,
+    private readonly breakpointService: BreakpointService
   ) {
     this._subs.add(appService.leftPanel.openedChange.subscribe(o => {
       this.leftPanelOpened = o;
     }));
     this._subs.add(appService.rightPanel.openedChange.subscribe(o => {
       this.rightPanelOpened = o;
-     }));
+    }));
+
+    const orientationResolver = breakpointService.createResolver<'landscape' | 'portrait'>([
+      ['landscape', 'landscape'],
+      ['portrait', 'portrait']
+    ]);
+    this._subs.add(orientationResolver.subscribe(value => {
+      this._orientation = value;
+    }));
+
+    const screenSizeResolver = breakpointService.createResolver<number>([
+      ['xs', 0],
+      ['sm', 1],
+      ['md', 2],
+      ['lg', 3],
+      ['xl', 4]
+    ]);
+
+    this._subs.add(screenSizeResolver.subscribe(value => {
+      this._screenSize = value;
+      this.elementRef.nativeElement.classList.remove('size-xs');
+      this.elementRef.nativeElement.classList.remove('size-sm');
+      this.elementRef.nativeElement.classList.remove('size-md');
+      this.elementRef.nativeElement.classList.remove('size-lg');
+      this.elementRef.nativeElement.classList.remove('size-xl');
+      switch (value) {
+        case 0:
+          this.elementRef.nativeElement.classList.add('size-xs');
+          break;
+        case 1:
+          this.elementRef.nativeElement.classList.add('size-sm');
+          break;
+        case 2:
+          this.elementRef.nativeElement.classList.add('size-md');
+          break;
+        case 3:
+          this.elementRef.nativeElement.classList.add('size-lg');
+          break;
+        case 4:
+          this.elementRef.nativeElement.classList.add('size-xl');
+          break;
+      }
+    }));
+  }
+
+  @HostBinding('class.left-panel-inline')
+  public get leftPanelInline(): boolean {
+    return this._screenSize > 2;
+  }
+
+  @HostBinding('class.right-panel-inline')
+  public get rightPanelInline(): boolean {
+    return this._screenSize > 2;
   }
 
 
@@ -127,12 +204,10 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
   }
 
   public modalOutletDeactivate(evt: any) {
-    console.log(evt);
-    this.requireModal.delete('modal');
+    this._showingModalRoute = false;
   }
 
   public modalOutletActivate(evt: any) {
-    console.log(evt);
-    this.requireModal.add('modal');
+    this._showingModalRoute = true;
   }
 }

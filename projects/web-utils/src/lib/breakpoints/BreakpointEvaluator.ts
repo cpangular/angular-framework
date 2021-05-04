@@ -17,7 +17,3 @@ export type BreakpointEvaluator<T = any> = [
   BreakpointCheckFn,
   BreakpointValueFn<T>
 ];
-
-
-
-

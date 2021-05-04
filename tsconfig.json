@@ -22,6 +22,10 @@
       "dom"
     ],
     "paths": {
+      "material-theming": [
+        "dist/material-theming/material-theming",
+        "dist/material-theming"
+      ],
       "web-cdk": [
         "dist/web-cdk/web-cdk",
         "dist/web-cdk"

@@ -1,10 +1,26 @@
 <cp-application-shell #shell></cp-application-shell>
 
 <mat-toolbar color="primary" cpUseRegion="app.header">
-  <button (click)="app.leftPanel.opened = !app.leftPanel.opened">L</button>Header<button (click)="app.rightPanel.opened = !app.rightPanel.opened">R</button>
+  <button (click)="app.leftPanel.opened = !app.leftPanel.opened">L</button>Header<button
+    (click)="app.rightPanel.opened = !app.rightPanel.opened">R</button>
+  ---
+  <div>
+    {{
+    [
+    ['xs', 'extra small'],
+    ['sm', 'small'],
+    ['md', 'medium'],
+    ['lg', 'large'],
+    ['xl', 'extra large'],
+    ] | breakpoints | async | json }}
+  </div>
+
 </mat-toolbar>
 
 <mat-toolbar cpUseRegion="app.footer">
+  <pre>
+    {{breakpoint | async | json}}
+  </pre>
   Footer
   <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
   <button [routerLink]="['', {outlets:{modal: null}}]">22222</button>
@@ -12,13 +28,18 @@
 
 
 <div cpUseRegion="app.panel.left">
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
+  asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
 </div>
 
 <div cpUseRegion="app.panel.right">
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus, architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae nulla! Perferendis!
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
+  architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
+  nulla! Perferendis!
 </div>
 
+<div cpUseRegion="app.left">B</div>
+<div cpUseRegion="app.right">B</div>
 <!--
 
 

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicationLayoutComponent } from './application-layout.component';
-import { ResizeModule, UIRegionsModule } from 'web-cdk';
+import { ResizeModule, UIRegionsModule, BreakpointsModule } from 'web-cdk';
 import { ScrollingModule } from '@angular/cdk/scrolling'
 import { TrayModule } from '../tray/tray.module';
 
@@ -14,7 +14,8 @@ import { TrayModule } from '../tray/tray.module';
     UIRegionsModule,
     ScrollingModule,
     TrayModule,
-    RouterModule
+    RouterModule,
+    BreakpointsModule
   ],
   declarations: [ApplicationLayoutComponent],
   exports: [ApplicationLayoutComponent]

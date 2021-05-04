@@ -1,3 +1,4 @@
+import { BreakpointsModule } from 'web-cdk';
 import { ApplicationShellModule } from 'web-components';
 
 import { NgModule } from '@angular/core';
@@ -27,7 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    BreakpointsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

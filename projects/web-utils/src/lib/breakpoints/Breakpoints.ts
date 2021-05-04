@@ -15,6 +15,7 @@ function customBreakpoint(min: number, max: number, property: 'width' | 'height'
     return 0;
   });
 }
+
 function landscape(): BreakpointCompare {
   return makeBreakpointFn(vs => {
     if (vs.width >= vs.height) {
@@ -23,6 +24,7 @@ function landscape(): BreakpointCompare {
     return -1;
   });
 }
+
 function portrait(): BreakpointCompare {
   return makeBreakpointFn(vs => {
     if (vs.width < vs.height) {
@@ -31,6 +33,7 @@ function portrait(): BreakpointCompare {
     return 1;
   });
 }
+
 function makeBreakpointFn(compare: BreakpointCompareFn): BreakpointCompare {
   const cmp: Mutable<BreakpointCompare> = compare as BreakpointCompare as Mutable<BreakpointCompare>;
   cmp.eq = vs => BreakpointUtil.eq(compare(vs));
@@ -41,8 +44,6 @@ function makeBreakpointFn(compare: BreakpointCompareFn): BreakpointCompare {
   cmp.gtEq = vs => BreakpointUtil.gtEq(compare(vs));
   return cmp as BreakpointCompare;
 }
-
-
 
 export class Breakpoints {
   public static readonly custom = customBreakpoint;
