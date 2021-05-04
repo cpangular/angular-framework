@@ -1,0 +1,23 @@
+@use '../../../materialTheme';
+@use '../../../palettes' as p;
+
+@use './palettes';
+@use './themes';
+
+@mixin initTheme(){
+  @include materialTheme.create();
+  @include p.define( "bg-light", palettes.$light-bg-palette);
+
+}
+
+@mixin applyTheme(){
+  @include p.define( "orange", palettes.$orange-palette);
+  @include p.define( "blue", palettes.$blue-palette);
+  @include p.define( "red", palettes.$red-palette);
+  @include materialTheme.define("orange-blue", themes.$light-theme);
+  @include materialTheme.apply("orange-blue");
+  html{
+   background-color: var(--background-background);
+  }
+}
+

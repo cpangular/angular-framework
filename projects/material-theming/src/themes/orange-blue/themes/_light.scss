@@ -1,0 +1,12 @@
+
+@use '../../../../materialTheme';
+
+$theme:(
+  palettes: (
+    primary: materialTheme.usePalette("orange"),
+    accent: materialTheme.usePalette("blue"),
+    warn: materialTheme.usePalette("red"),
+  ),
+  background: materialTheme.useBackgroundPalette("bg-light"),
+  foreground: materialTheme.useForegroundPalette("bg-light"),
+)

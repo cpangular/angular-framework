@@ -1,0 +1,8 @@
+
+@function propertyName($palette, $variany){
+  @return '--palette-#{$palette}-#{$variany}';
+}
+
+@function propertyValue($value) {
+  @return '#{$value}';
+}

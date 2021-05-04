@@ -12,6 +12,8 @@
     "start:libs:cdk": "ng build web-cdk --watch",
     "build:libs:components": "ng build web-components",
     "start:libs:components": "ng build web-components --watch",
+    "build:libs:theming": "ng build material-theming",
+    "start:libs:theming": "ng build material-theming --watch",
     "build:app": "ng build test-app",
     "start:app": "ng serve test-app"
   },
@@ -27,6 +29,7 @@
     "@angular/platform-browser": "~11.2.10",
     "@angular/platform-browser-dynamic": "~11.2.10",
     "@angular/router": "~11.2.10",
+    "linq": "^3.2.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

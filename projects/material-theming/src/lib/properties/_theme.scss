@@ -1,0 +1,161 @@
+@use 'sass:map';
+@use './define';
+@use './themes/color';
+@use './themes/background';
+@use './themes/foreground';
+@use './applied/color' as applyColor;
+@use './applied/background' as applyBackground;
+@use './applied/foreground' as applyForeground;
+@use './palette';
+
+$_instances: ();
+
+@function _getInstance($name) {
+  @return map.get($_instances, $name);
+}
+
+@function get($name) {
+  $inst: _getInstance($name);
+  @if not $inst {
+    @error ("Theme '#{$name}' is not defined");
+  }
+  @return $inst;
+}
+
+@function _create($name, $options) {
+  $inst: (
+    name: $name,
+    palettes: map.get($options, "palettes"),
+    background: map.get($options, "background"),
+    foreground: map.get($options, "foreground"),
+  );
+  $_instances: map.set($_instances, $name, $inst) !global;
+  @return $inst;
+}
+
+@mixin define($name, $options) {
+  @if _getInstance($name) {
+    @error ("Theme '#{$name}' is already defined");
+  }
+  $inst: _create($name, $options);
+  @include _write($inst);
+}
+
+@mixin _write($inst) {
+  $name: map.get($inst, "name");
+  @at-root :root {
+    /* '#{$name}' theme */
+    #{define.propertyName('theme')}: #{define.propertyValue($name)};
+    @include _writePalettes($inst);
+    @include _writeBackground($inst);
+    @include _writeForeground($inst);
+  }
+}
+
+@mixin _writePalettes($inst) {
+  $name: map.get($inst, "name");
+  $palettes: map.get($inst, "palettes");
+
+  @each $palletKey, $paletteDef in $palettes {
+    /* '#{$palletKey}' palette */
+
+    $palletName: map.get($paletteDef, "name");
+    $opts: map.get($paletteDef, "options");
+    #{color.propertyName($name, $palletKey,'name')}: #{color.propertyValue($palletName)};
+    @each $key, $val in $opts {
+      #{color.propertyName($name, $palletKey, $key)}: #{color.propertyValue($val)};
+    }
+  }
+}
+
+@mixin _writeBackground($inst) {
+  $name: map.get($inst, "name");
+  $background: map.get($inst, "background");
+  $bgName: map.get($background, "name");
+  $bgOpts: map.get($background, "options");
+
+  /* background */
+  #{background.propertyName($name, 'name')}: #{background.propertyValue($bgName)};
+  @each $key, $val in $bgOpts {
+    #{background.propertyName($name, $key)}: #{background.propertyValue($val)};
+  }
+}
+
+@mixin _writeForeground($inst) {
+  $name: map.get($inst, "name");
+  $foreground: map.get($inst, "foreground");
+
+  $name: map.get($inst, "name");
+  $foreground: map.get($inst, "foreground");
+  $fgName: map.get($foreground, "name");
+  $fgOpts: map.get($foreground, "options");
+
+  /* foreground */
+  #{foreground.propertyName($name, 'name')}: #{foreground.propertyValue($fgName)};
+  @each $key, $val in $fgOpts {
+    #{foreground.propertyName($name, $key)}: #{foreground.propertyValue($val)};
+  }
+}
+
+@mixin apply($name, $selector: '') {
+  $theme: get($name);
+  $root: ":root" #{$selector};
+  @at-root #{$root} {
+    /* Apply '#{$name}' Theme */
+    #{define.propertyName('theme-applied')}: #{$name};
+    @include _applyPalettes($name, $theme);
+    @include _applyBackground($name, $theme);
+    @include _applyForeground($name, $theme);
+  }
+}
+
+@mixin _applyPalettes($name, $theme) {
+  $palettes: map.get($theme, "palettes");
+  @each $palleteKey, $paletteDef in $palettes {
+    /* '#{$palleteKey}' palette */
+    $palletName: map.get($paletteDef, "name");
+    $palette: palette.get($palletName);
+    $paletteColors: map.get($palette, "colors");
+    $paletteContrast: map.get($paletteColors, "contrast");
+
+    @each $key, $val in $paletteContrast {
+      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue($palletName, $key)};
+      #{applyColor.propertyName($palleteKey, '#{$key}-contrast')}: #{applyColor.propertyValue(
+          $palletName,
+          "#{$key}-contrast"
+        )};
+    }
+
+    $opts: map.get($paletteDef, "options");
+
+    @each $key, $val in $opts {
+      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue($palletName, $val)};
+      #{applyColor.propertyName($palleteKey, '#{$key}-contrast')}: #{applyColor.propertyValue(
+          $palletName,
+          "#{$val}-contrast"
+        )};
+    }
+  }
+}
+
+@mixin _applyBackground($name, $theme) {
+  /* background */
+  $background: map.get($theme, "background");
+  $paletteName: map.get($background, "name");
+  $opts: map.get($background, "options");
+
+  @each $key, $val in $opts {
+    #{applyBackground.propertyName($key)}: #{applyBackground.propertyValue($paletteName, $val)};
+  }
+}
+
+@mixin _applyForeground($name, $theme) {
+  /* foreground */
+  $foreground: map.get($theme, "foreground");
+  $paletteName: map.get($foreground, "name");
+  $opts: map.get($foreground, "options");
+
+  @each $key, $val in $opts {
+    #{applyForeground.propertyName($key)}: #{applyForeground.propertyValue($paletteName, $val)};
+  }
+}

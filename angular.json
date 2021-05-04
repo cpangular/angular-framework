@@ -108,7 +108,6 @@
               "projects/test-app/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "projects/test-app/src/styles.scss"
             ],
             "scripts": []

@@ -1,0 +1,8 @@
+
+@function propertyName($type){
+  @return '--define-#{$type}';
+}
+
+@function propertyValue($value) {
+  @return '#{$value}';
+}

@@ -1,0 +1,14 @@
+@use '../palettes/color';
+
+
+@function propertyName($palette, $variant){
+  @return '--color-#{$palette}-#{$variant}';
+}
+
+@function propertyValue($palette, $variant) {
+  @return 'var(#{color.propertyName($palette, $variant)})';
+}
+
+@function propertyLink($palette, $variant){
+  @return 'var(#{propertyName($palette, $variant)})';
+}

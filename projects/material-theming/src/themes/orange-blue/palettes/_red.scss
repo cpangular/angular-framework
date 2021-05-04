@@ -1,0 +1,38 @@
+@use '../../../../palettes';
+@use 'sass:map';
+
+$plane: palettes.$gray-plane;
+$plane-contrast: map.get($plane, "contrast");
+
+$palette: (
+  50: #f9e5e5,
+  100: #efbdbf,
+  200: #e59294,
+  300: #da6669,
+  400: #d24548,
+  500: #e65151,
+  600: #c52024,
+  700: #bd1b1e,
+  800: #b71618,
+  900: #ab0d0f,
+  A100: #ffd9d9,
+  A200: #ffa6a6,
+  A400: #ff7374,
+  A700: #ff595a,
+  contrast: (
+    50: map.get($plane-contrast, A900),
+    100: map.get($plane-contrast, A900),
+    200: map.get($plane-contrast, A900),
+    300: map.get($plane-contrast, A900),
+    400: map.get($plane, 50),
+    500: map.get($plane, 50),
+    600: map.get($plane, 50),
+    700: map.get($plane, A900),
+    800: map.get($plane, A900),
+    900:  map.get($plane, A900),
+    A100: map.get($plane-contrast, A900),
+    A200: map.get($plane-contrast, A900),
+    A400: map.get($plane-contrast, A900),
+    A700: map.get($plane-contrast, A900),
+  ),
+);

@@ -1,16 +1,3 @@
 import { NgModule } from '@angular/core';
-import { MaterialThemingComponent } from './material-theming.component';
-
-
-
-@NgModule({
-  declarations: [
-    MaterialThemingComponent
-  ],
-  imports: [
-  ],
-  exports: [
-    MaterialThemingComponent
-  ]
-})
+@NgModule({})
 export class MaterialThemingModule { }

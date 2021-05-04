@@ -1,0 +1,153 @@
+@use "~@angular/material/theming";
+@use './variants';
+@use '../../properties/theme';
+@use '../../properties/applied/color';
+@use 'sass:map';
+
+@function paletteOptions($default: 500, $lighter: 100, $darker: 700, $text: $default) {
+  @return (default: $default, lighter: $lighter, darker: $darker, text: $text);
+}
+
+@function usePalette($paletteDef, $options: paletteOptions()) {
+  @return (name: $paletteDef, options: $options);
+}
+
+@function foregroundOptions(
+  $base: 900,
+  $dividers: A100-contrast,
+  $disabled: A400-contrast,
+  $disabled-button: A50-contrast,
+  $disabled-text: A200-contrast,
+  $elevation: 900,
+  $hint-text: A400-contrast,
+  $secondary-text: A500-contrast,
+  $icon: A500-contrast,
+  $icons: A500-contrast,
+  $text: A900-contrast,
+  $slider-min: A900-contrast,
+  $slider-off: A200-contrast,
+  $slider-off-active: A400-contrast
+) {
+  @return (
+    base: $base,
+    dividers: $dividers,
+    disabled: $disabled,
+    disabled-button: $disabled-button,
+    disabled-text: $disabled-text,
+    elevation: $elevation,
+    hint-text: $hint-text,
+    secondary-text: $secondary-text,
+    icon: $icon,
+    icons: $icons,
+    text: $text,
+    slider-min: $slider-min,
+    slider-off: $slider-off,
+    slider-off-active: $slider-off-active
+  );
+}
+
+@function useForegroundPalette($paletteDef, $options: foregroundOptions()) {
+  @return (name: $paletteDef, options: $options);
+}
+
+@function backgroundOptions(
+  $status-bar: 400,
+  $app-bar: 200,
+  $background: 100,
+  $hover: A50-contrast,
+  $card: 50,
+  $dialog: 50,
+  $disabled-button: A100-contrast,
+  $raised-button: 50,
+  $focused-button: A100-contrast,
+  $selected-button: 400,
+  $selected-disabled-button: 500,
+  $disabled-button-toggle: 300,
+  $unselected-chip: 400,
+  $disabled-list-option: 300,
+  $tooltip: 800
+) {
+  @return (
+    status-bar: $status-bar,
+    app-bar: $app-bar,
+    background: $background,
+    hover: $hover,
+    card: $card,
+    dialog: $dialog,
+    disabled-button: $disabled-button,
+    raised-button: $raised-button,
+    focused-button: $focused-button,
+    selected-button: $selected-button,
+    selected-disabled-button: $selected-disabled-button,
+    disabled-button-toggle: $disabled-button-toggle,
+    unselected-chip: $unselected-chip,
+    disabled-list-option: $disabled-list-option,
+    tooltip: $tooltip
+  );
+}
+
+@function useBackgroundPalette($paletteDef, $options: backgroundOptions()) {
+  @return (name: $paletteDef, options: $options);
+}
+
+@function themeOptions($palettes, $background:useBackgroundPalette('light-background'), $foreground:useForegroundPalette('light-background')) {
+  @return (palettes: $palettes, background: $background, foreground: $foreground);
+}
+
+@mixin define($name, $options:themeOptions()) {
+  @include theme.define($name, $options);
+}
+
+@mixin apply($name, $selector:'') {
+  @include theme.apply($name, $selector);
+}
+
+@function _build-color-palette($name) {
+  $palette: ();
+  $contrast: ();
+
+  @each $key in variants.$basic {
+    $palette: map.set($palette, $key, #{color.propertyLink($name, $key)});
+    $palette: map.set($palette, '#{$key}-contrast', #{color.propertyLink($name, '#{$key}-contrast')});
+    $contrast: map.set($contrast, $key, #{color.propertyLink($name, '#{$key}-contrast')});
+  }
+
+  @each $key in variants.$named {
+    $palette: map.set($palette, $key, #{color.propertyLink($name, $key)});
+    $palette: map.set($palette, '#{$key}-contrast', #{color.propertyLink($name, '#{$key}-contrast')});
+    $contrast: map.set($contrast, $key, #{color.propertyLink($name, '#{$key}-contrast')});
+  }
+
+  @return map.set($palette, "contrast", $contrast);
+}
+
+@function _build-theme-config($is-dark) {
+  $foreground: ();
+  @each $key in variants.$foreground {
+    $foreground: map.set($foreground, $key, #{'var(--foreground-#{$key})'});
+  }
+
+  $background: ();
+  @each $key in variants.$background {
+    $background: map.set($background, $key, #{'var(--background-#{$key})'});
+  }
+
+  @return (
+    primary: _build-color-palette("primary"),
+    accent: _build-color-palette("accent"),
+    warn: _build-color-palette("warn"),
+    is-dark: $is-dark,
+    foreground: $foreground,
+    background: $background
+  );
+}
+
+@function _build() {
+  @return (color: _build-theme-config(false));
+}
+
+
+@mixin create() {
+  @include theming.mat-core();
+  @include theming.angular-material-theme(_build());
+}

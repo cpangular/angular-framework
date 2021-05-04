@@ -1,0 +1,38 @@
+@use './light-bg';
+@use 'sass:map';
+
+$bg: light-bg.$palette;
+$bg-contrast: map.get($bg, "contrast");
+
+$palette: (
+  50: #fff4e0,
+  100: #ffe4b3,
+  200: #ffd280,
+  300: #ffc04d,
+  400: #ffb326,
+  500: #ffa500,
+  600: #ff9d00,
+  700: #ff9300,
+  800: #ff8a00,
+  900: #ff7900,
+  A100: #ffffff,
+  A200: #fff8f2,
+  A400: #ffdabf,
+  A700: #ffcba6,
+  contrast: (
+    50: map.get($bg-contrast, 50),
+    100: map.get($bg-contrast, 50),
+    200: map.get($bg-contrast, 50),
+    300: map.get($bg-contrast, 50),
+    400: map.get($bg-contrast, 50),
+    500: map.get($bg-contrast, 50),
+    600: map.get($bg-contrast, 50),
+    700: map.get($bg-contrast, 50),
+    800: map.get($bg-contrast, 50),
+    900:  map.get($bg-contrast, 50),
+    A100: map.get($bg-contrast, 50),
+    A200: map.get($bg-contrast, 50),
+    A400: map.get($bg-contrast, 50),
+    A700: map.get($bg-contrast, 50),
+  ),
+);
