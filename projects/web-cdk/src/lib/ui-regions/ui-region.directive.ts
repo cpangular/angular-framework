@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { UIRegionBaseDirective } from './ui-region-base.directive';
 import { UIRegionService } from './ui-region.service';
 
@@ -8,6 +8,7 @@ import { UIRegionService } from './ui-region.service';
 export class UIRegionDirective extends UIRegionBaseDirective implements OnInit {
 
   @Input()
+  @HostBinding('attr.cpRegion')
   public cpRegion?: string;
 
   constructor(

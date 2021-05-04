@@ -1,46 +1,118 @@
 <div class="fixed-container">
-
-  <div class="panel-container top">
-    <ng-container cpRegion="app.top"></ng-container>
-    <header>
-      <cp-tray [opened]="!headerHidden">
-        <ng-container cpRegion="app.header"></ng-container>
-      </cp-tray>
-    </header>
-  </div>
-
-  <div class="panel-container bottom">
-    <ng-container cpRegion="app.bottom"></ng-container>
-    <footer>
-      <ng-container cpRegion="app.footer"></ng-container>
-    </footer>
-  </div>
-
+  <cp-application-panel anchor="top" [opened]="true" [inline]="true"></cp-application-panel>
+  <cp-application-panel anchor="bottom" [opened]="true" [inline]="true"></cp-application-panel>
+  <cp-application-panel anchor="left" [opened]="leftPanelOpened" [inline]="leftPanelInline"></cp-application-panel>
+  <cp-application-panel anchor="right" [opened]="rightPanelOpened" [inline]="rightPanelInline"></cp-application-panel>
   <div class="content" (sizeChange)="handleContentAreaResize($event)"></div>
-
-  <div class="panel-container left">
-    <div cpRegion="app.left"></div>
-    <div class="panel-tray-container left" [class.inline]="leftPanelInline">
-      <cp-tray class="panel-tray left" [opened]="leftPanelOpened" anchor="right">
-        <div class="panel left" cpRegion="app.panel.left"></div>
-      </cp-tray>
-    </div>
-  </div>
-
-  <div class="panel-container right">
-    <div cpRegion="app.right"></div>
-    <div class="panel-tray-container right" [class.inline]="rightPanelInline">
-      <cp-tray class="panel-tray right" [opened]="rightPanelOpened" anchor="left">
-        <div class="panel right" cpRegion="app.panel.right"></div>
-      </cp-tray>
-    </div>
-  </div>
-
 </div>
+
+<header cpUseRegion="app.top">
+  <cp-tray [opened]="!headerHidden">
+    <ng-container cpRegion="app.header"></ng-container>
+  </cp-tray>
+</header>
 
 <div class="content-container" #contentContainer cdkScrollable>
   <router-outlet #mainOutlet="outlet"></router-outlet>
+  <div>start</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>line</div>
+  <div>end</div>
 </div>
+
+<footer cpUseRegion="app.bottom">
+  <ng-container cpRegion="app.footer"></ng-container>
+</footer>
 
 <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
 

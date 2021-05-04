@@ -49,31 +49,64 @@ export class TrayComponent implements OnInit {
   }
 
   @HostBinding('@openClose')
-  private get state(): string {
+  private get openClose() {
+
+    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    let value = '';
+    let size = '0';
+
     switch (this.anchor) {
       case 'bottom':
       case 'top':
-        return this._opened ? 'openV' : 'closeV';
+        this.elmRef.nativeElement.style.height = 'auto';
+        this.elmRef.nativeElement.style.width = '';
+        value = this._opened ? 'openV' : 'closeV';
+        size = div.offsetHeight + 'px';
+        if(!this._opened){
+          this.elmRef.nativeElement.style.height = '0';
+        }
+        break;
       default:
-        return this._opened ? 'openH' : 'closeH';
+        this.elmRef.nativeElement.style.width = 'auto';
+        this.elmRef.nativeElement.style.height = '';
+        value = this._opened ? 'openH' : 'closeH';
+        size = div.offsetWidth + 'px';
+        if(!this._opened){
+          this.elmRef.nativeElement.style.width = '0';
+        }
+        break;
+    }
+    return {
+      value,
+      params: {
+        size
+      }
     }
   }
 
 
 
+
+
   @HostListener('@openClose.start', ['$event'])
-  private onOpenCloseStart(event: AnimationEvent) {
+  protected onOpenCloseStart(event: AnimationEvent) {
     if (event.fromState == 'opened') {
       this.elmRef.nativeElement.classList.add('closing');
     } else {
       this.elmRef.nativeElement.classList.add('opening');
     }
+    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    div.style.width = div.offsetWidth + 'px';
+    div.style.height = div.offsetHeight + 'px';
   }
 
   @HostListener('@openClose.done', ['$event'])
-  private onOpenCloseDone(event: AnimationEvent) {
+  protected onOpenCloseDone(event: AnimationEvent) {
     this.elmRef.nativeElement.classList.remove('opening');
     this.elmRef.nativeElement.classList.remove('closing');
+    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    div.style.width = '';
+    div.style.height = '';
     if (event.toState == 'closed') {
       const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
       div.style.display = 'none';

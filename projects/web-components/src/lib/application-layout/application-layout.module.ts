@@ -1,3 +1,4 @@
+import { ApplicationPanelModule } from './../application/application-panel/application-panel.module';
 import { RouterModule } from '@angular/router';
 
 import { NgModule } from '@angular/core';
@@ -15,7 +16,8 @@ import { TrayModule } from '../tray/tray.module';
     ScrollingModule,
     TrayModule,
     RouterModule,
-    BreakpointsModule
+    BreakpointsModule,
+    ApplicationPanelModule
   ],
   declarations: [ApplicationLayoutComponent],
   exports: [ApplicationLayoutComponent]
