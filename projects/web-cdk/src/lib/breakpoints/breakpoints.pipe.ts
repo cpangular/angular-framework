@@ -1,8 +1,7 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
+import { BreakpointExpression } from '@cpangular/web-utils';
 import { BreakpointService } from './breakpoint.service';
-import { BreakpointExpression } from 'web-utils';
-import { AsyncPipe } from '@angular/common';
 
 @Pipe({
   name: 'breakpoints'

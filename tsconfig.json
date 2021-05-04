@@ -22,19 +22,19 @@
       "dom"
     ],
     "paths": {
-      "material-theming": [
+      "@cpangular/material-theming": [
         "dist/material-theming/material-theming",
         "dist/material-theming"
       ],
-      "web-cdk": [
+      "@cpangular/web-cdk": [
         "dist/web-cdk/web-cdk",
         "dist/web-cdk"
       ],
-      "web-components": [
+      "@cpangular/web-components": [
         "dist/web-components/web-components",
         "dist/web-components"
       ],
-      "web-utils": [
+      "@cpangular/web-utils": [
         "dist/web-utils"
       ]
     }

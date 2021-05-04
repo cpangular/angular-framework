@@ -1,6 +1,6 @@
-import { TestModalComponent } from './test-modal/test-modal.component';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { TestModalComponent } from './test-modal/test-modal.component';
 
 
 @NgModule({

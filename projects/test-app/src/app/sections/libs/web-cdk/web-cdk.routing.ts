@@ -1,5 +1,5 @@
+import { RouterModule, Routes } from '@angular/router';
 import { WebCdkComponent } from './web-cdk.component';
-import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {

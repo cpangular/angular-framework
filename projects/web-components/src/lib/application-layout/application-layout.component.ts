@@ -4,7 +4,7 @@ import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, HostBinding, Input, OnChanges, SimpleChanges, ChangeDetectorRef, NgZone } from '@angular/core';
 import { IApplicationLayoutComponent } from './IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
-import { BreakpointService } from 'web-cdk';
+import { BreakpointService } from '@cpangular/web-cdk';
 
 @Component({
   selector: 'cp-application-layout',

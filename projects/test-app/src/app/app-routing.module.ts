@@ -1,6 +1,6 @@
-import { TestModalComponent } from './sections/test/test-modal/test-modal.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TestModalComponent } from './sections/test/test-modal/test-modal.component';
 
 const routes: Routes = [
 

@@ -1,5 +1,5 @@
 {
-  "name": "material-theming",
+  "name": "@cpangular/material-theming",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^11.2.10",

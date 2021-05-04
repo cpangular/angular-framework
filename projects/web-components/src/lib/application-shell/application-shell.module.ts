@@ -1,4 +1,4 @@
-import { UIRegionsModule } from 'web-cdk';
+import { UIRegionsModule } from '@cpangular/web-cdk';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApplicationShellComponent } from './application-shell.component';

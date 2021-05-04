@@ -1,4 +1,4 @@
-import { ResizeObservable } from 'web-utils';
+import { ResizeObservable } from '@cpangular/web-utils';
 import { Directive, ElementRef, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 

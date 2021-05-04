@@ -1,5 +1,5 @@
 {
-  "name": "web-utils",
+  "name": "@cpangular/web-utils",
   "version": "0.0.1",
   "peerDependencies": {
     "rxjs": "~6.6.0"

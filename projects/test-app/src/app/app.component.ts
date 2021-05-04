@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs';
-import { BreakpointResolver } from 'web-utils';
-
 import { Component } from '@angular/core';
-import { BreakpointService } from 'web-cdk';
-import { ApplicationService } from 'web-components';
+import { BreakpointService } from '@cpangular/web-cdk';
+import { ApplicationService } from '@cpangular/web-components';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',

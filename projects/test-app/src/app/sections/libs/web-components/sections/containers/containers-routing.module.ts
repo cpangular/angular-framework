@@ -1,6 +1,6 @@
 
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ContainersComponent } from './containers.component';
 import { TrayComponent } from './sections/tray/tray.component';
 

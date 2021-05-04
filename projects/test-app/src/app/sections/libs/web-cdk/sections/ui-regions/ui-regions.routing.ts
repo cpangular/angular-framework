@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { BasicExampleComponent } from './pages/BasicExample/BasicExample.component';
 import { UiRegionsComponent } from './ui-regions.component';
 

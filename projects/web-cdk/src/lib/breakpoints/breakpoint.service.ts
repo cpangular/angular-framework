@@ -1,6 +1,6 @@
 
 import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core';
-import { BreakpointCheckFn, BreakpointCompareFn, Breakpoints, BreakpointObservable, BreakpointExpression, BreakpointResolver } from 'web-utils';
+import { BreakpointCheckFn, BreakpointCompareFn, Breakpoints, BreakpointObservable, BreakpointExpression, BreakpointResolver } from '@cpangular/web-utils';
 
 import { Observable, OperatorFunction } from 'rxjs';
 
