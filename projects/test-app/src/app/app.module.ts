@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BreakpointsModule, UIRegionsModule } from '@cpangular/web-cdk';
 import { ApplicationShellModule } from '@cpangular/web-components';
+import { UiOutletModule } from '@cpangular/web-cdk';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SectionsModule } from './sections/sections.module';
@@ -28,7 +29,8 @@ import { SectionsModule } from './sections/sections.module';
     MatToolbarModule,
     MatListModule,
     MatButtonModule,
-    BreakpointsModule
+    BreakpointsModule,
+    UiOutletModule
   ],
   providers: [],
   bootstrap: [AppComponent]
