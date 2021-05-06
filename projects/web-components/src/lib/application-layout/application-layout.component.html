@@ -8,21 +8,9 @@
 </div>
 
 <cp-application-header cpUseRegion="app.top" [scrollable]="contentContainer"></cp-application-header>
-<!--
-
-  <header cpUseRegion="app.top">
-    <cp-tray [opened]="!headerHidden">
-      <ng-container cpRegion="app.header"></ng-container>
-    </cp-tray>
-  </header>
--->
 
 <div class="content-container" #content cdkScrollable>
   <router-outlet #mainOutlet="outlet"></router-outlet>
-  <pre>
-    leftPanelInline: {{leftPanelInline | json}}
-    showModalBg: {{showModalBg | json}}
-  </pre>
   <div>start</div>
   <div>line</div>
   <div>line</div>
@@ -123,10 +111,13 @@
 
 </div>
 
-<footer cpUseRegion="app.bottom">
-  <ng-container cpRegion="app.footer"></ng-container>
-</footer>
+<!--
 
+  <footer cpUseRegion="app.bottom">
+    <ng-container cpRegion="app.footer"></ng-container>
+  </footer>
+
+-->
 
 <div class="modal-route-container">
   <router-outlet #modalOutlet="outlet" name="modal" (activate)="modalOutletActivate($event)"

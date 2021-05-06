@@ -7,7 +7,7 @@ import { UIRegionService } from './ui-region.service';
 @Directive()
 export abstract class UIRegionAttachmentBaseDirective implements IUIAttachment, OnInit, OnDestroy {
   private _id: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
-  private _inlineOnMissingRegion: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _inlineOnMissingRegion: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public abstract origin?: Node | undefined;
   public abstract element?: Element;
