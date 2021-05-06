@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IUIAttachment } from './IUIAttachment';
 import { IUIRegion } from './IUIRegion';
@@ -8,18 +8,24 @@ class InPlaceRegion implements IUIRegion {
   elementCount: number = 0;
   constructor(
     private readonly attachment: IUIAttachment
-  ) {
+  ) { }
+  elementCountChange: EventEmitter<number> = new EventEmitter();
+  elementAdded: EventEmitter<Element> = new EventEmitter();
+  elementRemoved: EventEmitter<Element> = new EventEmitter();
 
-  }
   addElement(element: Element): void {
     this.attachment.origin?.parentElement?.insertBefore(element, this.attachment.origin);
     this.elementCount = 1;
+    this.elementCountChange.emit(1);
+    this.elementAdded.emit(element);
   }
+
   removeElement(element: Element): void {
     element.remove();
     this.elementCount = 0;
+    this.elementCountChange.emit(0);
+    this.elementRemoved.emit(element);
   }
-
 }
 
 @Injectable({
@@ -31,8 +37,7 @@ export class UIRegionService {
   private attachmentSubs: Map<IUIAttachment, Subscription> = new Map();
   private attachmentRegion: Map<IUIAttachment, IUIRegion> = new Map();
 
-  constructor() {
-  }
+  constructor() {}
 
   public regionCreated(region: IUIRegion) {
     this.regions.add(region);
@@ -87,7 +92,9 @@ export class UIRegionService {
     const region = this.resolveAttachmentRegion(attachment);
     if (region && attachment.element) {
       this.attachmentRegion.set(attachment, region);
+      attachment.onBeforeAdded(region);
       region.addElement(attachment.element);
+      attachment.onAdded(region);
     }
   }
 
@@ -106,7 +113,9 @@ export class UIRegionService {
   private removeAttachmentFromRegion(attachment: IUIAttachment, region?: IUIRegion) {
     region ??= this.getRegion(attachment.id);
     if (region && attachment.element) {
+      attachment.onBeforeRemoved(region);
       region.removeElement(attachment.element);
+      attachment.onRemoved(region);
     }
   }
 

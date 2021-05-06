@@ -1,10 +1,12 @@
+import { LayoutBreakpoints } from './../application/application-layout/application-layout';
 import { ModalInOutAnimation } from './animations/modal';
 import { Subscription } from 'rxjs';
 import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, HostBinding, Input, OnChanges, SimpleChanges, ChangeDetectorRef, NgZone } from '@angular/core';
-import { IApplicationLayoutComponent } from './IApplicationLayoutComponent';
+import { IApplicationLayoutComponent } from '../application/application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
 import { BreakpointService } from '@cpangular/web-cdk';
+import { ApplicationLayout } from '../application/application-layout/application-layout';
 
 @Component({
   selector: 'cp-application-layout',
@@ -14,7 +16,8 @@ import { BreakpointService } from '@cpangular/web-cdk';
     ModalInOutAnimation
   ]
 })
-export class ApplicationLayoutComponent implements IApplicationLayoutComponent, OnInit, OnDestroy {
+export class ApplicationLayoutComponent extends ApplicationLayout implements IApplicationLayoutComponent, OnInit, OnDestroy {
+
   private _hideHeaderOnScroll: boolean = false;
   private _scrollSubs: Subscription = new Subscription();
   private _subs: Subscription = new Subscription();
@@ -22,34 +25,48 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
   private _scrollDispatcher!: ScrollDispatcher;
   private _scrollElm!: ElementRef<HTMLElement>;
   private _headerHidden: boolean = false;
-  private _orientation: 'landscape' | 'portrait' = 'landscape';
   private _screenSize: number = 0;
   private _showingModalRoute: boolean = false;
 
-  public leftPanelOpened: boolean = true;
-  public rightPanelOpened: boolean = true;
 
 
 
-  @HostBinding('class.landscape')
-  public get isLandscape(): boolean {
-    return this._orientation === 'landscape';
+  @HostBinding('class.left-panel-inline')
+  public get leftPanelInline(): boolean {
+    if(this.appService.leftPanel.isLockedOpen){
+      return true;
+    }
+    return this.breakpoint > LayoutBreakpoints.md;
   }
 
-  @HostBinding('class.portrait')
-  public get isPortrait(): boolean {
-    return !this.isLandscape;
+  @HostBinding('class.right-panel-inline')
+  public get rightPanelInline(): boolean {
+    if(this.appService.rightPanel.isLockedOpen){
+      return true;
+    }
+    return this.breakpoint > LayoutBreakpoints.md;
   }
+
+
 
   @HostBinding('class.modal')
   public get showModalBg(): boolean {
     return this._showingModalRoute
-      || (this.leftPanelOpened && this._screenSize <= 2)
-      || (this.rightPanelOpened && this._screenSize <= 2)
+      || (this.appService.leftPanel.isOpen && !this.leftPanelInline)
+      || (this.appService.rightPanel.isOpen && !this.rightPanelInline)
+  }
+  @HostBinding('attr.modalSize')
+  protected get modalSize(): string {
+    if(this._showingModalRoute){
+      return 'full';
+    }
+    return 'content';
+
   }
 
-  @ViewChild('contentContainer', { static: true, read: CdkScrollable })
-  private contentContainer!: CdkScrollable;
+
+  @ViewChild('content', { static: true, read: CdkScrollable })
+  public contentContainer!: CdkScrollable;
 
   public get hideHeaderOnScroll(): boolean {
     return this._hideHeaderOnScroll;
@@ -73,71 +90,18 @@ export class ApplicationLayoutComponent implements IApplicationLayoutComponent, 
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly ngZone: NgZone,
-    private readonly appService: ApplicationService,
-    private readonly breakpointService: BreakpointService
+    public readonly appService: ApplicationService,
+    breakpointService: BreakpointService
   ) {
-    this._subs.add(appService.leftPanel.openedChange.subscribe(o => {
-      this.leftPanelOpened = o;
-    }));
-    this._subs.add(appService.rightPanel.openedChange.subscribe(o => {
-      this.rightPanelOpened = o;
-    }));
+    super(breakpointService);
 
-    const orientationResolver = breakpointService.createResolver<'landscape' | 'portrait'>([
-      ['landscape', 'landscape'],
-      ['portrait', 'portrait']
-    ]);
-    this._subs.add(orientationResolver.subscribe(value => {
-      this._orientation = value;
-    }));
-
-    const screenSizeResolver = breakpointService.createResolver<number>([
-      ['xs', 0],
-      ['sm', 1],
-      ['md', 2],
-      ['lg', 3],
-      ['xl', 4]
-    ]);
-
-    this._subs.add(screenSizeResolver.subscribe(value => {
-      this._screenSize = value;
-      this.elementRef.nativeElement.classList.remove('size-xs');
-      this.elementRef.nativeElement.classList.remove('size-sm');
-      this.elementRef.nativeElement.classList.remove('size-md');
-      this.elementRef.nativeElement.classList.remove('size-lg');
-      this.elementRef.nativeElement.classList.remove('size-xl');
-      switch (value) {
-        case 0:
-          this.elementRef.nativeElement.classList.add('size-xs');
-          break;
-        case 1:
-          this.elementRef.nativeElement.classList.add('size-sm');
-          break;
-        case 2:
-          this.elementRef.nativeElement.classList.add('size-md');
-          break;
-        case 3:
-          this.elementRef.nativeElement.classList.add('size-lg');
-          break;
-        case 4:
-          this.elementRef.nativeElement.classList.add('size-xl');
-          break;
-      }
-    }));
   }
 
-  @HostBinding('class.left-panel-inline')
-  public get leftPanelInline(): boolean {
-    return this._screenSize > 2;
-  }
 
-  @HostBinding('class.right-panel-inline')
-  public get rightPanelInline(): boolean {
-    return this._screenSize > 2;
-  }
 
 
   ngOnInit() {
+
     this._scrollElm = this.contentContainer.getElementRef();
     this._scrollValue = this._scrollElm.nativeElement.scrollTop;
     this._scrollDispatcher = (this.contentContainer as any).scrollDispatcher;

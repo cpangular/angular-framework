@@ -24,10 +24,27 @@ const lg = Breakpoints.custom(1440, 1919);
 const xl = Breakpoints.custom(1920, -1);
 
 const DEFAULT_BREAKPOINTS: Record<string, BreakpointCheckFn> = {
+  '': () => true,
   'xs': xs.eq,
+  'gt-xs': xs.gt,
+  'gte-xs': xs.gtEq,
+  'lt-sm': sm.lt,
+  'lte-sm': sm.ltEq,
   'sm': sm.eq,
+  'gt-sm': sm.gt,
+  'gte-sm': sm.gtEq,
+  'lt-md': md.lt,
+  'lte-md': md.ltEq,
   'md': md.eq,
+  'gt-md': md.gt,
+  'gte-md': md.gtEq,
+  'lt-lg': lg.lt,
+  'lte-lg': lg.ltEq,
   'lg': lg.eq,
+  'gt-lg': lg.gt,
+  'gte-lg': lg.gtEq,
+  'lt-xl': xl.lt,
+  'lte-xl': xl.ltEq,
   'xl': xl.eq,
   'landscape': Breakpoints.landscape.eq,
   'portrait': Breakpoints.portrait.eq,
@@ -94,7 +111,7 @@ class ZoneAwareBreakpointResolver<T> extends Observable<T> {
     conditions: BreakpointExpression[],
     dict: Record<string, BreakpointCheckFn> = {},
     element?: Element
-  ){
+  ) {
     const bpr = new BreakpointResolver<T>(conditions, dict, element);
     const bprZone = bpr.pipe(runInZone(zone));
     super(obs => {

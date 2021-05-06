@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, ComponentRef, Input, OnChanges, OnInit, SimpleChanges, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutComponent } from '../../application-layout/application-layout.component';
-import { IApplicationLayoutComponent } from '../../application-layout/IApplicationLayoutComponent';
+import { IApplicationLayoutComponent } from '../application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application.service';
 import { ApplicationLayoutOptions } from './application-layout-options';
 

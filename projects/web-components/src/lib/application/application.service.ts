@@ -1,24 +1,9 @@
-import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ApplicationHeaderController, IApplicationHeaderController } from './application-header/ApplicationHeaderController';
+import { ApplicationPanelController, IApplicationPanelController } from './application-panel/ApplicationPanelController';
 
 
-class AppPanelController {
-  private _openChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  public get openedChange(): Observable<boolean> {
-    return this._openChange.asObservable();
-  }
-
-  public get opened(): boolean {
-    return this._openChange.value;
-  }
-
-  public set opened(val: boolean) {
-    if (this.opened !== val) {
-      this._openChange.next(val);
-    }
-  }
-}
 
 class ApplicationProperty<T>{
   protected _change: BehaviorSubject<T>;
@@ -57,9 +42,11 @@ class ApplicationTitle extends ApplicationProperty<string>{
 export class ApplicationService {
 
   public readonly title: ApplicationTitle = new ApplicationTitle();
-
-  public readonly leftPanel: AppPanelController = new AppPanelController();
-  public readonly rightPanel: AppPanelController = new AppPanelController();
+  public readonly header: IApplicationHeaderController = new ApplicationHeaderController();
+  public readonly leftPanel: IApplicationPanelController = new ApplicationPanelController();
+  public readonly rightPanel: IApplicationPanelController = new ApplicationPanelController();
+  public readonly topPanel: IApplicationPanelController = new ApplicationPanelController();
+  public readonly bottomPanel: IApplicationPanelController = new ApplicationPanelController();
 
   constructor() { }
 

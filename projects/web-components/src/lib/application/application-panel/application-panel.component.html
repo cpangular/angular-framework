@@ -1,6 +1,6 @@
 <div [cpRegion]="'app.' + anchor"></div>
 <div class="panel-container" [class.inline]="inline">
-  <cp-tray [opened]="opened" [anchor]="anchorOpposite">
-    <div class="panel" [cpRegion]="'app.panel.' + anchor"></div>
+  <cp-tray [opened]="isOpen" [anchor]="anchorOpposite">
+    <div class="panel" [cpRegion]="'app.panel.' + anchor" (elementCountChange)="trayCountChanged($event)"></div>
   </cp-tray>
 </div>

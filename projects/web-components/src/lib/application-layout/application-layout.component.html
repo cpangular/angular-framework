@@ -1,19 +1,28 @@
 <div class="fixed-container">
-  <cp-application-panel anchor="top" [opened]="true" [inline]="true"></cp-application-panel>
-  <cp-application-panel anchor="bottom" [opened]="true" [inline]="true"></cp-application-panel>
-  <cp-application-panel anchor="left" [opened]="leftPanelOpened" [inline]="leftPanelInline"></cp-application-panel>
-  <cp-application-panel anchor="right" [opened]="rightPanelOpened" [inline]="rightPanelInline"></cp-application-panel>
+  <cp-application-panel anchor="top" [inline]="true"  [controller]="appService.topPanel"></cp-application-panel>
+  <cp-application-panel anchor="bottom" [inline]="true"  [controller]="appService.bottomPanel"></cp-application-panel>
+  <cp-application-panel anchor="left" [inline]="leftPanelInline"  [controller]="appService.leftPanel"></cp-application-panel>
+  <cp-application-panel anchor="right" [inline]="rightPanelInline"  [controller]="appService.rightPanel"></cp-application-panel>
   <div class="content" (sizeChange)="handleContentAreaResize($event)"></div>
+  <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
 </div>
 
-<header cpUseRegion="app.top">
-  <cp-tray [opened]="!headerHidden">
-    <ng-container cpRegion="app.header"></ng-container>
-  </cp-tray>
-</header>
+<cp-application-header cpUseRegion="app.top" [scrollable]="contentContainer"></cp-application-header>
+<!--
 
-<div class="content-container" #contentContainer cdkScrollable>
+  <header cpUseRegion="app.top">
+    <cp-tray [opened]="!headerHidden">
+      <ng-container cpRegion="app.header"></ng-container>
+    </cp-tray>
+  </header>
+-->
+
+<div class="content-container" #content cdkScrollable>
   <router-outlet #mainOutlet="outlet"></router-outlet>
+  <pre>
+    leftPanelInline: {{leftPanelInline | json}}
+    showModalBg: {{showModalBg | json}}
+  </pre>
   <div>start</div>
   <div>line</div>
   <div>line</div>
@@ -110,11 +119,14 @@
   <div>end</div>
 </div>
 
+<div class="overlay-container">
+
+</div>
+
 <footer cpUseRegion="app.bottom">
   <ng-container cpRegion="app.footer"></ng-container>
 </footer>
 
-<div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
 
 <div class="modal-route-container">
   <router-outlet #modalOutlet="outlet" name="modal" (activate)="modalOutletActivate($event)"

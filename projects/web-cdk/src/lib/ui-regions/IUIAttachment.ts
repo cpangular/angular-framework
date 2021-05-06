@@ -1,3 +1,4 @@
+import { IUIRegion } from './IUIRegion';
 import { Observable } from 'rxjs';
 export interface IUIAttachment {
   readonly id?: string;
@@ -6,4 +7,8 @@ export interface IUIAttachment {
   readonly inlineOnMissingRegionChange: Observable<boolean>;
   readonly element?: Element;
   readonly origin?: Node;
+  onAdded(region: IUIRegion): void;
+  onRemoved(region: IUIRegion): void;
+  onBeforeAdded(region: IUIRegion): void;
+  onBeforeRemoved(region: IUIRegion): void;
 }

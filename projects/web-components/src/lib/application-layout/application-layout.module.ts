@@ -1,12 +1,13 @@
-import { ApplicationPanelModule } from './../application/application-panel/application-panel.module';
-import { RouterModule } from '@angular/router';
-
-import { NgModule } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { ApplicationLayoutComponent } from './application-layout.component';
-import { ResizeModule, UIRegionsModule, BreakpointsModule } from '@cpangular/web-cdk';
-import { ScrollingModule } from '@angular/cdk/scrolling'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BreakpointsModule, ResizeModule, UIRegionsModule } from '@cpangular/web-cdk';
 import { TrayModule } from '../tray/tray.module';
+import { ApplicationHeaderModule } from './../application/application-header/application-header.module';
+import { ApplicationPanelModule } from './../application/application-panel/application-panel.module';
+import { ApplicationLayoutComponent } from './application-layout.component';
+
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TrayModule } from '../tray/tray.module';
     TrayModule,
     RouterModule,
     BreakpointsModule,
-    ApplicationPanelModule
+    ApplicationPanelModule,
+    ApplicationHeaderModule
   ],
   declarations: [ApplicationLayoutComponent],
   exports: [ApplicationLayoutComponent]

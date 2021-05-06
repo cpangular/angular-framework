@@ -27,28 +27,31 @@
     cp-application-panel {
       &[anchor="top"] {
         grid-area: t;
+        z-index: 8;
         header {
           pointer-events: all;
         }
       }
       &[anchor="bottom"] {
         grid-area: b;
+        z-index: 7;
         footer {
           pointer-events: all;
         }
       }
       &[anchor="left"] {
         grid-area: l;
+        z-index: 4;
       }
       &[anchor="right"] {
         grid-area: r;
+        z-index: 3;
       }
     }
     .content {
       grid-area: c;
     }
   }
-
   .content-container {
     z-index: 1;
     position: absolute;
@@ -61,6 +64,21 @@
     padding-top: var(--content-top, 0);
     padding-left: var(--content-left, 0);
     padding-right: var(--content-right, 0);
+    padding-bottom: var(--content-bottom, 0);
+  }
+
+  .overlay-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    padding-top: var(--content-top, 0);
+    padding-left: var(--content-left, 0);
+    padding-right: calc(var(--content-right, 0) + var(--scrollbar-width));
     padding-bottom: var(--content-bottom, 0);
   }
 }
@@ -81,11 +99,15 @@
   .modal-bg {
     pointer-events: all;
     background-color: var(--foreground-disabled);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    grid-area: c;
+    z-index: 1;
+  }
+
+  &[modalSize="full"] {
+    .modal-bg {
+      grid-area: 1/1/-1/-1;
+      z-index: 10;
+    }
   }
 }
 
