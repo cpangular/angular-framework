@@ -18,18 +18,8 @@ import { ApplicationLayout } from '../application/application-layout/application
 })
 export class ApplicationLayoutComponent extends ApplicationLayout implements IApplicationLayoutComponent, OnInit, OnDestroy {
 
-  private _hideHeaderOnScroll: boolean = false;
-  private _scrollSubs: Subscription = new Subscription();
   private _subs: Subscription = new Subscription();
-  private _scrollValue: number = 0;
-  private _scrollDispatcher!: ScrollDispatcher;
-  private _scrollElm!: ElementRef<HTMLElement>;
-  private _headerHidden: boolean = false;
-  private _screenSize: number = 0;
   private _showingModalRoute: boolean = false;
-
-
-
 
   @HostBinding('class.left-panel-inline')
   public get leftPanelInline(): boolean {
@@ -47,8 +37,6 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     return this.breakpoint > LayoutBreakpoints.md;
   }
 
-
-
   @HostBinding('class.modal')
   public get showModalBg(): boolean {
     return this._showingModalRoute
@@ -61,35 +49,15 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
       return 'full';
     }
     return 'content';
-
   }
 
 
   @ViewChild('content', { static: true, read: CdkScrollable })
   public contentContainer!: CdkScrollable;
 
-  public get hideHeaderOnScroll(): boolean {
-    return this._hideHeaderOnScroll;
-  }
-
-  public set hideHeaderOnScroll(val: boolean) {
-    if (this._hideHeaderOnScroll !== val) {
-      this._hideHeaderOnScroll = val;
-      if (this._scrollDispatcher) {
-        this.hideHeaderOnScroll ? this.enableHeaderScrollHide() : this.disableHeaderScrollHide();
-      }
-    }
-  }
-
-  public get headerHidden(): boolean {
-    return this._headerHidden;
-  }
-
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly ngZone: NgZone,
     public readonly appService: ApplicationService,
     breakpointService: BreakpointService
   ) {
@@ -97,45 +65,13 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
 
   }
 
-
-
-
   ngOnInit() {
 
-    this._scrollElm = this.contentContainer.getElementRef();
-    this._scrollValue = this._scrollElm.nativeElement.scrollTop;
-    this._scrollDispatcher = (this.contentContainer as any).scrollDispatcher;
-    this.hideHeaderOnScroll ? this.enableHeaderScrollHide() : this.disableHeaderScrollHide();
   }
 
-  private enableHeaderScrollHide() {
-
-    this._scrollSubs.add(this._scrollDispatcher.scrolled(100).subscribe(_ => {
-      this.ngZone.run(() => {
-        const scrollV = this._scrollElm.nativeElement.scrollTop;
-        const diff = this._scrollValue - scrollV;
-        if (Math.abs(diff) > 100) {
-          if (!this._headerHidden && diff < 0) {
-            this._headerHidden = true;
-            this.elementRef.nativeElement.classList.add('hide-header');
-            this.changeDetectorRef.markForCheck();
-          } else if (this._headerHidden && diff > 0) {
-            this._headerHidden = false;
-            this.elementRef.nativeElement.classList.remove('hide-header');
-            this.changeDetectorRef.markForCheck();
-          }
-          this._scrollValue = scrollV;
-        }
-      });
-    }));
-  }
-  private disableHeaderScrollHide() {
-    this._scrollSubs.unsubscribe();
-    this._scrollSubs = new Subscription();
-  }
 
   public ngOnDestroy() {
-    this.disableHeaderScrollHide();
+
     this._subs.unsubscribe();
   }
 
@@ -145,8 +81,8 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     const parent = target.parentElement as HTMLElement;
     const targetRect = target.getBoundingClientRect();
     const parentRect = parent.getBoundingClientRect();
-
-    const scrollBarWidth = this._scrollElm.nativeElement.offsetWidth - this._scrollElm.nativeElement.clientWidth;
+    const scrollElm = this.contentContainer.getElementRef().nativeElement;
+    const scrollBarWidth = scrollElm.offsetWidth - scrollElm.clientWidth;
 
     const pWidth = parentRect.width;
     const pHeight = parentRect.height;
