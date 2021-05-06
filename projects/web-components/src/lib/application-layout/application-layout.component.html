@@ -7,7 +7,7 @@
   <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
 </div>
 
-<cp-application-header cpUseRegion="app.top" [scrollable]="contentContainer"></cp-application-header>
+<cp-application-header *cpUseUiOutlet="'app.internal.top'" [scrollable]="contentContainer"></cp-application-header>
 
 <div class="content-container" #content cdkScrollable>
   <router-outlet #mainOutlet="outlet"></router-outlet>

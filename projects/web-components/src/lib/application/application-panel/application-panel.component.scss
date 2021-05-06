@@ -77,18 +77,18 @@
   }
 }
 
-:host > div[cpRegion] {
+:host > div.container {
   display: flex;
-  &[cpRegion="app.top"] {
+  &.top {
     flex-direction: column;
   }
-  &[cpRegion="app.bottom"] {
+  &.bottom {
     flex-direction: column-reverse;
   }
-  &[cpRegion="app.left"] {
+  &.left {
     flex-direction: row;
   }
-  &[cpRegion="app.right"] {
+  &.right {
     flex-direction: row-reverse;
   }
 }

@@ -1,16 +1,8 @@
-<div>
-  <ng-container cpUiOutlet="app.something"></ng-container>
-  World
-</div>
-<div cpUseUiOutlet="app.something">
-  Hello
-  <div>dsd</div>
-</div>
-<!--
+
 
   <cp-application-shell #shell></cp-application-shell>
 
-  <mat-toolbar color="primary" cpUseRegion="app.header">
+  <mat-toolbar color="primary" cpUseUiOutlet="app.internal.header">
 
     <button (click)="app.leftPanel.toggle()" *ngIf="app.leftPanel.canToggle">L</button>Header<button
     (click)="app.rightPanel.toggle()" *ngIf="app.rightPanel.canToggle">R</button>
@@ -32,30 +24,29 @@
 
     </mat-toolbar>
 
-    <mat-toolbar cpUseRegion="app.footer">
+    <mat-toolbar *cpUseUiOutlet="'app.footer'">
       Footer
       <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
       <button [routerLink]="['', {outlets:{modal: null}}]">22222</button>
     </mat-toolbar>
 
 
-    <div cpUseRegion="app.panel.left">
+    <div cpUseUiOutlet="app.internal.panel.left">
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
       asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
     </div>
 
 
-    <div cpUseRegion="app.panel.right" *ngIf="showR">
+    <div cpUseUiOutlet="app.internal.panel.right" *ngIf="showR">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
       architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
       nulla! Perferendis!
     </div>
 
 
-    <div cpUseRegion="app.left" style="order: -1;">left</div>
-    <div cpUseRegion="app.right" style="order: 1;">right</div>
-    <div cpUseRegion="app.right" style="order: -1; pointer-events: all;"><button (click)="showR = !showR">Show</button></div>
-  -->
+    <div cpUseUiOutlet="app.internal.left" style="order: -1;">left</div>
+    <div cpUseUiOutlet="app.internal.right" style="order: 1;">right</div>
+    <div cpUseUiOutlet="app.internal.right" style="order: -1; pointer-events: all;"><button (click)="showR = !showR">Show</button></div>
 
 
 
