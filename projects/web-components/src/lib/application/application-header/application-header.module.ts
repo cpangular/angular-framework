@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { UIRegionsModule, UiOutletModule } from '@cpangular/web-cdk';
+import { UiOutletModule } from '@cpangular/web-cdk';
 import { TrayModule } from './../../tray/tray.module';
 import { ApplicationHeaderComponent } from './application-header.component';
 

@@ -10,10 +10,7 @@ const routes: Routes = [
         path: '',
         redirectTo: 'ui-regions'
       },
-      {
-        path: 'ui-regions',
-        loadChildren: () => import('./sections/ui-regions/ui-regions.module').then(m => m.UiRegionsModule)
-      }
+
     ]
   },
 ];

@@ -5,7 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BreakpointsModule, UIRegionsModule } from '@cpangular/web-cdk';
+import { BreakpointsModule, } from '@cpangular/web-cdk';
 import { ApplicationShellModule } from '@cpangular/web-components';
 import { UiOutletModule } from '@cpangular/web-cdk';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,6 @@ import { SectionsModule } from './sections/sections.module';
     BrowserModule,
     AppRoutingModule,
     SectionsModule,
-    UIRegionsModule,
     ApplicationShellModule,
     BrowserAnimationsModule,
     MatSidenavModule,
