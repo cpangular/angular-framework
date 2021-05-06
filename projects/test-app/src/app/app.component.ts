@@ -23,11 +23,17 @@ export class AppComponent {
     ['', false],
   ])
 
+  public hideHeaderOnScroll = this.bs.createResolver([
+    ['lt-md', true],
+    ['', false],
+  ])
+
   constructor(
     public readonly app: ApplicationService,
     public readonly bs: BreakpointService
   ) {
     app.leftPanel.allowToggle = this.allowToggleLeft;
     app.leftPanel.lockOpen = this.lockOpenLeft;
+    app.header.hideOnScroll = this.hideHeaderOnScroll;
   }
 }

@@ -68,6 +68,7 @@ export class ApplicationHeaderComponent implements OnInit, OnDestroy {
     this.visible = true;
     this._scrollSubs.unsubscribe();
     this._scrollSubs = new Subscription();
+    this._changeRef.markForCheck();
   }
 
   public ngOnDestroy() {

@@ -4,7 +4,7 @@ import { Resolvable } from '../Resolvable';
 export interface IApplicationPanelControllerOptions {
   hideOnScroll: Resolvable<boolean>;
 }
-export interface IApplicationHeaderController {
+export interface IApplicationHeaderController extends IApplicationPanelControllerOptions{
   isHideOnScroll: boolean;
   hideOnScrollChange: Observable<boolean>;
 }

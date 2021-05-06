@@ -1,12 +1,12 @@
-import { LayoutBreakpoints } from './../application/application-layout/application-layout';
-import { ModalInOutAnimation } from './animations/modal';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BreakpointService } from '@cpangular/web-cdk';
 import { Subscription } from 'rxjs';
-import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, HostBinding, Input, OnChanges, SimpleChanges, ChangeDetectorRef, NgZone } from '@angular/core';
+import { ApplicationLayout } from '../application/application-layout/application-layout';
 import { IApplicationLayoutComponent } from '../application/application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
-import { BreakpointService } from '@cpangular/web-cdk';
-import { ApplicationLayout } from '../application/application-layout/application-layout';
+import { LayoutBreakpoints } from './../application/application-layout/application-layout';
+import { ModalInOutAnimation } from './animations/modal';
 
 @Component({
   selector: 'cp-application-layout',
