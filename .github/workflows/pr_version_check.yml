@@ -20,4 +20,6 @@ jobs:
         uses: battila7/get-version-action@v2
 
       - name: Echo
-        run: echo ${{steps.package_version.outputs.current-version}}
+        run: |
+          echo ${{steps.package_version.outputs.current-version}}
+          echo ${{steps.branch_version.outputs.version-without-v}}
