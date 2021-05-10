@@ -36,6 +36,7 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           token: ${{ github.token }}
           tag: v${{ steps.pkgVersion.outputs.full }}
           name: Version ${{ steps.pkgVersion.outputs.full }}
