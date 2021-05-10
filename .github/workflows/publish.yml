@@ -4,13 +4,22 @@ on:
   release:
     types: [published]
 
+env:
+  NODE_VERSION: 14.x
+  PACKAGE_ACCESS: public # public | restricted
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: fregante/setup-git-user@v1
-
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "${{ env.NODE_VERSION }}"
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          scope: ${{ github.owner }}
 
       - name: Parse branch version
         id: refVersion
@@ -33,6 +42,6 @@ jobs:
         run: yarn run build:libs -- --prod
 
       - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
         run: lerna publish from-package --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
-
-# --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
