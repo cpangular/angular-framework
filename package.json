@@ -1,6 +1,7 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.3",
+  "version": "0.0.14",
+  "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "run-s build:*",
     "start": "run-p start:*",
