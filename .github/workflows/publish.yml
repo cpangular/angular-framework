@@ -42,7 +42,7 @@ jobs:
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: true
-          prerelease: ${{ steps.version.outputs.isPrerelease }}
+          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
 
       - name: Init
         run: yarn
@@ -72,7 +72,7 @@ jobs:
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: false
-          prerelease: ${{ steps.version.outputs.isPrerelease }}
+          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
 
       - name: Create tag
         id: tag_version

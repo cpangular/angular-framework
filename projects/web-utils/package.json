@@ -1,6 +1,6 @@
 {
   "name": "@cpangular/web-utils",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "repository": "https://github.com/cpangular/angular-framework",
   "peerDependencies": {
     "rxjs": "~6.6.0"
