@@ -5,12 +5,21 @@ on:
     branches:
       - "release/v*"
 
+env:
+  NODE_VERSION: 14.x
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      #- uses: fregante/setup-git-user@v1
+      - uses: fregante/setup-git-user@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "${{ env.NODE_VERSION }}"
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          scope: ${{ github.owner }}
 
       - name: Get package version
         id: package_version_str
@@ -23,14 +32,6 @@ jobs:
           version: "${{ steps.package_version_str.outputs.current-version }}"
           versionRegex: "(.*)"
 
-    #  - name: Init
-    #    run: |
-    #      echo ${{ github.ref }}
-     #     yarn
-
-     # - name: Set versions
-     #   run: npx lerna version ${{steps.pkgVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
-
 
       - name: Create tag
         id: tag_version
@@ -38,7 +39,6 @@ jobs:
         with:
           github_token: ${{ github.token }}
           custom_tag: ${{ steps.pkgVersion.outputs.full }}
-
 
       - name: Create release
         id: create_release
@@ -53,4 +53,18 @@ jobs:
           draft: true
           prerelease: ${{ steps.version.outputs.isPrerelease }}
 
-# --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
+      - name: Init
+        run: yarn
+
+      - name: Set versions
+        run: |
+          npx lerna version ${{steps.refVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
+          git commit -a -m versions
+
+      - name: Build
+        run: yarn run build:libs -- --prod
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: lerna publish --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all ${{steps.refVersion.outputs.full}}
