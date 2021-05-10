@@ -33,11 +33,12 @@ jobs:
           versionRegex: "(.*)"
 
       - name: Create release
-        uses: ncipollo/release-action@v1
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          allowUpdates: true
-          token: ${{ github.token }}
-          tag: v${{ steps.pkgVersion.outputs.full }}
+          tag_name: v${{ steps.pkgVersion.outputs.full }}
           name: Version ${{ steps.pkgVersion.outputs.full }}
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
@@ -67,15 +68,11 @@ jobs:
           github_token: ${{ github.token }}
           custom_tag: ${{ steps.pkgVersion.outputs.full }}
 
-      - name: Update release
-        uses: ncipollo/release-action@v1
+      - name: Update Release
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          allowUpdates: true,
-          token: ${{ github.token }}
-          tag: v${{ steps.pkgVersion.outputs.full }}
-          omitName: true
-          omitBody: true
-          draft: false
-          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
+          release_id: ${{ steps.create_release.outputs.id }}
 
 
