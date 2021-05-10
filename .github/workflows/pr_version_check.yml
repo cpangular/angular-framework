@@ -31,5 +31,5 @@ jobs:
           versionRegex: 'release\/v(.*)$'
 
       - name: Check major version
-        if: ${{ steps.refVersion.outputs.major }} != ${{ steps.pkgVersion.outputs.major }}
+        if: ${{ steps.refVersion.outputs.major != steps.pkgVersion.outputs.major }}
         run: exit 1
