@@ -37,7 +37,7 @@ jobs:
         with:
           tag: v${{ steps.pkgVersion.outputs.full }}
           name: Version ${{ steps.pkgVersion.outputs.full }}
-          commit: ${{ github.ref }}
+          commit: ${{ github.sha }}
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: true
