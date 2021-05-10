@@ -32,7 +32,7 @@ jobs:
         id: refVersion
         uses: doptools/action-parse-semver@main
         with:
-          version: "${{ github.base_ref }}"
+          version: "${{ github.base_ref }}.0.0"
           versionRegex: 'release\/v(.*)$'
 
       - name: Echo
