@@ -1,6 +1,6 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "build": "run-s build:*",
     "start": "run-p start:*",
