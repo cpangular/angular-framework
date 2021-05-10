@@ -33,7 +33,6 @@ jobs:
           versionRegex: "(.*)"
 
       - name: Create release
-        id: create_release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
@@ -61,23 +60,22 @@ jobs:
           NODE_AUTH_TOKEN: ${{ github.token }}
         run: lerna publish --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all ${{steps.pkgVersion.outputs.full}}
 
-
-      - name: Update release
-        id: update_release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true,
-          token: ${{ github.token }}
-          tag: v${{ steps.pkgVersion.outputs.full }}
-          name: Version ${{ steps.pkgVersion.outputs.full }}
-          body: |
-            Generated Release ${{ steps.pkgVersion.outputs.full }}
-          draft: false
-          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
-
       - name: Create tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v5.5
         with:
           github_token: ${{ github.token }}
           custom_tag: ${{ steps.pkgVersion.outputs.full }}
+
+      - name: Update release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true,
+          token: ${{ github.token }}
+          tag: v${{ steps.pkgVersion.outputs.full }}
+          omitName: true
+          omitBody: true
+          draft: false
+          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
+
+
