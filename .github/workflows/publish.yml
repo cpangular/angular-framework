@@ -24,7 +24,9 @@ jobs:
           versionRegex: "(.*)"
 
       - name: Init
-        run: yarn
+        run: |
+          echo ${{ github.ref }}
+          yarn
 
       - name: Set versions
         run: npx lerna version ${{steps.pkgVersion.outputs.full}} --force-publish --no-commit-hooks --no-push --yes
@@ -35,6 +37,7 @@ jobs:
         with:
           tag: v${{ steps.pkgVersion.outputs.full }}
           name: Version ${{ steps.pkgVersion.outputs.full }}
+          commit: ${{ github.ref }}
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: true
