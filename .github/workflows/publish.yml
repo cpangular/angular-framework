@@ -31,15 +31,14 @@ jobs:
 
       - name: Create release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.pkgVersion.outputs.full }}
-          release_name: Release ${{ steps.pkgVersion.outputs.full }}
+          tag: v${{ steps.pkgVersion.outputs.full }}
+          name: Version ${{ steps.pkgVersion.outputs.full }}
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: true
           prerelease: ${{ steps.version.outputs.isPrerelease }}
+          token: ${{ github.token }}
 
 #--contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
