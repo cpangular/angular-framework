@@ -13,6 +13,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "directory": "../../dist/web-cdk"
+    "directory": "../../dist/web-components"
   }
 }
