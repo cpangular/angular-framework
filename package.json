@@ -4,7 +4,7 @@
   "scripts": {
     "build": "run-s build:*",
     "start": "run-p start:*",
-    "build:libs": "run-s build:libs:*",
+    "build:libs": "run-s build:libs:* --",
     "start:libs": "run-p start:libs:*",
     "build:libs:utils": "ng build web-utils",
     "start:libs:utils": "ng build web-utils --watch",
