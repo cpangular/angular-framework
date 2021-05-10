@@ -68,6 +68,11 @@ jobs:
           github_token: ${{ github.token }}
           custom_tag: ${{ steps.pkgVersion.outputs.full }}
 
+
+      - name: echo release id
+        run: |
+          echo ${{ steps.create_release.outputs.id }}
+
       - name: Update Release
         uses: eregon/publish-release@v1
         env:
