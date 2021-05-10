@@ -16,10 +16,6 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@master
 
 
-      - id: branch_version
-        name: branch_version
-        uses: battila7/get-version-action@v2
-
       - name: Parse Ref Version
         id: refVersion
         uses: doptools/action-parse-semver@main
@@ -36,7 +32,6 @@ jobs:
       - name: Echo
         run: |
           echo ${{steps.package_version_str.outputs.current-version}}
-          echo ${{steps.branch_version.outputs.version-without-v}}
 
           echo ${{steps.refVersion.outputs.full}}
           echo ${{steps.pkgVersion.outputs.full}}
