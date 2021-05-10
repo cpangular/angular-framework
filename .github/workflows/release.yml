@@ -32,7 +32,6 @@ jobs:
           version: "${{ steps.package_version_str.outputs.current-version }}"
           versionRegex: "(.*)"
 
-
       - name: Create tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v5.5
@@ -58,7 +57,7 @@ jobs:
 
       - name: Set versions
         run: |
-          npx lerna version ${{steps.refVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
+          npx lerna version ${{steps.pkgVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
           git commit -a -m versions
 
       - name: Build
