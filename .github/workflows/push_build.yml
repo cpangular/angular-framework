@@ -6,7 +6,6 @@ on:
     - "*"
     - "!release/v*"
 
-
 jobs:
   check_build:
     runs-on: ubuntu-latest

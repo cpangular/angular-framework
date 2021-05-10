@@ -1,9 +1,9 @@
 name: Production Build
 
 on:
-  push:
+  pull_request:
     branches:
-    - "release/v*"
+      - "release/v*"
 
 
 jobs:
