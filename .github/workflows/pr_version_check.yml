@@ -1,4 +1,4 @@
-name: Check Release
+name: Check Release Version
 
 on:
   pull_request:
