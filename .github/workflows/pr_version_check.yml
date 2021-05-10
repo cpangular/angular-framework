@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - "release/v*"
-#    tags:
-#      - v*.*.*
-#      - v*.*.*-*.*
 
 jobs:
   version_check:
@@ -14,4 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-     ## check versions
+      - id: package-version
+        uses: martinbeentjes/npm-get-version-action@master
+
+      - id: branch_version
+        uses: battila7/get-version-action@v2
+
+      - name: Echo
+        run: echo ${{package-version.outputs.current-version}}
