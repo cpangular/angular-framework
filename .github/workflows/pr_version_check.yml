@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name:  package-version
-        id: package-version
+      - name:  package_version
+        id: package_version
         uses: martinbeentjes/npm-get-version-action@master
 
       - id: branch_version
@@ -20,4 +20,4 @@ jobs:
         uses: battila7/get-version-action@v2
 
       - name: Echo
-        run: echo ${{package-version.outputs.current-version}}
+        run: echo ${{package_version.outputs.current-version}}
