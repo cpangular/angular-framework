@@ -1,0 +1,17 @@
+name: Check Release Version
+
+on:
+  pull_request:
+    branches:
+      - "release/v*"
+#    tags:
+#      - v*.*.*
+#      - v*.*.*-*.*
+
+jobs:
+  version_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+     ## check versions
