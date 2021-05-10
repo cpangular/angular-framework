@@ -11,10 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - id: package-version
+      - name:  package-version
+        id: package-version
         uses: martinbeentjes/npm-get-version-action@master
 
       - id: branch_version
+        name: branch_version
         uses: battila7/get-version-action@v2
 
       - name: Echo
