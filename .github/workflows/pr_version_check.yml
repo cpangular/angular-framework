@@ -25,6 +25,8 @@ jobs:
       - name: Echo
         run: |
           echo ${{ github.ref }}
+          echo ${{ github.base_ref }}
+
 
       - name: Parse Ref Version
         id: refVersion
