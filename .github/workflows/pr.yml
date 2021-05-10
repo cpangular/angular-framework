@@ -1,7 +1,9 @@
 name: Publish
 
 on:
-  pull_request: {}
+  pull_request:
+    branches:
+      - "release/v*"
 #    tags:
 #      - v*.*.*
 #      - v*.*.*-*.*
