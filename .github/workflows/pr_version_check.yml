@@ -15,29 +15,21 @@ jobs:
         id: package_version_str
         uses: martinbeentjes/npm-get-version-action@master
 
-      - name: Parse Package Version
+      - name: Parse package version
         id: pkgVersion
         uses: doptools/action-parse-semver@main
         with:
           version: "${{ steps.package_version_str.outputs.current-version }}"
           versionRegex: "(.*)"
 
-      - name: Echo
-        run: |
-          echo ${{ github.ref }}
-          echo ${{ github.base_ref }}
 
-
-      - name: Parse Ref Version
+      - name: Parse ref version
         id: refVersion
         uses: doptools/action-parse-semver@main
         with:
           version: "${{ github.base_ref }}.0.0"
           versionRegex: 'release\/v(.*)$'
 
-      - name: Echo
-        run: |
-          echo ${{steps.package_version_str.outputs.current-version}}
-
-          echo ${{steps.refVersion.outputs.full}}
-          echo ${{steps.pkgVersion.outputs.full}}
+      - name: Check major version
+        if: ${{ steps.refVersion.outputs.major }} != ${{ steps.pkgVersion.outputs.major }}
+        run: exit 1
