@@ -27,8 +27,19 @@ jobs:
         run: yarn
 
       - name: Set versions
-        env:
-          GH_TOKEN: ${{ github.token }}
+        run: npx lerna version ${{steps.pkgVersion.outputs.full}} --force-publish --no-commit-hooks --no-push --yes
 
-        run: npx lerna version ${{steps.pkgVersion.outputs.full}} --create-release github --force-publish --no-commit-hooks --no-push --yes
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: ${{ steps.pkgVersion.outputs.full }}
+          release_name: Release ${{ steps.pkgVersion.outputs.full }}
+          body: |
+            Generated Release ${{ steps.pkgVersion.outputs.full }}
+          draft: true
+          prerelease: ${{ steps.version.outputs.isPrerelease }}
+
 #--contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
