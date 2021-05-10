@@ -1,12 +1,9 @@
 name: Check Release
 
 on:
-  pull_request:
+  push:
     branches:
       - "release/v*"
-#    tags:
-#      - v*.*.*
-#      - v*.*.*-*.*
 
 jobs:
   build_check:
@@ -14,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-     ## check versions
+     ## publish
