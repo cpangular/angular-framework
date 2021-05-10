@@ -17,8 +17,8 @@ jobs:
       - name: Init
         run: yarn
 
-      - name: Version
-        run: lerna version
+      #- name: Version
+      #  run: lerna version
 
 
       - name: Build
