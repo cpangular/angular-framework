@@ -1,7 +1,7 @@
 name: Publish
 
 on:
-  push: {}
+  pull_request: {}
 #    tags:
 #      - v*.*.*
 #      - v*.*.*-*.*
@@ -21,8 +21,12 @@ jobs:
       - name: Init
         run: yarn
 
+      - name: Version
+        run: lerna version
+
+
       - name: Build
         run: yarn run build:libs -- --prod
 
-      - name: Publish
-        run: lerna publish from-git --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
+     # - name: Publish
+      #  run: lerna publish from-git --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
