@@ -1,3 +1,5 @@
+import { BComponent } from './sections/b/b.component';
+import { AComponent } from './sections/a/a.component';
 import { RouterModule, Routes } from '@angular/router';
 import { WebCdkComponent } from './web-cdk.component';
 
@@ -8,9 +10,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'ui-regions'
+        redirectTo: 'a'
       },
-
+      {
+        path: 'a',
+        component: AComponent
+      },
+      {
+        path: 'b',
+        component: BComponent
+      }
     ]
   },
 ];

@@ -1,9 +1,12 @@
+import { map } from 'rxjs/operators';
 import { BreakpointService } from '@cpangular/web-cdk';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { Directive, HostBinding, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { BreakpointResolver } from '@cpangular/web-utils';
 import { IApplicationLayoutComponent } from './IApplicationLayoutComponent';
-
+import { Router, RoutesRecognized, Scroll } from '@angular/router';
+import { NavigationState } from '../navigation/NavigationState';
+import { NavigationStateObservable } from '../navigation/NavigationStateObservable';
 
 
 export enum LayoutBreakpoints {
@@ -13,6 +16,7 @@ export enum LayoutBreakpoints {
   lg,
   xl
 }
+
 
 @Directive()
 export abstract class ApplicationLayout implements IApplicationLayoutComponent, OnDestroy {
@@ -30,6 +34,8 @@ export abstract class ApplicationLayout implements IApplicationLayoutComponent, 
     ['landscape', ['landscape']],
     ['portrait', ['portrait']]
   ]);
+
+
 
   public breakpointClasses: string[] = [];
   public orientationClasses: string[] = [];
@@ -66,18 +72,21 @@ export abstract class ApplicationLayout implements IApplicationLayoutComponent, 
   }
 
   constructor(
-    protected readonly breakpointService: BreakpointService
+    protected readonly breakpointService: BreakpointService,
+    protected readonly router: Router,
   ) {
     this.__subs.add(this.breakpointsResolve.subscribe(v => {
       const bp = v[0];
       this.breakpointClasses = v;
-      const a = LayoutBreakpoints[bp as any] ;
+      const a = LayoutBreakpoints[bp as any];
       this.breakpoint = (LayoutBreakpoints as any)[bp as any];
     }))
     this.__subs.add(this.orientationResolve.subscribe(v => {
       this.orientationClasses = v;
       this.orientation = v[0];
     }));
+
+
   }
 
   ngOnDestroy() {

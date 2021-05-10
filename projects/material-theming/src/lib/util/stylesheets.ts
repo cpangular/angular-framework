@@ -13,7 +13,6 @@ export const definitionRules = accessibleStyleSheets
   ) as IEnumerable<CSSStyleRule>;
 
 export function findThemeDefinitionRule(type: string, name: string): CSSStyleRule | undefined {
-  console.log(type, name, define.propertyName(type), definitionRules.toArray());
   return definitionRules
     .firstOrDefault(_ => _.style.getPropertyValue(define.propertyName(type)).trim() === name.trim());
 }

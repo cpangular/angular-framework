@@ -11,5 +11,7 @@ export class WebCdkComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  ne(evt:any) {
+    console.log('++++', evt)
+  }
 }

@@ -15,12 +15,10 @@ export class ThemeService {
       this._isLoaded = true;
       this._loadedPromise = Promise.resolve();
     } else {
-      console.log(links);
       this._loadedPromise = new Promise(async resolve => {
         await Promise.all(Array.from(links)
           .filter(link => link.rel === 'stylesheet')
           .map(link => new Promise<void>(res => {
-            console.log(link);
             if (Array.from(document.styleSheets).findIndex(_ => _.href === link.href) < 0) {
               link.addEventListener('load', () => {
                 res();
@@ -68,7 +66,6 @@ export class ThemeService {
     appliedThemeRules.toArray().forEach(r => {
       const sel = r.selectorText.split(':root')?.[1]?.trim() || null;
       const appliedTheme = sel === null ? AppliedTheme.forRoot() : AppliedTheme.forSelector(sel);
-      console.log(appliedTheme);
     });
 
   }

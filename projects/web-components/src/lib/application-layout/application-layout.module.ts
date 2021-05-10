@@ -6,6 +6,7 @@ import { BreakpointsModule, ResizeModule, UiOutletModule } from '@cpangular/web-
 import { TrayModule } from '../tray/tray.module';
 import { ApplicationHeaderModule } from './../application/application-header/application-header.module';
 import { ApplicationPanelModule } from './../application/application-panel/application-panel.module';
+import { NavigationModule } from './../application/navigation/navigation.module';
 import { ApplicationLayoutComponent } from './application-layout.component';
 
 
@@ -19,7 +20,8 @@ import { ApplicationLayoutComponent } from './application-layout.component';
     BreakpointsModule,
     ApplicationPanelModule,
     ApplicationHeaderModule,
-    UiOutletModule
+    UiOutletModule,
+    NavigationModule
   ],
   declarations: [ApplicationLayoutComponent],
   exports: [ApplicationLayoutComponent]

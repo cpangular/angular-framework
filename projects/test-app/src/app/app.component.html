@@ -7,10 +7,6 @@
     <button (click)="app.leftPanel.toggle()" *ngIf="app.leftPanel.canToggle">L</button>Header<button
     (click)="app.rightPanel.toggle()" *ngIf="app.rightPanel.canToggle">R</button>
 
-    <pre>
-      {{allowToggleLeft | async}}
-    </pre>
-    ---
     <div>
       {{
         [
@@ -21,6 +17,8 @@
         ['xl', 'extra large'],
         ] | breakpoints | async | json }}
       </div>
+      <button routerLink="web-cdk">web-cdk</button>
+      <button routerLink="web-components">web-components</button>
 
     </mat-toolbar>
 

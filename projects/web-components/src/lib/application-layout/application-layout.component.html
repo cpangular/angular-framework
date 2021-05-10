@@ -5,121 +5,25 @@
   <cp-application-panel anchor="right" [inline]="rightPanelInline"  [controller]="appService.rightPanel"></cp-application-panel>
   <div class="content" (sizeChange)="handleContentAreaResize($event)"></div>
   <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
+  <div class="overlay-container overlay-content">
+    <div class="loading-overlay" *ngIf="mainNavigationState" @loadingInOutAnimation>
+      <ng-container *cpUseUiOutlet="'app.internal.main.loading'"></ng-container>
+    </div>d
+  </div>
+  <div class="overlay-container overlay-modal">
+    <div class="loading-overlay" *ngIf="modalNavigationState" @loadingInOutAnimation>
+      <ng-container *cpUseUiOutlet="'app.internal.modal.loading'"></ng-container>
+    </div>
+  </div>
 </div>
 
 <cp-application-header *cpUseUiOutlet="'app.internal.top'" [scrollable]="contentContainer"></cp-application-header>
 
 <div class="content-container" #content cdkScrollable>
-  <router-outlet #mainOutlet="outlet"></router-outlet>
-  <div>start</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>line</div>
-  <div>end</div>
+  <router-outlet #mainOutlet="outlet" (cpNavigationStateHandler)="mainRouterEvent($event)" (activate)="mainOutletActivate($event)" (deactivate)="mainOutletDeactivate($event)"></router-outlet>
 </div>
-
-<div class="overlay-container">
-
-</div>
-
-<!--
-
-  <footer cpUseRegion="app.bottom">
-    <ng-container cpRegion="app.footer"></ng-container>
-  </footer>
-
--->
 
 <div class="modal-route-container">
   <router-outlet #modalOutlet="outlet" name="modal" (activate)="modalOutletActivate($event)"
-    (deactivate)="modalOutletDeactivate($event)"></router-outlet>
+    (deactivate)="modalOutletDeactivate($event)" (cpNavigationStateHandler)="modalRouterEvent($event)"></router-outlet>
 </div>

@@ -1,3 +1,4 @@
+import { TtttResolver } from './tttt.resolver';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,7 +16,10 @@ const routes: Routes = [
       },
       {
         path: 'tray',
-        component: TrayComponent
+        component: TrayComponent,
+        resolve: {
+          test: TtttResolver
+        }
       },
     ]
   }

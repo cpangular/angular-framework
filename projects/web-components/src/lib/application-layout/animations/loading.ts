@@ -3,7 +3,7 @@ import { style } from '@angular/animations';
 import { transition } from '@angular/animations';
 import { trigger } from '@angular/animations';
 
-export const ModalInOutAnimation = trigger('modalInOutAnimation', [
+export const LoadingInOutAnimation = trigger('loadingInOutAnimation', [
   transition(':enter', [
     style({ opacity: 0 }),
     animate(
