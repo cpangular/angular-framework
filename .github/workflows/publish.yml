@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - "release/v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get package version
+        id: package_version_str
+        uses: martinbeentjes/npm-get-version-action@master
+
+      - name: Parse package version
+        id: pkgVersion
+        uses: doptools/action-parse-semver@main
+        with:
+          version: "${{ steps.package_version_str.outputs.current-version }}"
+          versionRegex: "(.*)"
+
+      - name: Init
+        run: yarn
+
+      - name: Set versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+        run: npx lerna version ${{steps.pkgVersion.outputs.full}} --create-release github --force-publish --no-commit-hooks --no-push --yes
+#--contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
