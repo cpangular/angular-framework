@@ -9,7 +9,6 @@ on:
 jobs:
   check_release_build:
     runs-on: ubuntu-latest
-    if: github.
     steps:
       - uses: actions/checkout@v2
 

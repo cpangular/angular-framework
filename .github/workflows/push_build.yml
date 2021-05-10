@@ -10,7 +10,6 @@ on:
 jobs:
   check_build:
     runs-on: ubuntu-latest
-    if: github.
     steps:
       - uses: actions/checkout@v2
 
