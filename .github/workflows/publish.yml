@@ -27,5 +27,10 @@ jobs:
       - name: Set versions
         run: npx lerna version ${{steps.refVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
 
+      - name: Build
+        run: yarn run build:libs -- --prod
+
+      - name: Publish
+        run: lerna publish from-git --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
 
 # --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
