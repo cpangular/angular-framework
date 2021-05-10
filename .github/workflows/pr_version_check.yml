@@ -32,7 +32,6 @@ jobs:
         uses: doptools/action-parse-semver@main
         with:
           version: "${{ steps.package_version_str.outputs.current-version }}"
-          versionRegex: '\/v(.*)$'
 
       - name: Echo
         run: |
