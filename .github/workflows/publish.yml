@@ -11,16 +11,13 @@ jobs:
       - uses: actions/checkout@v2
       #- uses: fregante/setup-git-user@v1
 
-      - name: Get package version
-        id: package_version_str
-        uses: martinbeentjes/npm-get-version-action@master
 
-      - name: Parse package version
-        id: pkgVersion
+      - name: Parse branch version
+        id: refVersion
         uses: doptools/action-parse-semver@main
         with:
-          version: "${{ steps.package_version_str.outputs.current-version }}"
-          versionRegex: "(.*)"
+          version: "${{ github.ref }}"
+          versionRegex: '\/v(.*)$'
 
       - name: Init
         run: |
