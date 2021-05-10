@@ -62,7 +62,7 @@ jobs:
 
 
       - name: Update release
-        id: create_release
+        id: update_release
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true,
