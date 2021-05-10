@@ -25,7 +25,9 @@ jobs:
           yarn
 
       - name: Set versions
-        run: npx lerna version ${{steps.refVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
+        run: |
+          npx lerna version ${{steps.refVersion.outputs.full}} --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes
+          git commit -m versions
 
       - name: Build
         run: yarn run build:libs -- --prod
