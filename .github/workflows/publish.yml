@@ -1,0 +1,22 @@
+name: Publish
+
+on:
+  push: {}
+#    tags:
+#      - v*.*.*
+#      - v*.*.*-*.*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Parse Version
+        id: version
+        uses: doptools/action-parse-semver@main
+        with:
+          version: "${{ github.ref }}"
+          versionRegex: '\/v(.*)$'
+      - name: Init
+        run: lerna bootstrap
