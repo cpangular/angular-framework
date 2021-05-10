@@ -44,4 +44,4 @@ jobs:
           prerelease: ${{ steps.version.outputs.isPrerelease }}
           token: ${{ github.token }}
 
-#--contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
+# --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
