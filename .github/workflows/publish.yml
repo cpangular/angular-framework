@@ -33,15 +33,16 @@ jobs:
 
       - name: Create release
         id: create_release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          tag: v${{ steps.pkgVersion.outputs.full }}
+          tag_name: v${{ steps.pkgVersion.outputs.full }}
           name: Version ${{ steps.pkgVersion.outputs.full }}
-          commit: ${{ github.sha }}
+          target_commitish: ${{ github.sha }}
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: true
           prerelease: ${{ steps.version.outputs.isPrerelease }}
-          token: ${{ github.token }}
 
 # --contents dist --no-git-tag-version --no-commit-hooks --no-push --force-publish --yes --graph-type all
