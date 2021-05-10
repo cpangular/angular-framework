@@ -19,7 +19,7 @@ jobs:
 #          version: "${{ github.ref }}"
 #          versionRegex: '\/v(.*)$'
       - name: Init
-        run: lerna bootstrap
+        run: yarn
 
       - name: Build
         run: yarn run build:libs
