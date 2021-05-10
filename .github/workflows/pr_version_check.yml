@@ -31,12 +31,12 @@ jobs:
         id: pkgVersion
         uses: doptools/action-parse-semver@main
         with:
-          version: "${{ steps.package_version.outputs.current-version }}"
+          version: "${{ steps.package_version_str.outputs.current-version }}"
           versionRegex: '\/v(.*)$'
 
       - name: Echo
         run: |
-          echo ${{steps.package_version.outputs.current-version}}
+          echo ${{steps.package_version_str.outputs.current-version}}
           echo ${{steps.branch_version.outputs.version-without-v}}
 
           echo ${{steps.refVersion.outputs.full}}
