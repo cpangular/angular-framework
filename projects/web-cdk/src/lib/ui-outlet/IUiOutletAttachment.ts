@@ -3,8 +3,9 @@ import { Observable } from "rxjs";
 
 export interface IUiOutletAttachment {
   readonly name: string | undefined;
-  readonly nameChange: Observable<string | undefined>;
-  readonly inlineFallback: boolean;
+  readonly nodes: Node[];
+
+ /* readonly inlineFallback: boolean;
   readonly inlineFallbackChange: Observable<boolean>;
   readonly nodes?: Node[];
   readonly origin?: Node;
@@ -12,4 +13,5 @@ export interface IUiOutletAttachment {
   onRemoved(outlet: IUiOutlet): void;
   onBeforeAdded(outlet: IUiOutlet): void;
   onBeforeRemoved(outlet: IUiOutlet): void;
+  */
 }

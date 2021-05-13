@@ -1,3 +1,4 @@
+import { NgZone } from '@angular/core';
 import { ApplicationPanelComponent } from './application-panel.component';
 import { Observable, BehaviorSubject, of, isObservable, Subscription } from 'rxjs';
 import { Resolvable } from '../Resolvable';
@@ -53,6 +54,12 @@ export class ApplicationPanelController implements IApplicationPanelController, 
   private _opened: boolean = false;
   private _openedDebounce: number = 0;
   private _elementCount: number = 0;
+
+
+
+  constructor(private readonly zone: NgZone) {
+
+  }
 
   public get appPanelComponent(): ApplicationPanelComponent | undefined {
     return this._appPanelComponent;
@@ -176,7 +183,9 @@ export class ApplicationPanelController implements IApplicationPanelController, 
   private invalidateOpenState() {
     cancelAnimationFrame(this._openedDebounce);
     this._openedDebounce = requestAnimationFrame(() => {
-      this.validateOpenState();
+      this.zone.run(()=>{
+        this.validateOpenState();
+      });
     });
   }
 
@@ -188,7 +197,7 @@ export class ApplicationPanelController implements IApplicationPanelController, 
     const isOpen = canOpen && (lockOpen || this._opened);
 
     if (this._canToggle.value !== canToggle) {
-      this._canToggle.next(canToggle);
+        this._canToggle.next(canToggle);
     }
 
     if (this._canOpen.value !== canOpen) {

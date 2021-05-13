@@ -1,5 +1,5 @@
 import { ResolveStackMap } from '@cpangular/web-utils';
-import { Injectable, Type } from '@angular/core';
+import { Injectable, Type, NgZone } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RoutesRecognized } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApplicationHeaderController, IApplicationHeaderController } from './application-header/ApplicationHeaderController';
@@ -102,13 +102,14 @@ export class ApplicationService {
   public readonly layout: ApplicationLayoutResolver = new ApplicationLayoutResolver();
 
   public readonly header: IApplicationHeaderController = new ApplicationHeaderController();
-  public readonly leftPanel: IApplicationPanelController = new ApplicationPanelController();
-  public readonly rightPanel: IApplicationPanelController = new ApplicationPanelController();
-  public readonly topPanel: IApplicationPanelController = new ApplicationPanelController();
-  public readonly bottomPanel: IApplicationPanelController = new ApplicationPanelController();
+  public readonly leftPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
+  public readonly rightPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
+  public readonly topPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
+  public readonly bottomPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
   public readonly navigation: INavigationController = new NavigationController(this.router);
   constructor(
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly zone: NgZone,
   ) { }
 
 

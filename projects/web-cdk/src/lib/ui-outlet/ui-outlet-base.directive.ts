@@ -1,3 +1,4 @@
+import { IUiOutletRef, UiOutletRef } from './UiOutletRef';
 import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { IUiOutlet } from './IUiOutlet';
 import { UiOutletService } from './ui-outlet.service';
@@ -5,6 +6,8 @@ import { UiOutletService } from './ui-outlet.service';
 
 @Directive()
 export abstract class UIOutletBaseDirective implements IUiOutlet, OnInit, OnDestroy {
+  private _ref!:UiOutletRef;
+
   public abstract name: string;
   private elements: Set<Node[]> = new Set();
 
@@ -17,7 +20,7 @@ export abstract class UIOutletBaseDirective implements IUiOutlet, OnInit, OnDest
 
   constructor(
     protected readonly outletService: UiOutletService,
-    protected readonly elementRef: ElementRef<Comment>
+    protected readonly elementRef: ElementRef<Comment>,
   ) { }
 
   public addNodes(nodes: Node[]): void {
@@ -41,11 +44,12 @@ export abstract class UIOutletBaseDirective implements IUiOutlet, OnInit, OnDest
   }
 
   ngOnInit(): void {
-    this.outletService.outletCreated(this);
+    this._ref = this.outletService.get(this.name);
+    this._ref.setOutlet(this);
   }
 
   ngOnDestroy(): void {
     this.clearNodes();
-    this.outletService.outletDestroyed(this);
+    this._ref.setOutlet(undefined);
   }
 }

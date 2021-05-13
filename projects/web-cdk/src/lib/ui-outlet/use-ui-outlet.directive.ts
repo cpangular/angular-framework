@@ -1,14 +1,37 @@
 import { UiOutletService } from './ui-outlet.service';
-import { Directive, ElementRef, EmbeddedViewRef, Input, Optional, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, EmbeddedViewRef, Input, Optional, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
 import { UiOutletAttachmentBaseDirective } from './ui-outlet-attachment-base.directive';
 
 @Directive({
   selector: '[cpUseUiOutlet]',
   inputs: [
-    "disabled:cpUseUiOutletDisable"
+    "name:cpUseUiOutlet"
+    //"disabled:cpUseUiOutletDisable"
   ]
 })
 export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
+  private _viewRef: EmbeddedViewRef<any>;
+
+
+  constructor(
+    outletService: UiOutletService,
+    viewContainerRef: ViewContainerRef,
+    templateRef: TemplateRef<any>,
+  ) {
+    super(outletService);
+    this._viewRef = viewContainerRef.createEmbeddedView(templateRef);
+    this.nodes.forEach(n => this.removeNode(n));
+  }
+
+  public get nodes(): Node[] {
+    return this._viewRef.rootNodes;
+  }
+
+  private removeNode(node: Node): void {
+    node.parentElement?.removeChild(node);
+  }
+
+  /*
   private _origin: Node = new Comment();
   private _view?: EmbeddedViewRef<any>;
   private _nodes: Node[];
@@ -32,12 +55,12 @@ export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
       this._origin = elementRef.nativeElement;
       this._view = viewContainerRef.createEmbeddedView(templateRef);
       this._nodes = this._view.rootNodes;
-      this.inlineFallback = false;
+     // this.inlineFallback = false;
     } else {
       this._nodes = [elementRef.nativeElement];
       elementRef.nativeElement.parentElement?.insertBefore(this._origin, elementRef.nativeElement);
       elementRef.nativeElement.remove();
-      this.inlineFallback = true;
+     // this.inlineFallback = true;
     }
     for (const node of this._nodes) {
       node.parentElement?.removeChild(node);
@@ -50,5 +73,5 @@ export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
 
   public get origin(): Node | undefined {
     return this._origin;
-  }
+  }*/
 }

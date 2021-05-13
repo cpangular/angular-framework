@@ -1,8 +1,18 @@
-<div *cpUseUiOutlet="LayoutOutlet.Header">
+<div *cpUseUiOutlet="LayoutOutlet.Header" class="application-header">
   <ng-container cpUiOutlet="app.header"></ng-container>
-  <mat-toolbar color="primary">
-    <ng-container cpUiOutlet="app.header.toolbar"></ng-container>
-  </mat-toolbar>
+  <div class="application-header-toolbar">
+    <mat-toolbar class="logo-container" color="accent">
+      LOGO
+    </mat-toolbar>
+    <mat-toolbar class="toolbar-container" color="primary">
+      <div class="left">
+        <ng-container cpUiOutlet="app.header.toolbar.left"></ng-container>
+      </div>
+      <div class="right">
+        <ng-container cpUiOutlet="app.header.toolbar.right"></ng-container>
+      </div>
+    </mat-toolbar>
+  </div>
 </div>
 
 <ng-container *ngIf="outlets.hasAttachments('app.panel.left')">

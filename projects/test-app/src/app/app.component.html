@@ -1,45 +1,53 @@
 <cp-application-shell></cp-application-shell>
 
 
+<!--
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div cpUseUiOutlet="app.header.toolbar">
-    <button (click)="app.leftPanel.toggle()" *ngIf="app.leftPanel.canToggle">L</button>
-    <button (click)="app.rightPanel.toggle()" *ngIf="app.rightPanel.canToggle">R</button>
+  <div class="container">
+    <ng-container cpUiOutlet="test"></ng-container>
   </div>
 
-  <div cpUseUiOutlet="app.header">
-    {{
-      [
-      ['xs', 'extra small'],
-      ['sm', 'small'],
-      ['md', 'medium'],
-      ['lg', 'large'],
-      ['xl', 'extra large'],
-      ] | breakpoints | async | json }}
+  <div *cpUseUiOutlet="'test'" class="ui-element">
+    aa
   </div>
+-->
+<!--
 
-  <div cpUseUiOutlet="app.header">
-    <button routerLink="web-cdk">web-cdk</button>
-    <button routerLink="web-components">web-components</button>
-  </div>
 
-  <!--
+
+
+
+
+
+
+
+
+
+
+
+
+<button cpUseUiOutlet="app.header.toolbar.right" (click)="app.rightPanel.toggle()"
+  *ngIf="app.rightPanel.canToggle">R</button>
+<button cpUseUiOutlet="app.header.toolbar.left" (click)="app.leftPanel.toggle()"
+  *ngIf="app.leftPanel.canToggle">L</button>
+
+<div cpUseUiOutlet="app.header">
+  {{
+  [
+  ['xs', 'extra small'],
+  ['sm', 'small'],
+  ['md', 'medium'],
+  ['lg', 'large'],
+  ['xl', 'extra large'],
+  ] | breakpoints | async | json }}
+</div>
+
+<div cpUseUiOutlet="app.header">
+  <button routerLink="web-cdk">web-cdk</button>
+  <button routerLink="web-components">web-components</button>
+</div>
+
+<!--
 
 
   <mat-toolbar color="primary" cpUseUiOutlet="app.internal.header">
@@ -62,33 +70,35 @@
 
     </mat-toolbar>
   -->
-    <mat-toolbar *cpUseUiOutlet="'app.footer'">
-      Footer
-      <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
-      <button [routerLink]="['', {outlets:{modal: null}}]">22222</button>
-    </mat-toolbar>
+  <!--
+<mat-toolbar *cpUseUiOutlet="'app.footer'">
+  Footer
+  <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
+  <button [routerLink]="['', {outlets:{modal: null}}]">22222</button>
+</mat-toolbar>
 
 
-    <div cpUseUiOutlet="app.panel.left">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
-      asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
-    </div>
+<div cpUseUiOutlet="app.panel.left">
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
+  asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
+</div>
 
 
-    <div cpUseUiOutlet="app.panel.right" *ngIf="showR">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
-      architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
-      nulla! Perferendis!
-    </div>
+<div cpUseUiOutlet="app.panel.right" *ngIf="showR">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
+  architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
+  nulla! Perferendis!
+</div>
 
 
-    <div cpUseUiOutlet="app.internal.left" style="order: -1;">left</div>
-    <div cpUseUiOutlet="app.internal.right" style="order: 1;">right</div>
-    <div cpUseUiOutlet="app.internal.right" style="order: -1; pointer-events: all;"><button (click)="showR = !showR">Show</button></div>
+<div cpUseUiOutlet="app.internal.left" style="order: -1;">left</div>
+<div cpUseUiOutlet="app.internal.right" style="order: 1;">right</div>
+<div cpUseUiOutlet="app.internal.right" style="order: -1; pointer-events: all;"><button
+    (click)="showR = !showR">Show</button></div>
 
 
 
-    <!--
+<!--
 
 
       <mat-toolbar color="primary">

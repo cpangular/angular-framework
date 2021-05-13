@@ -1,9 +1,7 @@
 @use '~@angular/material/theming';
 
-
 :host {
   display: none;
-
 }
 
 .app-panel {
@@ -12,12 +10,26 @@
   background-color: var(--background-app-bar);
 }
 
-::ng-deep{
-  .application-shell{
-    .application-panel{
-      &[anchor="left"], &[anchor="right"]{
+::ng-deep {
+  .application-shell {
+    .application-panel {
+      &[anchor="left"],
+      &[anchor="right"] {
         @include theming.mat-elevation(5);
       }
     }
+  }
+}
+
+.application-header-toolbar {
+  display: flex;
+  flex-direction: row;
+  .logo-container {
+    flex: 0 0 0;
+    padding: 0;
+  }
+  .toolbar-container {
+    flex: 1 1 100%;
+    justify-items: right;
   }
 }
