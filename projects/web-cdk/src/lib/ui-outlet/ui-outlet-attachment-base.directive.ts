@@ -10,6 +10,7 @@ import { IUiOutlet } from './IUiOutlet';
 export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttachment, OnInit, OnDestroy {
   private _name: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   private _inlineFallback: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _disableUseOutlet: boolean = false;
 
   public abstract origin?: Node | undefined;
   public abstract nodes?: Node[];
@@ -24,6 +25,19 @@ export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttach
     protected readonly outletService: UiOutletService
   ) { }
 
+  public get disabled(): boolean {
+    return this._disableUseOutlet;
+  }
+  public set disabled(val: boolean) {
+    if(this._disableUseOutlet !== val){
+      this._disableUseOutlet = val;
+      if(val){
+        this.outletService.attachmentDestroyed(this);
+      }else{
+        this.outletService.attachmentCreated(this);
+      }
+    }
+  }
 
   public get name(): string | undefined {
     return this._name.value;
@@ -54,11 +68,15 @@ export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttach
   }
 
   ngOnInit(): void {
-    this.outletService.attachmentCreated(this);
+    if(!this.disabled){
+      this.outletService.attachmentCreated(this);
+    }
   }
 
   ngOnDestroy(): void {
-    this.outletService.attachmentDestroyed(this);
+    if(!this.disabled){
+      this.outletService.attachmentDestroyed(this);
+    }
   }
 
   onAdded(outlet: IUiOutlet): void {

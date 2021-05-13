@@ -5,13 +5,13 @@ import { UiOutletService } from './ui-outlet.service';
 //import { UIRegionService } from './ui-region.service';
 
 @Directive({
-  selector: 'ng-container[cpUiOutlet]'
+  selector: 'ng-container[cpUiOutlet]',
+  exportAs: 'outlet'
 })
 export class UiOutletDirective extends UIOutletBaseDirective {
 
   @Input('cpUiOutlet')
   public name!: string;
-
 
   constructor(
     outletService: UiOutletService,

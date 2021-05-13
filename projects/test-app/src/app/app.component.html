@@ -1,6 +1,46 @@
+<cp-application-shell></cp-application-shell>
 
 
-  <cp-application-shell #shell></cp-application-shell>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div cpUseUiOutlet="app.header.toolbar">
+    <button (click)="app.leftPanel.toggle()" *ngIf="app.leftPanel.canToggle">L</button>
+    <button (click)="app.rightPanel.toggle()" *ngIf="app.rightPanel.canToggle">R</button>
+  </div>
+
+  <div cpUseUiOutlet="app.header">
+    {{
+      [
+      ['xs', 'extra small'],
+      ['sm', 'small'],
+      ['md', 'medium'],
+      ['lg', 'large'],
+      ['xl', 'extra large'],
+      ] | breakpoints | async | json }}
+  </div>
+
+  <div cpUseUiOutlet="app.header">
+    <button routerLink="web-cdk">web-cdk</button>
+    <button routerLink="web-components">web-components</button>
+  </div>
+
+  <!--
+
 
   <mat-toolbar color="primary" cpUseUiOutlet="app.internal.header">
 
@@ -21,7 +61,7 @@
       <button routerLink="web-components">web-components</button>
 
     </mat-toolbar>
-
+  -->
     <mat-toolbar *cpUseUiOutlet="'app.footer'">
       Footer
       <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
@@ -29,13 +69,13 @@
     </mat-toolbar>
 
 
-    <div cpUseUiOutlet="app.internal.panel.left">
+    <div cpUseUiOutlet="app.panel.left">
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
       asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
     </div>
 
 
-    <div cpUseUiOutlet="app.internal.panel.right" *ngIf="showR">
+    <div cpUseUiOutlet="app.panel.right" *ngIf="showR">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
       architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
       nulla! Perferendis!

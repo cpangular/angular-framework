@@ -3,12 +3,16 @@ import { Directive, ElementRef, EmbeddedViewRef, Input, Optional, TemplateRef, V
 import { UiOutletAttachmentBaseDirective } from './ui-outlet-attachment-base.directive';
 
 @Directive({
-  selector: '[cpUseUiOutlet]'
+  selector: '[cpUseUiOutlet]',
+  inputs: [
+    "disabled:cpUseUiOutletDisable"
+  ]
 })
 export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
   private _origin: Node = new Comment();
   private _view?: EmbeddedViewRef<any>;
   private _nodes: Node[];
+
   @Input()
   public get cpUseUiOutlet(): string | undefined {
     return this.name;

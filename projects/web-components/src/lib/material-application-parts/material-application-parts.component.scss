@@ -1,0 +1,23 @@
+@use '~@angular/material/theming';
+
+
+:host {
+  display: none;
+
+}
+
+.app-panel {
+  margin: -2px;
+  padding: 5px;
+  background-color: var(--background-app-bar);
+}
+
+::ng-deep{
+  .application-shell{
+    .application-panel{
+      &[anchor="left"], &[anchor="right"]{
+        @include theming.mat-elevation(5);
+      }
+    }
+  }
+}

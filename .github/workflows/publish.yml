@@ -1,10 +1,8 @@
 name: Publish
-
 on:
   push:
     branches:
       - "release/v*"
-
 env:
   NODE_VERSION: 14.x
 
@@ -31,8 +29,6 @@ jobs:
         with:
           version: "${{ steps.package_version_str.outputs.current-version }}"
           versionRegex: "(.*)"
-
-
 
       - name: Init
         run: yarn

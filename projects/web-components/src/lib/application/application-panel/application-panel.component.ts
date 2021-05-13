@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ApplicationLayoutOutlets } from '../application-layout/ApplicationLayoutOutlets';
 import { ApplicationPanelController, IApplicationPanelController } from './ApplicationPanelController';
 
 @Component({
@@ -9,6 +10,10 @@ import { ApplicationPanelController, IApplicationPanelController } from './Appli
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationPanelComponent implements OnDestroy {
+  public LayoutOutlet = ApplicationLayoutOutlets;
+  @HostBinding('class.application-panel')
+  private cssClass = true;
+
   private _controllerSubs: Subscription = new Subscription();
   private _controller: ApplicationPanelController = new ApplicationPanelController();
 

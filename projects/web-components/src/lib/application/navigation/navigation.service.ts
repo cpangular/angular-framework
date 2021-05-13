@@ -51,7 +51,7 @@ export class NavigationService {
           }
         }
         this.target = directives[0];
-        this.target.activate(e);
+        this.target?.activate(e);
       } else if (
         e instanceof NavigationEnd ||
         e instanceof NavigationCancel

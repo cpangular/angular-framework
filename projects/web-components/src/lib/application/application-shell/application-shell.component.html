@@ -3,3 +3,16 @@
 <div class="tray-container left" cpRegion="app.internal.tray.left"></div>
 <div class="tray-container right" cpRegion="app.internal.tray.right"></div>
 <ng-container #layoutRef></ng-container>
+<ng-container *ngFor="let component of applicationComponents">
+  <ng-container [ngComponentOutlet]="component"></ng-container>
+</ng-container>
+
+<div class="route-container primary" [cpUseUiOutlet]="'app.internal.route.content'">
+  <router-outlet (cpNavigationStateHandler)="mainRouterEvent($event)"></router-outlet>
+</div>
+
+<div class="route-container modal" [cpUseUiOutlet]="'app.internal.route.modal'">
+  <router-outlet name="modal" (cpNavigationStateHandler)="modalRouterEvent($event)"
+  (activate)="modalOutletActivate($event)" (deactivate)="modalOutletDeactivate($event)"
+  ></router-outlet>
+</div>
