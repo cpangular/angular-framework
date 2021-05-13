@@ -1,3 +1,6 @@
+import { NavigationModule } from './../navigation/navigation.module';
+
+import { RouterModule } from '@angular/router';
 import { UiOutletModule } from '@cpangular/web-cdk';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -9,7 +12,9 @@ import { ApplicationShellComponent } from './application-shell.component';
   imports: [
     CommonModule,
     UiOutletModule,
-    ApplicationLayoutModule
+    ApplicationLayoutModule,
+    NavigationModule,
+    RouterModule
   ],
   declarations: [
     ApplicationShellComponent

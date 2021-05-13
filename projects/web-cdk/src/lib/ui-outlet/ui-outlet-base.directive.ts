@@ -33,7 +33,7 @@ export abstract class UIOutletBaseDirective implements IUiOutlet, OnInit, OnDest
   }
 
   public clearNodes(): void {
-    this.elements.forEach(this.removeNodes);
+    this.elements.forEach(n => this.removeNodes(n));
   }
 
   public get elementCount(): number {

@@ -7,22 +7,27 @@
   <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
   <div class="overlay-container overlay-content">
     <div class="loading-overlay" *ngIf="mainNavigationState" @loadingInOutAnimation>
-      <ng-container [cpUiOutlet]="LayoutOutlet.MainLoadingOverlay"></ng-container>
+      <ng-container *cpUseUiOutlet="'app.internal.main.loading'"></ng-container>
     </div>d
   </div>
   <div class="overlay-container overlay-modal">
     <div class="loading-overlay" *ngIf="modalNavigationState" @loadingInOutAnimation>
-      <ng-container [cpUiOutlet]="LayoutOutlet.ModalLoadingOverlay"></ng-container>
+      <ng-container *cpUseUiOutlet="'app.internal.modal.loading'"></ng-container>
     </div>
   </div>
 </div>
 
-<cp-application-header *cpUseUiOutlet="LayoutOutlet.Top" [scrollable]="contentContainer"></cp-application-header>
+<cp-application-header *cpUseUiOutlet="'app.internal.top'" [scrollable]="contentContainer"></cp-application-header>
 
 <div class="content-container" #content cdkScrollable>
-  <ng-container [cpUiOutlet]="LayoutOutlet.ContentRoute"></ng-container>
+  2222222222222
+  <ng-container cpUiOutlet="app.internal.content"></ng-container>
 </div>
 
 <div class="modal-route-container">
-  <ng-container [cpUiOutlet]="LayoutOutlet.ModalRoute"></ng-container>
+<!--
+
+  <router-outlet #modalOutlet="outlet" name="modal" (activate)="modalOutletActivate($event)"
+  (deactivate)="modalOutletDeactivate($event)" (cpNavigationStateHandler)="modalRouterEvent($event)"></router-outlet>
+-->
 </div>

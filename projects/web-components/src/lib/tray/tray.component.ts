@@ -15,6 +15,9 @@ export type TrayAnchorPoint = 'top' | 'bottom' | 'left' | 'right';
   ]
 })
 export class TrayComponent implements OnInit {
+  @HostBinding('class.tray')
+  private cssClass = true;
+
   private _opened: boolean = false;
 
   @Input()

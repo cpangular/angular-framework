@@ -1,6 +1,7 @@
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ApplicationLayoutOutlets } from '../application-layout/ApplicationLayoutOutlets';
 import { ApplicationService } from './../application.service';
 
 
@@ -11,6 +12,10 @@ import { ApplicationService } from './../application.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationHeaderComponent implements OnInit, OnDestroy {
+  public LayoutOutlet = ApplicationLayoutOutlets;
+  @HostBinding('class.application-header')
+  private cssClass = true;
+
   private _subs: Subscription = new Subscription();
   private _scrollSubs: Subscription = new Subscription();
   private _scrollValue: number = 0;

@@ -10,11 +10,14 @@ import { IUiOutletAttachment } from './IUiOutletAttachment';
 export class UiOutletService {
   private attachments: Set<IUiOutletAttachment> = new Set();
   private outlets: Set<IUiOutlet> = new Set();
+  private outletByName: Map<string, IUiOutlet> = new Map();
+  private attachmentByName: Map<string, Set<IUiOutletAttachment>> = new Map();
   private attachmentSubs: Map<IUiOutletAttachment, Subscription> = new Map();
   private attachmentOutletLookup: Map<IUiOutletAttachment, IUiOutlet> = new Map();
 
   public outletCreated(outlet: IUiOutlet) {
     this.outlets.add(outlet);
+    this.outletByName.set(outlet.name, outlet);
     const attachments = Array.from(this.attachments).filter(a => a.name === outlet.name);
     for (const attachment of attachments) {
       this.tryAddAttachmentToOutlet(attachment);
@@ -23,6 +26,7 @@ export class UiOutletService {
 
   public outletDestroyed(outlet: IUiOutlet) {
     this.outlets.delete(outlet);
+    this.outletByName.delete(outlet.name);
     const attachments = Array.from(this.attachments).filter(a => a.name === outlet.name);
     for (const attachment of attachments) {
       this.removeAttachmentFromOutlet(attachment);
@@ -31,6 +35,7 @@ export class UiOutletService {
 
   public attachmentCreated(attachment: IUiOutletAttachment) {
     this.attachments.add(attachment);
+
     if (this.attachmentSubs.has(attachment)) {
       this.attachmentSubs.get(attachment)?.unsubscribe();
     }
@@ -55,9 +60,12 @@ export class UiOutletService {
     return this.attachmentOutletLookup.has(attachment);
   }
 
-  public hasAttachments(outlet: IUiOutlet): boolean {
-    return outlet.elementCount > 0;
+  public hasAttachments(outletOrName: IUiOutlet | string): boolean {
+    const name = typeof outletOrName === 'string' ? outletOrName : outletOrName.name;
+    return (this.attachmentByName.get(name)?.size ?? 0) > 0;
   }
+
+
 
   private tryAddAttachmentToOutlet(attachment: IUiOutletAttachment) {
     if (this.attachmentOutletLookup.has(attachment)) {
@@ -69,6 +77,7 @@ export class UiOutletService {
       attachment.onBeforeAdded(outlet);
       outlet.addNodes(attachment.nodes);
       attachment.onAdded(outlet);
+      this.updateLookups();
     }
   }
 
@@ -78,6 +87,17 @@ export class UiOutletService {
       outlet = new InPlaceOutlet(attachment);
     }
     return outlet;
+  }
+
+  private updateLookups() {
+    this.attachmentByName = new Map();
+    for (const att of this.attachments) {
+      const name = att.name!;
+      if (!this.attachmentByName.has(name)) {
+        this.attachmentByName.set(name, new Set());
+      }
+      this.attachmentByName.get(name)?.add(att);
+    }
   }
 
   private getOutletByName(name: string | undefined): IUiOutlet | undefined {
@@ -90,6 +110,7 @@ export class UiOutletService {
       attachment.onBeforeRemoved(outlet);
       outlet.removeNodes(attachment.nodes);
       attachment.onRemoved(outlet);
+      this.updateLookups();
     }
   }
 

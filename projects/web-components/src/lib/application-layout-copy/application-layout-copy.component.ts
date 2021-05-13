@@ -1,29 +1,32 @@
+import { ApplicationShellComponent } from './../application/application-shell/application-shell.component';
+import { NavigateStateInfo, NavigationState } from '../application/navigation/NavigationState';
+import { LoadingInOutAnimation } from './animations/loading';
+import { Router, RouterOutlet, RoutesRecognized, GuardsCheckStart, ResolveStart, RouterEvent, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, ElementRef, HostBinding, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreakpointService } from '@cpangular/web-cdk';
+import { Subscription } from 'rxjs';
 import { ApplicationLayout } from '../application/application-layout/application-layout';
-import { ApplicationLayoutOutlets } from '../application/application-layout/ApplicationLayoutOutlets';
 import { IApplicationLayoutComponent } from '../application/application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
-import { LayoutBreakpoints } from './../application/application-layout/application-layout';
-import { ApplicationShellComponent } from './../application/application-shell/application-shell.component';
-import { LoadingInOutAnimation } from './animations/loading';
+import { LayoutBreakpoints } from '../application/application-layout/application-layout';
 import { ModalInOutAnimation } from './animations/modal';
 
 @Component({
-  selector: 'cp-application-layout',
-  templateUrl: './application-layout.component.html',
-  styleUrls: ['./application-layout.component.scss'],
+  selector: 'cp-application-layout-copy',
+  templateUrl: './application-layout-copy.component.html',
+  styleUrls: ['./application-layout-copy.component.scss'],
   animations: [
     ModalInOutAnimation,
     LoadingInOutAnimation
   ]
 })
-export class ApplicationLayoutComponent extends ApplicationLayout implements IApplicationLayoutComponent {
-  public LayoutOutlet = ApplicationLayoutOutlets;
+export class ApplicationLayoutCopyComponent extends ApplicationLayout implements IApplicationLayoutComponent, OnInit, OnDestroy {
   @HostBinding('class.application-layout')
   private cssClass = true;
+
+  private _subs: Subscription = new Subscription();
+  private _showingModalRoute: boolean = false;
 
   @HostBinding('class.left-panel-inline')
   public get leftPanelInline(): boolean {
@@ -43,13 +46,13 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
 
   @HostBinding('class.modal')
   public get showModalBg(): boolean {
-    return this.appShell.modalRouteActive
+    return this._showingModalRoute
       || (this.appService.leftPanel.isOpen && !this.leftPanelInline)
       || (this.appService.rightPanel.isOpen && !this.rightPanelInline)
   }
   @HostBinding('attr.modalSize')
   protected get modalSize(): string {
-    if (this.appShell.modalRouteActive) {
+    if (this._showingModalRoute) {
       return 'full';
     }
     return 'content';
@@ -70,12 +73,21 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     super(breakpointService, router);
   }
 
+  ngOnInit() {
+
+  }
+
   public get mainNavigationState(){
     return this.appShell.mainNavigationState;
   }
 
   public get modalNavigationState(){
     return this.appShell.modalNavigationState;
+  }
+
+  public ngOnDestroy() {
+
+    this._subs.unsubscribe();
   }
 
   public handleContentAreaResize(resize: ResizeObserverEntry) {
@@ -106,6 +118,13 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     varTarget.style.setProperty('--scrollbar-width', scrollBarWidth + 'px');
   }
 
+  public modalOutletDeactivate(evt: any) {
+    this._showingModalRoute = false;
+  }
+
+  public modalOutletActivate(evt: any) {
+    this._showingModalRoute = true;
+  }
 
 
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BreakpointService } from '@cpangular/web-cdk';
 import { ApplicationService } from '@cpangular/web-components';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'test-app';
   showR = false;
 
@@ -30,10 +30,14 @@ export class AppComponent {
 
   constructor(
     public readonly app: ApplicationService,
-    public readonly bs: BreakpointService
+    public readonly bs: BreakpointService,
+    private route: ActivatedRoute
   ) {
     app.leftPanel.allowToggle = this.allowToggleLeft;
     app.leftPanel.lockOpen = this.lockOpenLeft;
     app.header.hideOnScroll = this.hideHeaderOnScroll;
+  }
+  ngOnInit(){
+
   }
 }

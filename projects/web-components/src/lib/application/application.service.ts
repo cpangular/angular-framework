@@ -1,11 +1,10 @@
-import { RouteConfigLoadEnd, Router, RouterOutlet, RoutesRecognized, ActivatedRouteSnapshot } from '@angular/router';
-import { NavigationStateObservable } from './navigation/NavigationStateObservable';
-import { Injectable } from '@angular/core';
+import { ResolveStackMap } from '@cpangular/web-utils';
+import { Injectable, Type } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RoutesRecognized } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApplicationHeaderController, IApplicationHeaderController } from './application-header/ApplicationHeaderController';
+import { IApplicationLayoutComponent } from './application-layout/IApplicationLayoutComponent';
 import { ApplicationPanelController, IApplicationPanelController } from './application-panel/ApplicationPanelController';
-import { filter } from 'rxjs/operators';
-
 
 
 class ApplicationProperty<T>{
@@ -62,7 +61,7 @@ function matchesUntil(aList: ActivatedRouteSnapshot[], bList: ActivatedRouteSnap
   for (let i = 0; i < aList.length; i++) {
     const a = aList[i];
     const b = bList[i];
-    if(a.routeConfig !== b.routeConfig){
+    if (a.routeConfig !== b.routeConfig) {
       return i - 1;
     }
   }
@@ -88,11 +87,20 @@ export class NavigationController implements INavigationController {
   }
 }
 
+export class ApplicationLayoutResolver extends ResolveStackMap<ActivatedRoute, Type<IApplicationLayoutComponent>>{
+
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationService {
   public readonly title: ApplicationTitle = new ApplicationTitle();
+
+  public readonly layout: ApplicationLayoutResolver = new ApplicationLayoutResolver();
+
   public readonly header: IApplicationHeaderController = new ApplicationHeaderController();
   public readonly leftPanel: IApplicationPanelController = new ApplicationPanelController();
   public readonly rightPanel: IApplicationPanelController = new ApplicationPanelController();
