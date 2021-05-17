@@ -36,13 +36,6 @@ export class Palette extends ThemeDefinitionBase {
   }
 
   public get variants(): string[] {
-    console.log('variants',
-      color.propertyName(this.name, ''),
-      this.name,
-      from(this.rule.style)
-        .select(_ => _.split(color.propertyName(this.name, '')))
-        .toArray()
-    );
     return from(this.rule.style)
       .select(_ => _.split(color.propertyName(this.name, ''))[1])
       .where(_ => !!_)

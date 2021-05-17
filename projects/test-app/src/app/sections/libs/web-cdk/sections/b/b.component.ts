@@ -16,7 +16,6 @@ export class BComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('22222222222222222222222222');
     this.app.layout.set(this.route, ApplicationLayoutCopyComponent);
   }
   ngOnDestroy() {

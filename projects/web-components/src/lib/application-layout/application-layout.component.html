@@ -17,6 +17,22 @@
   </div>
 </div>
 
+<div class="tray-container top">
+  <ng-container [cpUiOutlet]="LayoutOutlet.TrayTop"></ng-container>
+</div>
+
+<div class="tray-container bottom">
+  <ng-container [cpUiOutlet]="LayoutOutlet.TrayBottom"></ng-container>
+</div>
+
+<div class="tray-container left">
+  <ng-container [cpUiOutlet]="LayoutOutlet.TrayLeft"></ng-container>
+</div>
+
+<div class="tray-container right">
+  <ng-container [cpUiOutlet]="LayoutOutlet.TrayRight"></ng-container>
+</div>
+
 <cp-application-header *cpUseUiOutlet="LayoutOutlet.Top" [scrollable]="contentContainer"></cp-application-header>
 
 <div class="content-container" #content cdkScrollable>

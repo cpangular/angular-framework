@@ -1,3 +1,4 @@
+import { UiOutletRef } from './UiOutletRef';
 import { UiOutletService } from './ui-outlet.service';
 import { IUiOutletAttachment } from './IUiOutletAttachment';
 import { Directive, Input, OnDestroy, OnInit, EventEmitter } from '@angular/core';
@@ -8,6 +9,55 @@ import { IUiOutlet } from './IUiOutlet';
 
 @Directive()
 export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttachment, OnInit, OnDestroy {
+  private _ref?: UiOutletRef;
+  private _name?: string;
+
+  public abstract readonly nodes: Node[];
+
+  constructor(
+    protected readonly outletService: UiOutletService
+  ) { }
+
+
+  public get name(): string | undefined {
+    return this._name;
+  }
+
+  public set name(val: string | undefined) {
+    if (this.name !== val) {
+      this._name = val;
+      if (this._ref) {
+        this.detach();
+      }
+      this.attach();
+    }
+  }
+
+  ngOnInit(): void {
+    if (!this._ref && this._name) {
+      this._ref = this.outletService.get(this._name);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._ref?.removeAttachment(this);
+  }
+
+  private attach() {
+    if (this.name) {
+      this._ref = this.outletService.get(this.name);
+      this._ref.addAttachment(this);
+    }
+  }
+  private detach() {
+    if (this._ref) {
+      this._ref.removeAttachment(this);
+      this._ref = undefined;
+    }
+  }
+
+
+  /*
   private _name: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   private _inlineFallback: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _disableUseOutlet: boolean = false;
@@ -94,4 +144,5 @@ export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttach
   onBeforeRemoved(outlet: IUiOutlet): void {
     this.preRemove.emit(outlet);
   }
+  */
 }
