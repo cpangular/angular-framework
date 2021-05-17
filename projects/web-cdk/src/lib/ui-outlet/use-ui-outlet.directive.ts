@@ -11,7 +11,7 @@ import { UiOutletAttachmentBaseDirective } from './ui-outlet-attachment-base.dir
 })
 export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
   private _viewRef: EmbeddedViewRef<any>;
-
+  private _nodes: Node[] = [];
 
   constructor(
     outletService: UiOutletService,
@@ -20,11 +20,12 @@ export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
   ) {
     super(outletService);
     this._viewRef = viewContainerRef.createEmbeddedView(templateRef);
+    this._nodes = this._viewRef.rootNodes;
     this.nodes.forEach(n => this.removeNode(n));
   }
 
   public get nodes(): Node[] {
-    return this._viewRef.rootNodes;
+    return this._nodes;
   }
 
   private removeNode(node: Node): void {

@@ -70,7 +70,6 @@ export class ApplicationPanelComponent implements OnDestroy {
   }
 
   trayCountChanged(count: number) {
-    console.log('trayCountChanged', this.anchor, count);
     this._controller.elementCount = count;
   }
 }

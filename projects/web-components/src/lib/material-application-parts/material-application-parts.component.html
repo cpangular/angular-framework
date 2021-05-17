@@ -15,13 +15,13 @@
   </div>
 </div>
 
-<ng-container *ngIf="outlets.hasAttachments('app.panel.left')">
+<ng-container *cpIfUiOutletAttachment="'app.panel.left'">
   <div class="app-panel left" *cpUseUiOutlet="LayoutOutlet.PanelLeft">
     <ng-container cpUiOutlet="app.panel.left"></ng-container>
   </div>
 </ng-container>
 
-<ng-container *ngIf="outlets.hasAttachments('app.panel.right')">
+<ng-container *cpIfUiOutletAttachment="'app.panel.right'">
   <div class="app-panel right" *cpUseUiOutlet="LayoutOutlet.PanelRight">
     <ng-container cpUiOutlet="app.panel.right"></ng-container>
   </div>

@@ -36,9 +36,7 @@ export class AppComponent implements OnInit {
     app.leftPanel.allowToggle = this.allowToggleLeft;
     app.leftPanel.lockOpen = this.lockOpenLeft;
     app.header.hideOnScroll = this.hideHeaderOnScroll;
-    app.leftPanel.canToggleChange.subscribe(_ => {
-      console.log('leftPanel.canToggle', app.leftPanel.canToggle);
-    });
+
   }
   ngOnInit() {
 

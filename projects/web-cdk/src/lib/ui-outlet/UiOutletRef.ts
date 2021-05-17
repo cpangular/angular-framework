@@ -81,7 +81,6 @@ export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOu
   }
 
   public addAttachment(attachment: IUiOutletAttachment) {
-    console.log('addAttachment', attachment);
     if (!this._attachments.has(attachment)) {
       this._attachments.add(attachment);
       if (this.outlet) {

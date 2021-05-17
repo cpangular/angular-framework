@@ -1,5 +1,34 @@
 <cp-application-shell></cp-application-shell>
 
+<ng-container *ngIf="app.leftPanel.canToggle">
+  <button *cpUseUiOutlet="'app.header.toolbar.left'" (click)="app.leftPanel.toggle()">L</button>
+</ng-container>
+
+<ng-container *ngIf="app.rightPanel.canToggle">
+  <button *cpUseUiOutlet="'app.header.toolbar.right'" (click)="app.rightPanel.toggle()">R</button>
+</ng-container>
+
+
+
+<div *cpUseUiOutlet="'app.panel.left'">
+  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
+  asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
+</div>
+
+
+<ng-container *ngIf="showR">
+  <div *cpUseUiOutlet="'app.panel.right'" >
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
+    architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
+    nulla! Perferendis!
+  </div>
+</ng-container>
+
+
+<div *cpUseUiOutlet="'app.internal.right'" style="order: -1; pointer-events: all;">
+  <button (click)="showR = !showR">Show</button>
+</div>
+
 
 <!--
 
@@ -26,10 +55,6 @@
 
 
 
-<button cpUseUiOutlet="app.header.toolbar.right" (click)="app.rightPanel.toggle()"
-  *ngIf="app.rightPanel.canToggle">R</button>
-<button cpUseUiOutlet="app.header.toolbar.left" (click)="app.leftPanel.toggle()"
-  *ngIf="app.leftPanel.canToggle">L</button>
 
 <div cpUseUiOutlet="app.header">
   {{
@@ -70,7 +95,7 @@
 
     </mat-toolbar>
   -->
-  <!--
+<!--
 <mat-toolbar *cpUseUiOutlet="'app.footer'">
   Footer
   <button [routerLink]="['', {outlets:{modal: ['test']}}]">11111</button>
@@ -78,23 +103,13 @@
 </mat-toolbar>
 
 
-<div cpUseUiOutlet="app.panel.left">
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vel reiciendis assumenda incidunt debitis cupiditate
-  asperiores tenetur sunt quos, facere aspernatur, non ipsam unde quaerat, eaque animi expedita praesentium? Voluptates?
-</div>
 
 
-<div cpUseUiOutlet="app.panel.right" *ngIf="showR">
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime dignissimos sit, quia nesciunt labore doloribus,
-  architecto exercitationem similique illum a facilis, cum voluptate. Voluptate officiis repellendus dicta recusandae
-  nulla! Perferendis!
-</div>
 
 
 <div cpUseUiOutlet="app.internal.left" style="order: -1;">left</div>
 <div cpUseUiOutlet="app.internal.right" style="order: 1;">right</div>
-<div cpUseUiOutlet="app.internal.right" style="order: -1; pointer-events: all;"><button
-    (click)="showR = !showR">Show</button></div>
+
 
 
 

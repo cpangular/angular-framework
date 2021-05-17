@@ -6,7 +6,7 @@ import { UiOutletService } from './ui-outlet.service';
 
 @Directive()
 export abstract class UIOutletBaseDirective implements IUiOutlet, OnInit, OnDestroy {
-  private _ref!:UiOutletRef;
+  private _ref!: UiOutletRef;
 
   public abstract name: string;
   private elements: Set<Node[]> = new Set();
