@@ -43,7 +43,7 @@ jobs:
           versionRegex: "(.*)"
 
       - name: Init
-        run: yarn
+        run: yarn --no-lockfile
 
       - name: Set versions
         run: |
