@@ -32,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Exit if tag 'v${{ steps.package_version_str.outputs.current-version }}' exists
-        if: ${{ steps.checkTag.outputs.exists }}
+        if: ${{ steps.checkTag.outputs.exists == 'true' }}
         run: exit 1
 
       - name: Parse package version
@@ -51,7 +51,7 @@ jobs:
           git commit -a -m versions
 
       - name: Build
-        run: yarn run build:libs -- --prod
+        run: yarn run build -- -- --prod
 
       - name: Publish
         env:
