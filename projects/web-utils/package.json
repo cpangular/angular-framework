@@ -4,7 +4,9 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-utils",
-    "start": "ng build material-theming --watch"
+    "start": "ng build material-theming --watch",
+    "dev:link": "cd ../../dist/web-utils && yarn link",
+    "dev:unlink": "cd ../../dist/web-utils && yarn unlink"
   },
   "peerDependencies": {
     "rxjs": "~6.6.0"

@@ -6,7 +6,9 @@
     "build": "lerna run  build ",
     "start": "lerna run --stream --parallel start",
     "app:build": "ng build test-app",
-    "app:start": "ng serve test-app"
+    "app:start": "ng serve test-app",
+    "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
+    "dev:unlink": "lerna run --stream --parallel dev:unlink"
   },
   "private": true,
   "dependencies": {
