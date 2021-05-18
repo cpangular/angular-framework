@@ -125,7 +125,7 @@ class ZoneAwareBreakpointResolver<T> extends Observable<T> {
   }
 }
 
-
+// @dynamic
 @Injectable({
   providedIn: 'root'
 })

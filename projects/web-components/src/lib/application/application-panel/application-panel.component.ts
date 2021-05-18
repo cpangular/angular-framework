@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutOutlets } from '../application-layout/ApplicationLayoutOutlets';
 import { ApplicationPanelController, IApplicationPanelController } from './ApplicationPanelController';
@@ -15,7 +15,7 @@ export class ApplicationPanelComponent implements OnDestroy {
   private cssClass = true;
 
   private _controllerSubs: Subscription = new Subscription();
-  private _controller: ApplicationPanelController = new ApplicationPanelController();
+  private _controller: ApplicationPanelController = new ApplicationPanelController(this.zone);
 
   @Input()
   public get controller(): IApplicationPanelController {
@@ -60,7 +60,8 @@ export class ApplicationPanelComponent implements OnDestroy {
   public inline: boolean = true;
 
   constructor(
-    private readonly changeRef: ChangeDetectorRef
+    private readonly changeRef: ChangeDetectorRef,
+    private readonly zone: NgZone
   ) { }
 
 

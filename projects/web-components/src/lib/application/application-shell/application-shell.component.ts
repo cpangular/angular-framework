@@ -73,7 +73,6 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
     if (changes.applicationLayout && !changes.applicationLayout.isFirstChange()) {
       this.createLayout();
     }

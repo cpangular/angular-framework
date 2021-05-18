@@ -1,3 +1,4 @@
+import { UiOutletRef, IUiOutletRef } from './UiOutletRef';
 import { EventEmitter, Injectable } from "@angular/core";
 import { Subscription } from 'rxjs';
 import { IUiOutlet } from './IUiOutlet';
@@ -8,54 +9,119 @@ import { IUiOutletAttachment } from './IUiOutletAttachment';
   providedIn: 'root'
 })
 export class UiOutletService {
+  private _outletRefs: Map<string, UiOutletRef> = new Map();
+
+  public get(name: string): UiOutletRef {
+    if (!this._outletRefs.has(name)) {
+      this._outletRefs.set(name, new UiOutletRef(name));
+    }
+    return this._outletRefs.get(name)!;
+  }
+
+
+
+
+
+
+
   private attachments: Set<IUiOutletAttachment> = new Set();
   private outlets: Set<IUiOutlet> = new Set();
   private outletByName: Map<string, IUiOutlet> = new Map();
   private attachmentByName: Map<string, Set<IUiOutletAttachment>> = new Map();
+  private attachmentNameCache: Map<IUiOutletAttachment, string> = new Map();
+
   private attachmentSubs: Map<IUiOutletAttachment, Subscription> = new Map();
   private attachmentOutletLookup: Map<IUiOutletAttachment, IUiOutlet> = new Map();
 
-  public outletCreated(outlet: IUiOutlet) {
+  public outletCreated(outlet: IUiOutlet): IUiOutletRef {
+    const ref = this.get(outlet.name);
+    ref.setOutlet(outlet);
+    return ref;
+    //// old
+    /*
     this.outlets.add(outlet);
     this.outletByName.set(outlet.name, outlet);
     const attachments = Array.from(this.attachments).filter(a => a.name === outlet.name);
     for (const attachment of attachments) {
       this.tryAddAttachmentToOutlet(attachment);
     }
+    */
   }
 
-  public outletDestroyed(outlet: IUiOutlet) {
+  public outletDestroyed(outlet: IUiOutlet): IUiOutletRef {
+    const ref = this.get(outlet.name);
+    ref.setOutlet(undefined);
+    return ref;
+    /*
+    //// old
     this.outlets.delete(outlet);
     this.outletByName.delete(outlet.name);
     const attachments = Array.from(this.attachments).filter(a => a.name === outlet.name);
     for (const attachment of attachments) {
       this.removeAttachmentFromOutlet(attachment);
     }
+    */
   }
 
-  public attachmentCreated(attachment: IUiOutletAttachment) {
-    this.attachments.add(attachment);
 
+
+
+
+  public attachmentCreated(attachment: IUiOutletAttachment) {
+    const ref = this.get(attachment.name!);
+    ref.addAttachment(attachment);
+/*
+    //// old
+    this.attachments.add(attachment);
     if (this.attachmentSubs.has(attachment)) {
       this.attachmentSubs.get(attachment)?.unsubscribe();
     }
     const sub = new Subscription();
-    sub.add(attachment.nameChange.subscribe(_ => {
-      this.tryAddAttachmentToOutlet(attachment);
+    sub.add(attachment.nameChange.subscribe(name => {
+      this.removeAttachByName(attachment);
+      if (name) {
+        this.addAttachByName(attachment);
+        this.tryAddAttachmentToOutlet(attachment);
+      }
     }));
     sub.add(attachment.inlineFallbackChange.subscribe(_ => {
       this.tryAddAttachmentToOutlet(attachment);
     }));
     this.attachmentSubs.set(attachment, sub);
+    */
+  }
+/*
+  private addAttachByName(attachment: IUiOutletAttachment) {
+    if (attachment.name) {
+      if (!this.attachmentByName.has(attachment.name)) {
+        this.attachmentByName.set(attachment.name, new Set());
+      }
+      this.attachmentByName.get(attachment.name)?.add(attachment);
+    }
   }
 
+  private removeAttachByName(attachment: IUiOutletAttachment) {
+    if (this.attachmentNameCache.has(attachment)) {
+      const oldName = this.attachmentNameCache.get(attachment)!;
+      const attachments = this.attachmentByName.get(oldName);
+      attachments?.delete(attachment);
+      this.attachmentNameCache.delete(attachment);
+    }
+  }
+*/
   public attachmentDestroyed(attachment: IUiOutletAttachment) {
+    const ref = this.get(attachment.name!);
+    ref.removeAttachment(attachment);
+/*
+    //// old
+    this.removeAttachByName(attachment);
     this.attachmentSubs.get(attachment)?.unsubscribe();
     this.attachmentSubs.delete(attachment);
     this.attachments.delete(attachment);
     this.removeAttachmentFromOutlet(attachment);
+    */
   }
-
+/*
   public isAttached(attachment: IUiOutletAttachment): boolean {
     return this.attachmentOutletLookup.has(attachment);
   }
@@ -88,9 +154,9 @@ export class UiOutletService {
     }
     return outlet;
   }
-
+*/
   private updateLookups() {
-    this.attachmentByName = new Map();
+    /*this.attachmentByName = new Map();
     for (const att of this.attachments) {
       const name = att.name!;
       if (!this.attachmentByName.has(name)) {
@@ -98,12 +164,21 @@ export class UiOutletService {
       }
       this.attachmentByName.get(name)?.add(att);
     }
+    */
   }
 
-  private getOutletByName(name: string | undefined): IUiOutlet | undefined {
+  public getOutletByName(name: string | undefined): IUiOutlet | undefined {
     return Array.from(this.outlets).find(o => o.name === name);
   }
 
+  public getAttachmentsByName(name: string): IUiOutletAttachment[] {
+    if (this.attachmentByName.has(name)) {
+      return Array.from(this.attachmentByName.get(name)!);
+    }
+    return [];
+  }
+}
+/*
   private removeAttachmentFromOutlet(attachment: IUiOutletAttachment, outlet?: IUiOutlet) {
     outlet ??= this.getOutletByName(attachment.name);
     if (outlet && attachment.nodes) {
@@ -115,7 +190,8 @@ export class UiOutletService {
   }
 
 }
-
+*/
+/*
 class InPlaceOutlet implements IUiOutlet {
   private static __c = 0;
   public name: string;
@@ -134,7 +210,7 @@ class InPlaceOutlet implements IUiOutlet {
   addNodes(nodes: Node[]): void {
     this.nodes = nodes;
     for (const node of nodes) {
-      this.attachment.origin?.parentElement?.insertBefore(node, this.attachment.origin);
+     // this.attachment.origin?.parentElement?.insertBefore(node, this.attachment.origin);
     }
     this.elementCount = 1;
     this.countChange.emit(1);
@@ -157,3 +233,4 @@ class InPlaceOutlet implements IUiOutlet {
     }
   }
 }
+*/

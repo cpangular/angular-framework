@@ -6,5 +6,10 @@ export enum ApplicationLayoutOutlets{
   ContentRoute = 'app.internal.route.modal',
   Header = 'app.internal.header',
   PanelLeft = 'app.internal.panel.left',
-  PanelRight = 'app.internal.panel.right'
+  PanelRight = 'app.internal.panel.right',
+
+  TrayLeft = 'app.internal.tray.left',
+  TrayRight = 'app.internal.tray.right',
+  TrayTop = 'app.internal.tray.top',
+  TrayBottom = 'app.internal.tray.bottom',
 }

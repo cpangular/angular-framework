@@ -15,5 +15,4 @@ export class MaterialApplicationPartsComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

@@ -61,16 +61,9 @@ export class NavigationService {
       }
     });
 
-    // router.routerState.root (old) vs RoutesRecognized.state.root
-
-    /*router.events.pipe(filter(e => e instanceof RouteConfigLoadEnd)).subscribe(e=>{
-      console.log('router config changed', e);
-    });*/
-
   }
 
   public addNavigationEventsDirective(d: NavigationStateHandlerDirective): void {
-    console.log('addNavigationEventsDirective', d);
     this._eventDirectives.add(d);
   }
 
