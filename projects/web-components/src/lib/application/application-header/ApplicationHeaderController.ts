@@ -1,10 +1,10 @@
 import { Subscription, BehaviorSubject, Observable, isObservable, of } from 'rxjs';
 import { Resolvable } from '../Resolvable';
 
-export interface IApplicationPanelControllerOptions {
+export interface IApplicationHeaderControllerOptions {
   hideOnScroll: Resolvable<boolean>;
 }
-export interface IApplicationHeaderController extends IApplicationPanelControllerOptions{
+export interface IApplicationHeaderController extends IApplicationHeaderControllerOptions{
   isHideOnScroll: boolean;
   hideOnScrollChange: Observable<boolean>;
 }

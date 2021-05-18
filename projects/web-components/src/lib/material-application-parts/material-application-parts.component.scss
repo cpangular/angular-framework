@@ -1,4 +1,4 @@
-@use '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 :host {
   display: none;
@@ -15,7 +15,7 @@
     .application-panel {
       &[anchor="left"],
       &[anchor="right"] {
-        @include theming.mat-elevation(5);
+        @include mat.elevation(5);
       }
     }
   }

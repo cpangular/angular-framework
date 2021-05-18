@@ -4,7 +4,9 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build material-theming",
-    "start": "ng build material-theming --watch"
+    "start": "ng build material-theming --watch",
+    "dev:link": "cd ../../dist/material-theming && yarn link",
+    "dev:unlink": "cd ../../dist/material-theming && yarn unlink"
   },
   "peerDependencies": {
     "@angular/cdk": "^11.2.10",
