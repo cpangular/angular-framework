@@ -1,22 +1,12 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
-    "build": "run-s build:*",
-    "start": "run-p start:*",
-    "build:libs": "run-s build:libs:* --",
-    "start:libs": "run-p start:libs:*",
-    "build:libs:utils": "ng build web-utils",
-    "start:libs:utils": "ng build web-utils --watch",
-    "build:libs:cdk": "ng build web-cdk",
-    "start:libs:cdk": "ng build web-cdk --watch",
-    "build:libs:components": "ng build web-components",
-    "start:libs:components": "ng build web-components --watch",
-    "build:libs:theming": "ng build material-theming",
-    "start:libs:theming": "ng build material-theming --watch",
-    "build:app": "ng build test-app",
-    "start:app": "ng serve test-app"
+    "build": "lerna run  build ",
+    "start": "lerna run --stream --parallel start",
+    "app:build": "ng build test-app",
+    "app:start": "ng serve test-app"
   },
   "private": true,
   "dependencies": {

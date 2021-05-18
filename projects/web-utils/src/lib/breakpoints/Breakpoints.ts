@@ -45,6 +45,7 @@ function makeBreakpointFn(compare: BreakpointCompareFn): BreakpointCompare {
   return cmp as BreakpointCompare;
 }
 
+// @dynamic
 export class Breakpoints {
   public static readonly custom = customBreakpoint;
   public static readonly landscape = landscape();

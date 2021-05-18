@@ -2,6 +2,10 @@
   "name": "@cpangular/material-theming",
   "version": "0.0.1",
   "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "build": "ng build material-theming",
+    "start": "ng build material-theming --watch"
+  },
   "peerDependencies": {
     "@angular/cdk": "^11.2.10",
     "@angular/common": "^11.1.10",

@@ -2,6 +2,10 @@
   "name": "@cpangular/web-cdk",
   "version": "0.0.0",
   "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "build": "ng build web-cdk",
+    "start": "ng build material-theming --watch"
+  },
   "peerDependencies": {
     "@angular/common": "^11.2.10",
     "@angular/core": "^11.2.10",
@@ -9,6 +13,9 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@cpangular/web-utils": "0.0.0"
   },
   "publishConfig": {
     "access": "public",
