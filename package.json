@@ -2,13 +2,17 @@
   "name": "@cpangular/angular-framework",
   "version": "0.0.17",
   "repository": "https://github.com/cpangular/angular-framework",
+  "workspaces": [
+    "./projects/*"
+  ],
   "scripts": {
-    "build": "lerna run  build ",
-    "start": "lerna run --stream --parallel start",
+    "build": "lerna run build ",
+    "start": "yarn run build && lerna run --stream --parallel start",
     "app:build": "ng build test-app",
     "app:start": "ng serve test-app",
     "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
-    "dev:unlink": "lerna run --stream --parallel dev:unlink"
+    "dev:unlink": "lerna run --stream --parallel dev:unlink",
+    "_asdf": "asdf"
   },
   "private": true,
   "dependencies": {

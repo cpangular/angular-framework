@@ -1,5 +1,5 @@
+import { Component } from '@angular/core';
 import { UiOutletService } from '@cpangular/web-cdk';
-import { Component, OnInit } from '@angular/core';
 import { ApplicationLayoutOutlets } from '../application/application-layout/ApplicationLayoutOutlets';
 
 @Component({
@@ -7,12 +7,9 @@ import { ApplicationLayoutOutlets } from '../application/application-layout/Appl
   templateUrl: './material-application-parts.component.html',
   styleUrls: ['./material-application-parts.component.scss']
 })
-export class MaterialApplicationPartsComponent implements OnInit {
+export class MaterialApplicationPartsComponent {
   public LayoutOutlet = ApplicationLayoutOutlets;
   constructor(
     public readonly outlets: UiOutletService
   ) { }
-
-  ngOnInit() {
-  }
 }

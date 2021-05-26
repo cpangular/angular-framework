@@ -1,5 +1,5 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { UiOutletModule } from '@cpangular/web-cdk';
+import { UiOutletModule, ImageModule } from '@cpangular/web-cdk';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialApplicationPartsComponent } from './material-application-parts.component';
@@ -8,7 +8,8 @@ import { MaterialApplicationPartsComponent } from './material-application-parts.
   imports: [
     CommonModule,
     MatToolbarModule,
-    UiOutletModule
+    UiOutletModule,
+    ImageModule
   ],
   declarations: [MaterialApplicationPartsComponent]
 })

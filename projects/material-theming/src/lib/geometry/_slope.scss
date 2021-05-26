@@ -1,0 +1,33 @@
+@use 'sass:math';
+
+@function slopeSVG($slopeFactor, $color, $vFlip: false) {
+  $height: 10;
+  $width: $height * math.abs($slopeFactor);
+
+  $p1: "0,0";
+  $p2: "0,#{$height}";
+  $p3: "#{$width},#{$height}";
+
+  @if not $vFlip {
+    @if $slopeFactor < 0 {
+      $p1: "#{$width},0";
+      $p2: "#{$width},#{$height}";
+      $p3: "0,#{$height}";
+    }
+  }@else{
+    @if $slopeFactor >= 0 {
+      $p1: "0,0";
+      $p2: "#{$width},0";
+      $p3: "0,#{$height}";
+    } @else if $slopeFactor < 0 {
+      $p1: "#{$width},0";
+      $p2: "0,0";
+      $p3: "#{$width},#{$height}";
+    }
+  }
+
+
+  @return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{$width} #{$height}" version="1.1">' +
+    '<polygon points="#{$p1} #{$p2} #{$p3}" style="fill:#{$color};stroke:none"/>' +
+    "</svg>";
+}

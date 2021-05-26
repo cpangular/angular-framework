@@ -4,7 +4,7 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-components",
-    "start": "ng build material-theming --watch",
+    "start": "ng build web-components --watch",
     "dev:link": "cd ../../dist/web-components && yarn link",
     "dev:unlink": "cd ../../dist/web-components && yarn unlink"
   },

@@ -4,7 +4,7 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-cdk",
-    "start": "ng build material-theming --watch",
+    "start": "ng build web-cdk --watch",
     "dev:link": "cd ../../dist/web-cdk && yarn link",
     "dev:unlink": "cd ../../dist/web-cdk && yarn unlink"
   },
