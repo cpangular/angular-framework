@@ -1,10 +1,9 @@
 import {
   Directive,
+  ElementRef,
   Input,
-  OnInit,
   OnChanges,
   SimpleChanges,
-  ElementRef,
 } from '@angular/core';
 
 @Directive({
