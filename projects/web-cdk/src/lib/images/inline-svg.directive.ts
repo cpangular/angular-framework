@@ -1,7 +1,6 @@
 import {
   Directive,
   Input,
-  // eslint-disable-next-line @angular-eslint/directive-selector
   OnInit,
   OnChanges,
   SimpleChanges,
@@ -9,6 +8,7 @@ import {
 } from '@angular/core';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'svg[src]',
 })
 export class InlineSvgDirective implements OnChanges {
