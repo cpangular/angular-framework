@@ -3,15 +3,8 @@ import { NgModule } from '@angular/core';
 import { InlineSvgDirective } from './inline-svg.directive';
 
 @NgModule({
-imports: [
-  CommonModule
-],
-   declarations: [
-      InlineSvgDirective
-   ],
-  exports: [
-            InlineSvgDirective
-  ]
+  imports: [CommonModule],
+  declarations: [InlineSvgDirective],
+  exports: [InlineSvgDirective],
 })
-export class ImageModule { }
-
+export class ImageModule {}
