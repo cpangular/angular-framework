@@ -44,14 +44,15 @@
     "lint-staged": ">=10",
     "ng-packagr": "^12.0.0",
     "npm-run-all2": "^5.0.2",
+    "prettier": "^2.3.0",
     "protractor": "~7.0.0",
     "syncpack": "^5.7.11",
     "ts-node": "~8.3.0",
     "typescript": "~4.2.4"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.ts": "eslint --cache --fix"
+    "*.{ts,js}": "eslint --cache --fix",
+    "*.{ts,js,css,md}": "prettier --write"
   },
   "private": true,
   "repository": "https://github.com/cpangular/angular-framework",
@@ -59,7 +60,6 @@
     "prepare": "husky install",
     "git:precommit": "run-s git:precommit:*",
     "git:precommit:format-package": "syncpack format",
-    "git:precommit:lint": "lint-staged",
     "git:precommit:finalize": "git add -u",
     "postinstall": "syncpack fix-mismatches",
     "build": "lerna run build ",
