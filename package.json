@@ -1,20 +1,6 @@
 {
   "name": "@cpangular/angular-framework",
   "version": "0.0.17",
-  "repository": "https://github.com/cpangular/angular-framework",
-  "workspaces": [
-    "./projects/*"
-  ],
-  "scripts": {
-    "postinstall": "syncpack fix-mismatches",
-    "build": "lerna run build ",
-    "start": "yarn run build && lerna run --stream --parallel start",
-    "app:build": "ng build test-app",
-    "app:serve": "ng serve test-app",
-    "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
-    "dev:unlink": "lerna run --stream --parallel dev:unlink"
-  },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.0",
     "@angular/cdk": "^12.0.0",
@@ -39,6 +25,7 @@
     "@types/node": "^12.11.1",
     "@types/resize-observer-browser": "^0.1.5",
     "codelyzer": "^6.0.0",
+    "husky": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.2",
@@ -54,5 +41,31 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.2.4"
-  }
+  },
+  "private": true,
+  "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "prepare": "husky install",
+    "git:precommit": "run-s git:precommit:*",
+    "git:precommit:format-package": "syncpack format",
+    "postinstall": "syncpack fix-mismatches",
+    "build": "lerna run build ",
+    "start": "yarn run build && lerna run --stream --parallel start",
+    "app:build": "ng build test-app",
+    "app:serve": "ng serve test-app",
+    "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
+    "dev:unlink": "lerna run --stream --parallel dev:unlink"
+  },
+  "syncpack": {
+    "sortAz": [
+      "contributors",
+      "dependencies",
+      "devDependencies",
+      "keywords",
+      "peerDependencies"
+    ]
+  },
+  "workspaces": [
+    "./projects/*"
+  ]
 }
