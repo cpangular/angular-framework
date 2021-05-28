@@ -3,11 +3,7 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [],
-  imports: [
-    ResizeModule
-  ],
-  exports: [
-    ResizeModule
-  ]
+  imports: [ResizeModule],
+  exports: [ResizeModule],
 })
-export class WebCdkModule { }
+export class WebCdkModule {}

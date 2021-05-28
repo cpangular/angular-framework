@@ -14,13 +14,9 @@ import { ApplicationShellComponent } from './application-shell.component';
     UiOutletModule,
     ApplicationLayoutModule,
     NavigationModule,
-    RouterModule
+    RouterModule,
   ],
-  declarations: [
-    ApplicationShellComponent
-  ],
-  exports: [
-    ApplicationShellComponent
-  ]
+  declarations: [ApplicationShellComponent],
+  exports: [ApplicationShellComponent],
 })
-export class ApplicationShellModule { }
+export class ApplicationShellModule {}

@@ -5,22 +5,22 @@ import { WebCdkComponent } from './web-cdk.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: WebCdkComponent,
     children: [
       {
         path: '',
-        redirectTo: 'a'
+        redirectTo: 'a',
       },
       {
         path: 'a',
-        component: AComponent
+        component: AComponent,
       },
       {
         path: 'b',
-        component: BComponent
-      }
-    ]
+        component: BComponent,
+      },
+    ],
   },
 ];
 

@@ -1,20 +1,29 @@
 import { Subscription } from 'rxjs';
 import { UiOutletRef } from './UiOutletRef';
-import { Directive, ElementRef, Input, ViewContainerRef, TemplateRef, EmbeddedViewRef, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  ViewContainerRef,
+  TemplateRef,
+  EmbeddedViewRef,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { UIOutletBaseDirective } from './ui-outlet-base.directive';
 import { UiOutletService } from './ui-outlet.service';
 
 //import { UIRegionService } from './ui-region.service';
 
 @Directive({
-  selector: '[cpIfUiOutletAttachment]'
+  selector: '[cpIfUiOutletAttachment]',
 })
 export class IfUiOutletAttachmentsDirective implements OnInit, OnDestroy {
   private _name?: string;
   private _outletRef?: UiOutletRef;
   private _viewRef?: EmbeddedViewRef<any>;
   private _subs: Subscription = new Subscription();
-
 
   @Input('cpIfUiOutletAttachment')
   public get name(): string | undefined {
@@ -33,7 +42,7 @@ export class IfUiOutletAttachmentsDirective implements OnInit, OnDestroy {
     private readonly _viewContainerRef: ViewContainerRef,
     private readonly _templateRef: TemplateRef<any>,
     private readonly _changeRef: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.addListener();
@@ -47,9 +56,9 @@ export class IfUiOutletAttachmentsDirective implements OnInit, OnDestroy {
   private addListener() {
     this.removeListener();
     if (this.name) {
-      const ref = this._outletRef = this._outletService.get(this.name);
-      this._subs.add(ref.attachmentCreated.subscribe(_ => this.eval()));
-      this._subs.add(ref.attachmentDestroyed.subscribe(_ => this.eval()));
+      const ref = (this._outletRef = this._outletService.get(this.name));
+      this._subs.add(ref.attachmentCreated.subscribe((_) => this.eval()));
+      this._subs.add(ref.attachmentDestroyed.subscribe((_) => this.eval()));
     }
   }
 
@@ -60,7 +69,9 @@ export class IfUiOutletAttachmentsDirective implements OnInit, OnDestroy {
 
   private eval() {
     if (this._outletRef?.attachmentCount && !this._viewRef) {
-      this._viewRef = this._viewContainerRef.createEmbeddedView(this._templateRef);
+      this._viewRef = this._viewContainerRef.createEmbeddedView(
+        this._templateRef
+      );
       this._changeRef.markForCheck();
     } else if (!this._outletRef?.attachmentCount && this._viewRef) {
       this._viewContainerRef.clear();

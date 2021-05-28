@@ -5,17 +5,8 @@ import { ContainersRoutingModule } from './containers-routing.module';
 import { ContainersComponent } from './containers.component';
 import { TrayComponent } from './sections/tray/tray.component';
 
-
-
 @NgModule({
-  imports: [
-    CommonModule,
-    ContainersRoutingModule,
-    TrayModule
-  ],
-  declarations: [
-    ContainersComponent,
-    TrayComponent
-  ]
+  imports: [CommonModule, ContainersRoutingModule, TrayModule],
+  declarations: [ContainersComponent, TrayComponent],
 })
-export class ContainersModule { }
+export class ContainersModule {}

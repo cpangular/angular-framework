@@ -1,5 +1,1 @@
-export class MutationObservable extends MutationObserver {
-
-
-
-}
+export class MutationObservable extends MutationObserver {}

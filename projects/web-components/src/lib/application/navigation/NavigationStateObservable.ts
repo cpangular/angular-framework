@@ -1,6 +1,17 @@
 import { share } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { NavigationCancel, NavigationEnd, NavigationStart, Router, GuardsCheckEnd, GuardsCheckStart, NavigationError, ResolveStart, ResolveEnd, RouterEvent } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  GuardsCheckEnd,
+  GuardsCheckStart,
+  NavigationError,
+  ResolveStart,
+  ResolveEnd,
+  RouterEvent,
+} from '@angular/router';
 import { NavigationState } from './NavigationState';
 
 export class NavigationStateObservable extends Observable<NavigationState> {
@@ -8,7 +19,7 @@ export class NavigationStateObservable extends Observable<NavigationState> {
   private _state: NavigationState = NavigationState.None;
   private _evt?: RouterEvent;
   constructor(router: Router) {
-    super(obs => {
+    super((obs) => {
       this.init(router);
       const sub = this.subject.subscribe(obs);
       return () => sub.unsubscribe();
@@ -19,10 +30,9 @@ export class NavigationStateObservable extends Observable<NavigationState> {
     return this._state;
   }
   private init(router: Router) {
-
     if (!this.subject) {
-      this.subject = new Observable<NavigationState>(obs => {
-        const sub = router.events.subscribe(evt => {
+      this.subject = new Observable<NavigationState>((obs) => {
+        const sub = router.events.subscribe((evt) => {
           const type = evt.constructor;
           switch (type) {
             case NavigationStart:

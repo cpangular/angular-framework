@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'cp-containers',
+  selector: 'app-containers',
   templateUrl: './containers.component.html',
-  styleUrls: ['./containers.component.scss']
+  styleUrls: ['./containers.component.scss'],
 })
-export class ContainersComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class ContainersComponent {
+  constructor() {}
 }

@@ -1,12 +1,11 @@
 import { UiOutletRef, IUiOutletRef } from './UiOutletRef';
-import { EventEmitter, Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IUiOutlet } from './IUiOutlet';
 import { IUiOutletAttachment } from './IUiOutletAttachment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UiOutletService {
   private _outletRefs: Map<string, UiOutletRef> = new Map();
@@ -18,12 +17,6 @@ export class UiOutletService {
     return this._outletRefs.get(name)!;
   }
 
-
-
-
-
-
-
   private attachments: Set<IUiOutletAttachment> = new Set();
   private outlets: Set<IUiOutlet> = new Set();
   private outletByName: Map<string, IUiOutlet> = new Map();
@@ -31,7 +24,8 @@ export class UiOutletService {
   private attachmentNameCache: Map<IUiOutletAttachment, string> = new Map();
 
   private attachmentSubs: Map<IUiOutletAttachment, Subscription> = new Map();
-  private attachmentOutletLookup: Map<IUiOutletAttachment, IUiOutlet> = new Map();
+  private attachmentOutletLookup: Map<IUiOutletAttachment, IUiOutlet> =
+    new Map();
 
   public outletCreated(outlet: IUiOutlet): IUiOutletRef {
     const ref = this.get(outlet.name);
@@ -63,14 +57,10 @@ export class UiOutletService {
     */
   }
 
-
-
-
-
   public attachmentCreated(attachment: IUiOutletAttachment) {
     const ref = this.get(attachment.name!);
     ref.addAttachment(attachment);
-/*
+    /*
     //// old
     this.attachments.add(attachment);
     if (this.attachmentSubs.has(attachment)) {
@@ -90,7 +80,7 @@ export class UiOutletService {
     this.attachmentSubs.set(attachment, sub);
     */
   }
-/*
+  /*
   private addAttachByName(attachment: IUiOutletAttachment) {
     if (attachment.name) {
       if (!this.attachmentByName.has(attachment.name)) {
@@ -112,7 +102,7 @@ export class UiOutletService {
   public attachmentDestroyed(attachment: IUiOutletAttachment) {
     const ref = this.get(attachment.name!);
     ref.removeAttachment(attachment);
-/*
+    /*
     //// old
     this.removeAttachByName(attachment);
     this.attachmentSubs.get(attachment)?.unsubscribe();
@@ -121,7 +111,7 @@ export class UiOutletService {
     this.removeAttachmentFromOutlet(attachment);
     */
   }
-/*
+  /*
   public isAttached(attachment: IUiOutletAttachment): boolean {
     return this.attachmentOutletLookup.has(attachment);
   }
@@ -168,7 +158,7 @@ export class UiOutletService {
   }
 
   public getOutletByName(name: string | undefined): IUiOutlet | undefined {
-    return Array.from(this.outlets).find(o => o.name === name);
+    return Array.from(this.outlets).find((o) => o.name === name);
   }
 
   public getAttachmentsByName(name: string): IUiOutletAttachment[] {

@@ -4,10 +4,6 @@ import { LibsModule } from './libs/libs.module';
 import { TestModule } from './test/test.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    LibsModule,
-    TestModule
-  ]
+  imports: [CommonModule, LibsModule, TestModule],
 })
-export class SectionsModule { }
+export class SectionsModule {}

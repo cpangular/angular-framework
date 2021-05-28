@@ -1,23 +1,26 @@
 import { UiOutletRef } from './UiOutletRef';
 import { UiOutletService } from './ui-outlet.service';
 import { IUiOutletAttachment } from './IUiOutletAttachment';
-import { Directive, Input, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+  EventEmitter,
+} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUiOutlet } from './IUiOutlet';
 
-
-
 @Directive()
-export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttachment, OnInit, OnDestroy {
+export abstract class UiOutletAttachmentBaseDirective
+  implements IUiOutletAttachment, OnInit, OnDestroy
+{
   private _ref?: UiOutletRef;
   private _name?: string;
 
   public abstract readonly nodes: Node[];
 
-  constructor(
-    protected readonly outletService: UiOutletService
-  ) { }
-
+  constructor(protected readonly outletService: UiOutletService) {}
 
   public get name(): string | undefined {
     return this._name;
@@ -55,7 +58,6 @@ export abstract class UiOutletAttachmentBaseDirective implements IUiOutletAttach
       this._ref = undefined;
     }
   }
-
 
   /*
   private _name: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);

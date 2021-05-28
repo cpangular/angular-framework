@@ -8,13 +8,13 @@ export class BreakpointConditionResolver<T> extends Observable<T> {
     conditions: BreakpointEvaluator[],
     element: Element = document.documentElement
   ) {
-    super(observer => {
+    super((observer) => {
       const resize = new ResizeObservable();
       resize.add(element);
-      const sub = resize.subscribe(e => {
+      const sub = resize.subscribe((e) => {
         const viewSize: ViewSize = {
           width: e.contentRect.width,
-          height: e.contentRect.height
+          height: e.contentRect.height,
         };
         for (const condition of conditions) {
           if (condition[0](viewSize)) {

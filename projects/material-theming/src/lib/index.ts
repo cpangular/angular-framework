@@ -6,4 +6,3 @@ export * from './theme.service';
 export * from './ThemeDefinitionBase';
 export * from './themes';
 export * from './util';
-

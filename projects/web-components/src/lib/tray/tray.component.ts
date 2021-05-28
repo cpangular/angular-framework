@@ -1,8 +1,16 @@
 import { AnimationEvent } from '@angular/animations';
-import { ChangeDetectorRef, Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, ElementRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ElementRef,
+} from '@angular/core';
 import { openVerticalAnimation } from './tray.animations';
-
-
 
 export type TrayAnchorPoint = 'top' | 'bottom' | 'left' | 'right';
 
@@ -10,11 +18,9 @@ export type TrayAnchorPoint = 'top' | 'bottom' | 'left' | 'right';
   selector: 'cp-tray',
   templateUrl: './tray.component.html',
   styleUrls: ['./tray.component.scss'],
-  animations: [
-    openVerticalAnimation
-  ]
+  animations: [openVerticalAnimation],
 })
-export class TrayComponent implements OnInit {
+export class TrayComponent {
   @HostBinding('class.tray')
   private cssClass = true;
 
@@ -40,7 +46,9 @@ export class TrayComponent implements OnInit {
   public set opened(val: boolean) {
     if (this._opened !== val) {
       this._opened = val;
-      const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+      const div = this.elmRef.nativeElement.querySelector(
+        ':scope > div'
+      ) as HTMLDivElement;
       div.style.display = 'block';
       this.changeRef.markForCheck();
     }
@@ -53,8 +61,9 @@ export class TrayComponent implements OnInit {
 
   @HostBinding('@openClose')
   private get openClose() {
-
-    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    const div = this.elmRef.nativeElement.querySelector(
+      ':scope > div'
+    ) as HTMLDivElement;
     let value = '';
     let size = '0';
 
@@ -65,7 +74,7 @@ export class TrayComponent implements OnInit {
         this.elmRef.nativeElement.style.width = '';
         value = this._opened ? 'openV' : 'closeV';
         size = div.offsetHeight + 'px';
-        if(!this._opened){
+        if (!this._opened) {
           this.elmRef.nativeElement.style.height = '0';
         }
         break;
@@ -74,7 +83,7 @@ export class TrayComponent implements OnInit {
         this.elmRef.nativeElement.style.height = '';
         value = this._opened ? 'openH' : 'closeH';
         size = div.offsetWidth + 'px';
-        if(!this._opened){
+        if (!this._opened) {
           this.elmRef.nativeElement.style.width = '0';
         }
         break;
@@ -82,14 +91,10 @@ export class TrayComponent implements OnInit {
     return {
       value,
       params: {
-        size
-      }
-    }
+        size,
+      },
+    };
   }
-
-
-
-
 
   @HostListener('@openClose.start', ['$event'])
   protected onOpenCloseStart(event: AnimationEvent) {
@@ -98,7 +103,9 @@ export class TrayComponent implements OnInit {
     } else {
       this.elmRef.nativeElement.classList.add('opening');
     }
-    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    const div = this.elmRef.nativeElement.querySelector(
+      ':scope > div'
+    ) as HTMLDivElement;
     div.style.width = div.offsetWidth + 'px';
     div.style.height = div.offsetHeight + 'px';
   }
@@ -107,23 +114,21 @@ export class TrayComponent implements OnInit {
   protected onOpenCloseDone(event: AnimationEvent) {
     this.elmRef.nativeElement.classList.remove('opening');
     this.elmRef.nativeElement.classList.remove('closing');
-    const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+    const div = this.elmRef.nativeElement.querySelector(
+      ':scope > div'
+    ) as HTMLDivElement;
     div.style.width = '';
     div.style.height = '';
     if (event.toState == 'closed') {
-      const div = this.elmRef.nativeElement.querySelector(':scope > div') as HTMLDivElement;
+      const div = this.elmRef.nativeElement.querySelector(
+        ':scope > div'
+      ) as HTMLDivElement;
       div.style.display = 'none';
     }
   }
 
   constructor(
     private readonly changeRef: ChangeDetectorRef,
-    private readonly elmRef: ElementRef<HTMLElement>,
-  ) {
-
-  }
-
-  ngOnInit() {
-  }
-
+    private readonly elmRef: ElementRef<HTMLElement>
+  ) {}
 }

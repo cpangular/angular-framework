@@ -5,19 +5,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BreakpointsModule, } from '@cpangular/web-cdk';
-import { ApplicationLayoutCopyModule, ApplicationShellModule } from '@cpangular/web-components';
+import { BreakpointsModule } from '@cpangular/web-cdk';
+import {
+  ApplicationLayoutCopyModule,
+  ApplicationShellModule,
+} from '@cpangular/web-components';
 import { UiOutletModule } from '@cpangular/web-cdk';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SectionsModule } from './sections/sections.module';
 
-
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,9 +29,9 @@ import { SectionsModule } from './sections/sections.module';
     MatButtonModule,
     BreakpointsModule,
     UiOutletModule,
-    ApplicationLayoutCopyModule
+    ApplicationLayoutCopyModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

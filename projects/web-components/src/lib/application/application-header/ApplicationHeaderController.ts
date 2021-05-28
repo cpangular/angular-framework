@@ -1,19 +1,28 @@
-import { Subscription, BehaviorSubject, Observable, isObservable, of } from 'rxjs';
+import {
+  Subscription,
+  BehaviorSubject,
+  Observable,
+  isObservable,
+  of,
+} from 'rxjs';
 import { Resolvable } from '../Resolvable';
 
 export interface IApplicationHeaderControllerOptions {
   hideOnScroll: Resolvable<boolean>;
 }
-export interface IApplicationHeaderController extends IApplicationHeaderControllerOptions{
+export interface IApplicationHeaderController
+  extends IApplicationHeaderControllerOptions {
   isHideOnScroll: boolean;
   hideOnScrollChange: Observable<boolean>;
 }
 
-export class ApplicationHeaderController implements IApplicationHeaderController {
-
+export class ApplicationHeaderController
+  implements IApplicationHeaderController
+{
   private _hideOnScroll: Resolvable<boolean> = true;
   private _hideOnScrollSub: Subscription = new Subscription();
-  private _hideOnScrollChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _hideOnScrollChange: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   public get hideOnScrollChange(): Observable<boolean> {
     return this._hideOnScrollChange.asObservable();
@@ -32,12 +41,9 @@ export class ApplicationHeaderController implements IApplicationHeaderController
       this._hideOnScroll = val;
       this._hideOnScrollSub.unsubscribe();
       const obs = isObservable(val) ? val : of(val);
-      this._hideOnScrollSub = obs.subscribe(v => {
+      this._hideOnScrollSub = obs.subscribe((v) => {
         this._hideOnScrollChange.next(v);
       });
     }
   }
-
-
-
 }

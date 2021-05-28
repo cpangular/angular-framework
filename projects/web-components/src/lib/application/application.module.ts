@@ -4,16 +4,7 @@ import { ApplicationShellModule } from './application-shell';
 import { NavigationModule } from './navigation/navigation.module';
 
 @NgModule({
-  imports: [
-    ApplicationShellModule,
-    UiOutletModule,
-    NavigationModule
-  ],
-  exports: [
-    ApplicationShellModule,
-    UiOutletModule,
-    NavigationModule
-  ],
-
+  imports: [ApplicationShellModule, UiOutletModule, NavigationModule],
+  exports: [ApplicationShellModule, UiOutletModule, NavigationModule],
 })
-export class ApplicationModule { }
+export class ApplicationModule {}

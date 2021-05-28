@@ -1,3 +1,3 @@
 import { NgModule } from '@angular/core';
 @NgModule({})
-export class MaterialThemingModule { }
+export class MaterialThemingModule {}

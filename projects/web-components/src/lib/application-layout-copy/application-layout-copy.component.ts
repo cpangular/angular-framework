@@ -1,27 +1,35 @@
-import { ApplicationShellComponent } from './../application/application-shell/application-shell.component';
-import { NavigateStateInfo, NavigationState } from '../application/navigation/NavigationState';
-import { LoadingInOutAnimation } from './animations/loading';
-import { Router, RouterOutlet, RoutesRecognized, GuardsCheckStart, ResolveStart, RouterEvent, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { BreakpointService } from '@cpangular/web-cdk';
 import { Subscription } from 'rxjs';
-import { ApplicationLayout } from '../application/application-layout/application-layout';
+import {
+  ApplicationLayout,
+  LayoutBreakpoints,
+} from '../application/application-layout/application-layout';
 import { IApplicationLayoutComponent } from '../application/application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application/application.service';
-import { LayoutBreakpoints } from '../application/application-layout/application-layout';
+import { ApplicationShellComponent } from './../application/application-shell/application-shell.component';
+import { LoadingInOutAnimation } from './animations/loading';
 import { ModalInOutAnimation } from './animations/modal';
 
 @Component({
   selector: 'cp-application-layout-copy',
   templateUrl: './application-layout-copy.component.html',
   styleUrls: ['./application-layout-copy.component.scss'],
-  animations: [
-    ModalInOutAnimation,
-    LoadingInOutAnimation
-  ]
+  animations: [ModalInOutAnimation, LoadingInOutAnimation],
 })
-export class ApplicationLayoutCopyComponent extends ApplicationLayout implements IApplicationLayoutComponent, OnInit, OnDestroy {
+export class ApplicationLayoutCopyComponent
+  extends ApplicationLayout
+  implements IApplicationLayoutComponent, OnDestroy
+{
   @HostBinding('class.application-layout')
   private cssClass = true;
 
@@ -46,9 +54,11 @@ export class ApplicationLayoutCopyComponent extends ApplicationLayout implements
 
   @HostBinding('class.modal')
   public get showModalBg(): boolean {
-    return this._showingModalRoute
-      || (this.appService.leftPanel.isOpen && !this.leftPanelInline)
-      || (this.appService.rightPanel.isOpen && !this.rightPanelInline)
+    return (
+      this._showingModalRoute ||
+      (this.appService.leftPanel.isOpen && !this.leftPanelInline) ||
+      (this.appService.rightPanel.isOpen && !this.rightPanelInline)
+    );
   }
   @HostBinding('attr.modalSize')
   protected get modalSize(): string {
@@ -58,35 +68,28 @@ export class ApplicationLayoutCopyComponent extends ApplicationLayout implements
     return 'content';
   }
 
-
   @ViewChild('content', { static: true, read: CdkScrollable })
   public contentContainer!: CdkScrollable;
-
 
   constructor(
     breakpointService: BreakpointService,
     router: Router,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly appShell: ApplicationShellComponent,
-    public readonly appService: ApplicationService,
+    public readonly appService: ApplicationService
   ) {
     super(breakpointService, router);
   }
 
-  ngOnInit() {
-
-  }
-
-  public get mainNavigationState(){
+  public get mainNavigationState() {
     return this.appShell.mainNavigationState;
   }
 
-  public get modalNavigationState(){
+  public get modalNavigationState() {
     return this.appShell.modalNavigationState;
   }
 
   public ngOnDestroy() {
-
     this._subs.unsubscribe();
   }
 
@@ -125,6 +128,4 @@ export class ApplicationLayoutCopyComponent extends ApplicationLayout implements
   public modalOutletActivate(evt: any) {
     this._showingModalRoute = true;
   }
-
-
 }

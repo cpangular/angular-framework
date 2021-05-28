@@ -5,12 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialApplicationPartsComponent } from './material-application-parts.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    UiOutletModule,
-    ImageModule
-  ],
-  declarations: [MaterialApplicationPartsComponent]
+  imports: [CommonModule, MatToolbarModule, UiOutletModule, ImageModule],
+  declarations: [MaterialApplicationPartsComponent],
 })
-export class MaterialApplicationPartsModule { }
+export class MaterialApplicationPartsModule {}

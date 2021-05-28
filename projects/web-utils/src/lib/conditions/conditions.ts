@@ -1,19 +1,20 @@
-
-
 export type ConditionResult<TResult> = TResult | Promise<TResult>;
 
-
-export abstract class ConditionBase<TContext, TResult>{
+export abstract class ConditionBase<TContext, TResult> {
   public abstract evaluate(context: TContext): ConditionResult<boolean>;
-  public abstract value(context: TContext): ConditionResult<TResult | undefined>;
+  public abstract value(
+    context: TContext
+  ): ConditionResult<TResult | undefined>;
 }
 
-
-
-export class ConditionFn<TContext, TResult> extends ConditionBase<TContext, TResult>{
-
+export class ConditionFn<TContext, TResult> extends ConditionBase<
+  TContext,
+  TResult
+> {
   constructor(
-    private readonly evalFn: (context: TContext) => ConditionResult<TResult | undefined>
+    private readonly evalFn: (
+      context: TContext
+    ) => ConditionResult<TResult | undefined>
   ) {
     super();
   }
@@ -25,14 +26,17 @@ export class ConditionFn<TContext, TResult> extends ConditionBase<TContext, TRes
   public value(context: TContext): ConditionResult<TResult | undefined> {
     return this.evalFn(context);
   }
-
 }
 
-export class Condition<TContext, TResult> extends ConditionBase<TContext, TResult>{
-
+export class Condition<TContext, TResult> extends ConditionBase<
+  TContext,
+  TResult
+> {
   constructor(
     private readonly evalFn: (context: TContext) => ConditionResult<boolean>,
-    private readonly valueFn: (context: TContext) => ConditionResult<TResult | undefined>
+    private readonly valueFn: (
+      context: TContext
+    ) => ConditionResult<TResult | undefined>
   ) {
     super();
   }
@@ -44,17 +48,12 @@ export class Condition<TContext, TResult> extends ConditionBase<TContext, TResul
   public value(context: TContext): ConditionResult<TResult | undefined> {
     return this.valueFn(context);
   }
-
 }
 
-
-
 export class ConditionResolver<TContext, TResult> {
-
   constructor(
     private readonly conditions: ConditionBase<TContext, TResult>[]
-  ) { }
-
+  ) {}
 
   public async resolve(context: TContext): Promise<TResult | undefined> {
     for (const condition of this.conditions) {
@@ -64,5 +63,4 @@ export class ConditionResolver<TContext, TResult> {
     }
     return undefined;
   }
-
 }

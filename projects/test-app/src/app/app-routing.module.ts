@@ -3,16 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { TestModalComponent } from './sections/test/test-modal/test-modal.component';
 
 const routes: Routes = [
-
   {
     path: 'test',
     outlet: 'modal',
-    component: TestModalComponent
-  }
+    component: TestModalComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

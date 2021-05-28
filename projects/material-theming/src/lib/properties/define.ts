@@ -1,4 +1,3 @@
-
 export function propertyName(type: string): string {
   return `--define-${type}`;
 }

@@ -1,6 +1,9 @@
 import { Observable, Subject } from 'rxjs';
 import { findThemeDefinitionRule } from './util/stylesheets';
-import { ThemingChangeEvent, ThemingPropertyChangeEvent } from './events/ThemingChangeEvent';
+import {
+  ThemingChangeEvent,
+  ThemingPropertyChangeEvent,
+} from './events/ThemingChangeEvent';
 import { ThemingEvent } from './events/ThemingEvent';
 import * as define from './properties/define';
 
@@ -20,18 +23,21 @@ export abstract class ThemeDefinitionBase {
     return this._defSheet!;
   }
 
-  private static createDefinitionRule(type: string, name: string): CSSStyleRule {
+  private static createDefinitionRule(
+    type: string,
+    name: string
+  ): CSSStyleRule {
     const sheet = this.getDefinitionSheet();
-    const idx = sheet.insertRule(`:root { ${define.propertyName(type)}:${define.propertyValue(name)}; }`, sheet.cssRules.length);
+    const idx = sheet.insertRule(
+      `:root { ${define.propertyName(type)}:${define.propertyValue(name)}; }`,
+      sheet.cssRules.length
+    );
     const rule = sheet.cssRules.item(idx) as CSSStyleRule;
     return rule as CSSStyleRule;
   }
 
   protected constructor(type: string, name: string);
-  protected constructor(
-    private readonly _type: string,
-    name: string
-  ) {
+  protected constructor(private readonly _type: string, name: string) {
     this._name = name.trim();
     let rule = findThemeDefinitionRule(_type, this._name);
     if (!rule) {
@@ -52,7 +58,11 @@ export abstract class ThemeDefinitionBase {
     return this.rule.style.getPropertyValue(prop)?.trim();
   }
 
-  protected set(prop: string, value: string | null, emit: boolean = true): void {
+  protected set(
+    prop: string,
+    value: string | null,
+    emit: boolean = true
+  ): void {
     value ??= null;
     value = value !== null ? value.trim() : null;
     const oldProp = this.get(prop);
@@ -73,7 +83,7 @@ export abstract class ThemeDefinitionBase {
   ): ThemingPropertyChangeEvent<ThemeDefinitionBase, string>;
 
   protected abstract createCssChangeEvent(
-    newValue: string  | null,
+    newValue: string | null,
     oldvalue: string | null
   ): ThemingChangeEvent<ThemeDefinitionBase, string>;
 

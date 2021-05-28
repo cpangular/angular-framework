@@ -1,17 +1,25 @@
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutOutlets } from '../application-layout/ApplicationLayoutOutlets';
 import { ApplicationService } from './../application.service';
-
 
 @Component({
   selector: 'cp-application-header',
   templateUrl: './application-header.component.html',
   styleUrls: ['./application-header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ApplicationHeaderComponent implements OnInit, OnDestroy {
+export class ApplicationHeaderComponent implements OnDestroy {
   public LayoutOutlet = ApplicationLayoutOutlets;
   @HostBinding('class.application-header')
   private cssClass = true;
@@ -26,7 +34,7 @@ export class ApplicationHeaderComponent implements OnInit, OnDestroy {
   @HostBinding('class.hidden')
   public get hidden(): boolean {
     return !this.visible;
-  };
+  }
 
   @HostBinding('class.hide-on-scroll')
   public hideOnScroll: boolean = true;
@@ -39,34 +47,35 @@ export class ApplicationHeaderComponent implements OnInit, OnDestroy {
     private readonly _scrollDispatcher: ScrollDispatcher,
     private readonly _zone: NgZone,
     private readonly _changeRef: ChangeDetectorRef
-
   ) {
-    this._subs.add(app.header.hideOnScrollChange.subscribe(v => {
-      this.hideOnScroll = v;
-      v ? this.enableHeaderScrollHide() : this.disableHeaderScrollHide();
-    }));
+    this._subs.add(
+      app.header.hideOnScrollChange.subscribe((v) => {
+        this.hideOnScroll = v;
+        v ? this.enableHeaderScrollHide() : this.disableHeaderScrollHide();
+      })
+    );
   }
-
-  ngOnInit() { }
 
   private enableHeaderScrollHide() {
     this._scrollValue = this.scrollable?.measureScrollOffset('top') ?? 0;
-    this._scrollSubs.add(this._scrollDispatcher.scrolled(100).subscribe(_ => {
-      this._zone.run(() => {
-        const scrollTop = this.scrollable?.measureScrollOffset('top') ?? 0;
-        const diff = scrollTop - this._scrollValue;
-        if (Math.abs(diff) > 100) {
-          if (!this.visible && diff < 0) {
-            this.visible = true;
-            this._changeRef.markForCheck();
-          } else if (this.visible && diff > 0) {
-            this.visible = false;
-            this._changeRef.markForCheck();
+    this._scrollSubs.add(
+      this._scrollDispatcher.scrolled(100).subscribe((_) => {
+        this._zone.run(() => {
+          const scrollTop = this.scrollable?.measureScrollOffset('top') ?? 0;
+          const diff = scrollTop - this._scrollValue;
+          if (Math.abs(diff) > 100) {
+            if (!this.visible && diff < 0) {
+              this.visible = true;
+              this._changeRef.markForCheck();
+            } else if (this.visible && diff > 0) {
+              this.visible = false;
+              this._changeRef.markForCheck();
+            }
+            this._scrollValue = scrollTop;
           }
-          this._scrollValue = scrollTop;
-        }
-      });
-    }));
+        });
+      })
+    );
   }
 
   private disableHeaderScrollHide() {
@@ -80,5 +89,4 @@ export class ApplicationHeaderComponent implements OnInit, OnDestroy {
     this.disableHeaderScrollHide();
     this._subs.unsubscribe();
   }
-
 }

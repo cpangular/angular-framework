@@ -1,11 +1,11 @@
 import { IUiOutlet } from './IUiOutlet';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 export interface IUiOutletAttachment {
   readonly name: string | undefined;
   readonly nodes: Node[];
 
- /* readonly inlineFallback: boolean;
+  /* readonly inlineFallback: boolean;
   readonly inlineFallbackChange: Observable<boolean>;
   readonly nodes?: Node[];
   readonly origin?: Node;

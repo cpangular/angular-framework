@@ -11,9 +11,8 @@ describe('TrayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrayComponent ]
-    })
-    .compileComponents();
+      declarations: [TrayComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

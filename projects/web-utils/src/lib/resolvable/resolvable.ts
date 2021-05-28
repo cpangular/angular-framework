@@ -1,5 +1,10 @@
-
-import { BehaviorSubject, from, isObservable, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  from,
+  isObservable,
+  Observable,
+  Subscription,
+} from 'rxjs';
 export type Resolvable<TValue> = TValue | Promise<TValue> | Observable<TValue>;
 
 export function resolve<TValue>(value: Resolvable<TValue>): Observable<TValue> {
@@ -9,10 +14,11 @@ export function resolve<TValue>(value: Resolvable<TValue>): Observable<TValue> {
   return from(Promise.resolve(value));
 }
 
-
-export class ResolveStack<TValue> extends Observable<TValue | undefined>{
+export class ResolveStack<TValue> extends Observable<TValue | undefined> {
   private _sub: Subscription = new Subscription();
-  private _subject: BehaviorSubject<TValue | undefined> = new BehaviorSubject<TValue | undefined>(undefined);
+  private _subject: BehaviorSubject<TValue | undefined> = new BehaviorSubject<
+    TValue | undefined
+  >(undefined);
   private _stack: Resolvable<TValue>[] = [];
   private _stackValue: TValue[] = [];
   private _stackValueSet: boolean[] = [];
@@ -23,7 +29,7 @@ export class ResolveStack<TValue> extends Observable<TValue | undefined>{
       return () => {
         sub.unsubscribe();
       };
-    })
+    });
   }
 
   public push(v: Resolvable<TValue>) {
@@ -94,23 +100,27 @@ export class ResolveStack<TValue> extends Observable<TValue | undefined>{
       }
     }
 
-    this._sub.add(newResolvable.subscribe(v => {
-      if (this._subject.value !== v) {
-        const idx = this._stack.indexOf(n);
-        this._stackValue[idx] = v;
-        this._stackValueSet[idx] = true;
-        this._subject.next(v);
-      }
-    }));
+    this._sub.add(
+      newResolvable.subscribe((v) => {
+        if (this._subject.value !== v) {
+          const idx = this._stack.indexOf(n);
+          this._stackValue[idx] = v;
+          this._stackValueSet[idx] = true;
+          this._subject.next(v);
+        }
+      })
+    );
   }
 }
 
-export class ResolveStackMap<TKey, TValue> extends Observable<TValue | undefined>{
+export class ResolveStackMap<TKey, TValue> extends Observable<
+  TValue | undefined
+> {
   private _stack: ResolveStack<TValue> = new ResolveStack();
   private _map: Map<TKey, Resolvable<TValue>> = new Map();
 
   constructor() {
-    super(obs => {
+    super((obs) => {
       const sub = this._stack.subscribe(obs);
       return () => {
         sub.unsubscribe();

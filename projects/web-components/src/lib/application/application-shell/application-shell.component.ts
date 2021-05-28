@@ -1,7 +1,33 @@
-import { NavigationState, NavigateStateInfo } from './../navigation/NavigationState';
-import { RouterEvent, RoutesRecognized, GuardsCheckStart, ResolveStart, NavigationCancel, NavigationEnd, NavigationError } from '@angular/router';
+import {
+  NavigationState,
+  NavigateStateInfo,
+} from './../navigation/NavigationState';
+import {
+  RouterEvent,
+  RoutesRecognized,
+  GuardsCheckStart,
+  ResolveStart,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+} from '@angular/router';
 import { MaterialApplicationPartsComponent } from './../../material-application-parts/material-application-parts.component';
-import { Component, ComponentFactoryResolver, ComponentRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges, Type, ViewChild, ViewContainerRef, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  HostBinding,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutComponent } from '../../application-layout/application-layout.component';
 import { IApplicationLayoutComponent } from '../application-layout/IApplicationLayoutComponent';
@@ -12,7 +38,7 @@ import { ApplicationLayoutOptions } from './application-layout-options';
   selector: 'cp-application-shell',
   templateUrl: './application-shell.component.html',
   styleUrls: ['./application-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
   @HostBinding('class.application-shell')
@@ -25,10 +51,12 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
   private _applicationLayoutOptions?: ApplicationLayoutOptions;
   private _applicationLayoutRef?: ComponentRef<IApplicationLayoutComponent>;
   private _modalRouteActive: boolean = false;
-  private _applicationComponents: Type<any>[] = [MaterialApplicationPartsComponent];
+  private _applicationComponents: Type<any>[] = [
+    MaterialApplicationPartsComponent,
+  ];
 
   @ViewChild('layoutRef', { static: true, read: ViewContainerRef })
-  private layoutRef!: ViewContainerRef
+  private layoutRef!: ViewContainerRef;
 
   public get applicationLayout(): Type<any> {
     return this.appService.layout.value ?? ApplicationLayoutComponent;
@@ -39,7 +67,6 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
     return this._applicationLayoutOptions;
   }
 
-
   @Input()
   public get applicationComponents(): Type<any>[] {
     return this._applicationComponents;
@@ -48,8 +75,9 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
     this._applicationComponents = val;
   }
 
-
-  public set applicationLayoutOptions(val: ApplicationLayoutOptions | undefined) {
+  public set applicationLayoutOptions(
+    val: ApplicationLayoutOptions | undefined
+  ) {
     this._applicationLayoutOptions = val;
   }
 
@@ -61,22 +89,29 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
     private readonly appService: ApplicationService,
     changeRef: ChangeDetectorRef
   ) {
-
     this._subs.add(appService.layout.subscribe(() => changeRef.markForCheck()));
   }
 
   ngOnInit() {
-    this._subs.add(this.appService.layout.subscribe(layout => {
-      this.createLayout();
-    }));
+    this._subs.add(
+      this.appService.layout.subscribe((layout) => {
+        this.createLayout();
+      })
+    );
     this.applyLayoutOptions();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.applicationLayout && !changes.applicationLayout.isFirstChange()) {
+    if (
+      changes.applicationLayout &&
+      !changes.applicationLayout.isFirstChange()
+    ) {
       this.createLayout();
     }
-    if (changes.applicationLayoutOptions && !changes.applicationLayoutOptions.isFirstChange()) {
+    if (
+      changes.applicationLayoutOptions &&
+      !changes.applicationLayoutOptions.isFirstChange()
+    ) {
       this.applyLayoutOptions();
     }
   }
@@ -89,17 +124,23 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
     if (this._applicationLayoutRef) {
       this._applicationLayoutRef.destroy();
     }
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.applicationLayout);
+    const componentFactory =
+      this.componentFactoryResolver.resolveComponentFactory(
+        this.applicationLayout
+      );
     this.layoutRef.clear();
-    this._applicationLayoutRef = this.layoutRef.createComponent(componentFactory);
+    this._applicationLayoutRef =
+      this.layoutRef.createComponent(componentFactory);
   }
 
   private applyLayoutOptions() {
     this.applicationLayoutOptions ??= {
-      hideHeaderOnScroll: true
+      hideHeaderOnScroll: true,
     };
     for (const key in this.applicationLayoutOptions) {
-      if (Object.prototype.hasOwnProperty.call(this.applicationLayoutOptions, key)) {
+      if (
+        Object.prototype.hasOwnProperty.call(this.applicationLayoutOptions, key)
+      ) {
         const val = (this.applicationLayoutOptions as any)[key];
         (this._applicationLayoutRef!.instance as any)[key] = val;
       }
@@ -113,7 +154,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Navigation,
           event: evt,
           url: (evt as RoutesRecognized).urlAfterRedirects,
-          label: 'Navigation'
+          label: 'Navigation',
         };
         break;
       case GuardsCheckStart:
@@ -121,7 +162,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.GuardCheck,
           event: evt,
           url: (evt as GuardsCheckStart).urlAfterRedirects,
-          label: 'Authentication'
+          label: 'Authentication',
         };
         break;
       case ResolveStart:
@@ -129,7 +170,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Resolve,
           event: evt,
           url: (evt as ResolveStart).urlAfterRedirects,
-          label: 'Resolve'
+          label: 'Resolve',
         };
         break;
       case NavigationCancel:
@@ -141,10 +182,9 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Error,
           event: evt,
           url: this.mainNavigationState?.url ?? '',
-          label: 'Error'
+          label: 'Error',
         };
         break;
-
     }
   }
 
@@ -155,7 +195,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Navigation,
           event: evt,
           url: (evt as RoutesRecognized).urlAfterRedirects,
-          label: 'Navigation'
+          label: 'Navigation',
         };
         break;
       case GuardsCheckStart:
@@ -163,7 +203,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.GuardCheck,
           event: evt,
           url: (evt as GuardsCheckStart).urlAfterRedirects,
-          label: 'Authentication'
+          label: 'Authentication',
         };
         break;
       case ResolveStart:
@@ -171,7 +211,7 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Resolve,
           event: evt,
           url: (evt as ResolveStart).urlAfterRedirects,
-          label: 'Resolve'
+          label: 'Resolve',
         };
         break;
       case NavigationCancel:
@@ -183,10 +223,9 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
           state: NavigationState.Error,
           event: evt,
           url: this.mainNavigationState?.url ?? '',
-          label: 'Error'
+          label: 'Error',
         };
         break;
-
     }
   }
 

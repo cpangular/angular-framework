@@ -1,17 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cp-web-cdk',
+  selector: 'app-web-cdk',
   templateUrl: './web-cdk.component.html',
-  styleUrls: ['./web-cdk.component.css']
+  styleUrls: ['./web-cdk.component.css'],
 })
-export class WebCdkComponent implements OnInit {
+export class WebCdkComponent {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-  ne(evt:any) {
-
-  }
+  ne(evt: any) {}
 }

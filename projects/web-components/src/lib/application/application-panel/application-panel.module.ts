@@ -5,12 +5,8 @@ import { TrayModule } from './../../tray/tray.module';
 import { ApplicationPanelComponent } from './application-panel.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    UiOutletModule,
-    TrayModule
-  ],
+  imports: [CommonModule, UiOutletModule, TrayModule],
   declarations: [ApplicationPanelComponent],
-  exports: [ApplicationPanelComponent]
+  exports: [ApplicationPanelComponent],
 })
-export class ApplicationPanelModule { }
+export class ApplicationPanelModule {}

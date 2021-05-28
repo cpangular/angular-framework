@@ -1,7 +1,10 @@
 import { ThemeDefinitionBase } from '../ThemeDefinitionBase';
 import { ThemingEvent } from './ThemingEvent';
 
-export abstract class ThemingChangeEvent<TTarget extends ThemeDefinitionBase, TValue> extends ThemingEvent<TTarget> {
+export abstract class ThemingChangeEvent<
+  TTarget extends ThemeDefinitionBase,
+  TValue
+> extends ThemingEvent<TTarget> {
   public constructor(
     target: TTarget,
     public readonly oldValue: TValue | undefined,
@@ -11,8 +14,10 @@ export abstract class ThemingChangeEvent<TTarget extends ThemeDefinitionBase, TV
   }
 }
 
-
-export abstract class ThemingPropertyChangeEvent<TTarget extends ThemeDefinitionBase, TValue> extends ThemingChangeEvent<TTarget, TValue> {
+export abstract class ThemingPropertyChangeEvent<
+  TTarget extends ThemeDefinitionBase,
+  TValue
+> extends ThemingChangeEvent<TTarget, TValue> {
   public constructor(
     target: TTarget,
     public readonly propertyName: string,

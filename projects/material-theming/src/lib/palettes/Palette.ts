@@ -1,4 +1,8 @@
-import { PaletteColorChange, PaletteContrastColorChange, PaletteCssChange } from '../events/PaletteEvents';
+import {
+  PaletteColorChange,
+  PaletteContrastColorChange,
+  PaletteCssChange,
+} from '../events/PaletteEvents';
 import { ThemeDefinitionBase } from '../ThemeDefinitionBase';
 import * as color from '../properties/palettes/color';
 
@@ -25,35 +29,55 @@ export class Palette extends ThemeDefinitionBase {
     if (!rest.length) {
       return this.get(color.propertyName(this.name, variant))!;
     }
-    this.set(color.propertyName(this.name, variant), color.propertyValue(rest[0]!), rest[1]!);
+    this.set(
+      color.propertyName(this.name, variant),
+      color.propertyValue(rest[0]!),
+      rest[1]!
+    );
     return this;
   }
 
   public contrast(variant: string): string;
   public contrast(variant: string, value: string, emit?: boolean): this;
-  public contrast(variant: string, ...rest: [string?, boolean?]): string | this {
-    return this.color(variant + '-contrast', ...rest as [string, boolean?]) as string | this;
+  public contrast(
+    variant: string,
+    ...rest: [string?, boolean?]
+  ): string | this {
+    return this.color(
+      variant + '-contrast',
+      ...(rest as [string, boolean?])
+    ) as string | this;
   }
 
   public get variants(): string[] {
     return from(this.rule.style)
-      .select(_ => _.split(color.propertyName(this.name, ''))[1])
-      .where(_ => !!_)
-      .select(_ => _.split(`-`)[0])
+      .select((_) => _.split(color.propertyName(this.name, ''))[1])
+      .where((_) => !!_)
+      .select((_) => _.split(`-`)[0])
       .distinct()
       .toArray();
   }
 
   protected createPropertyChangeEvent(
-    propertyName: string, newValue: string, oldvalue: string
+    propertyName: string,
+    newValue: string,
+    oldvalue: string
   ): PaletteContrastColorChange | PaletteColorChange {
     if (propertyName.endsWith('-contrast')) {
-      return new PaletteContrastColorChange(this, propertyName.split('-contrast')[0], oldvalue, newValue);
+      return new PaletteContrastColorChange(
+        this,
+        propertyName.split('-contrast')[0],
+        oldvalue,
+        newValue
+      );
     }
     return new PaletteColorChange(this, propertyName, oldvalue, newValue);
   }
 
-  protected createCssChangeEvent(newValue: string, oldValue: string): PaletteCssChange {
+  protected createCssChangeEvent(
+    newValue: string,
+    oldValue: string
+  ): PaletteCssChange {
     return new PaletteCssChange(this, oldValue, newValue);
   }
 
@@ -61,8 +85,7 @@ export class Palette extends ThemeDefinitionBase {
     // todo: remove exisiting
     for (const key in colors.contrast) {
       if (Object.prototype.hasOwnProperty.call(colors.contrast, key)) {
-        this.color(key, colors[key])
-          .contrast(key, colors.contrast[key]);
+        this.color(key, colors[key]).contrast(key, colors.contrast[key]);
       }
     }
   }
@@ -70,5 +93,4 @@ export class Palette extends ThemeDefinitionBase {
   public toString(): string {
     return this.rule.cssText;
   }
-
 }

@@ -1,18 +1,26 @@
-import { Observable, Subscriber } from "rxjs";
+import { Observable, Subscriber } from 'rxjs';
 
 export class IntersectObservable extends Observable<IntersectionObserverEntry> {
-  private static subscribers: Map<Element, Set<Subscriber<IntersectionObserverEntry>>> = new Map();
-  private static observer: IntersectionObserver = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      const targetSubscribers = IntersectObservable.subscribers.get(entry.target)!;
-      for (const sub of targetSubscribers) {
-        sub.next(entry);
+  private static subscribers: Map<
+    Element,
+    Set<Subscriber<IntersectionObserverEntry>>
+  > = new Map();
+  private static observer: IntersectionObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const targetSubscribers = IntersectObservable.subscribers.get(
+          entry.target
+        )!;
+        for (const sub of targetSubscribers) {
+          sub.next(entry);
+        }
       }
-    }
-  }, {});
+    },
+    {}
+  );
 
   constructor(target: Element) {
-    super(sub => {
+    super((sub) => {
       if (!IntersectObservable.subscribers.has(target)) {
         IntersectObservable.subscribers.set(target, new Set());
         IntersectObservable.observer.observe(target);
@@ -25,7 +33,7 @@ export class IntersectObservable extends Observable<IntersectionObserverEntry> {
           IntersectObservable.subscribers.delete(target);
           IntersectObservable.observer.unobserve(target);
         }
-      }
+      };
     });
   }
 }

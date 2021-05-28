@@ -1,10 +1,12 @@
-
-
 export function propertyPrefix(theme: string): string {
   return `--theme-${theme}-palette-`;
 }
 
-export function propertyName(theme: string, palette: string, name: string): string {
+export function propertyName(
+  theme: string,
+  palette: string,
+  name: string
+): string {
   return `${propertyPrefix(theme)}${palette}-${name}`;
 }
 

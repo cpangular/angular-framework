@@ -5,12 +5,8 @@ import { TrayModule } from './../../tray/tray.module';
 import { ApplicationHeaderComponent } from './application-header.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TrayModule,
-    UiOutletModule
-  ],
+  imports: [CommonModule, TrayModule, UiOutletModule],
   declarations: [ApplicationHeaderComponent],
-  exports: [ApplicationHeaderComponent]
+  exports: [ApplicationHeaderComponent],
 })
-export class ApplicationHeaderModule { }
+export class ApplicationHeaderModule {}

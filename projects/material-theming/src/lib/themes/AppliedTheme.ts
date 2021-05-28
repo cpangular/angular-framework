@@ -10,18 +10,18 @@ import { accessibleStyleSheets } from '../util/stylesheets';
 import { IThemePaletteRef } from './IThemePaletteRef';
 import { Theme } from './Theme';
 
-
-const THEME_ID_ATTR = '_theme' + Math.round((Math.random() * 89) + 10);
+const THEME_ID_ATTR = '_theme' + Math.round(Math.random() * 89 + 10);
 const ROOT = ':root';
 const TYPE = 'theme-applied';
 
 export const appliedThemeRules = accessibleStyleSheets
-  .selectMany(_ => _.cssRules)
-  .where(_ => _ instanceof CSSStyleRule
-    && _.selectorText.startsWith(`${ROOT}`)
-    && _.style.item(0).startsWith(define.propertyName(TYPE))
+  .selectMany((_) => _.cssRules)
+  .where(
+    (_) =>
+      _ instanceof CSSStyleRule &&
+      _.selectorText.startsWith(`${ROOT}`) &&
+      _.style.item(0).startsWith(define.propertyName(TYPE))
   ) as IEnumerable<CSSStyleRule>;
-
 
 export class AppliedTheme {
   private static _idCount = 0;
@@ -45,7 +45,6 @@ export class AppliedTheme {
       themeId = AppliedTheme._idCount.toString();
       AppliedTheme._idCount++;
       element.setAttribute(THEME_ID_ATTR, themeId);
-
     }
     const selector = `[${THEME_ID_ATTR}=${themeId}]`;
     return AppliedTheme.forSelector(selector);
@@ -55,11 +54,12 @@ export class AppliedTheme {
     return AppliedTheme.forSelector('');
   }
 
-  private constructor(
-    private readonly selector: string
-  ) {
-
-    this._rule = appliedThemeRules.firstOrDefault(_ => selector === '' ? _.selectorText === `${ROOT}` : _.selectorText === `${ROOT} ${selector}`);
+  private constructor(private readonly selector: string) {
+    this._rule = appliedThemeRules.firstOrDefault((_) =>
+      selector === ''
+        ? _.selectorText === `${ROOT}`
+        : _.selectorText === `${ROOT} ${selector}`
+    );
     if (this._rule) {
       this._enabled = true;
     } else {
@@ -67,7 +67,9 @@ export class AppliedTheme {
       document.head.appendChild(sheetElm);
       const sheet = sheetElm.sheet!;
       const idx = sheet.insertRule(
-        `${ROOT} ${selector} { ${define.propertyName(TYPE)}:${define.propertyValue('')}; }`,
+        `${ROOT} ${selector} { ${define.propertyName(
+          TYPE
+        )}:${define.propertyValue('')}; }`,
         sheet.cssRules.length
       );
       this._rule = sheet.cssRules.item(idx) as CSSStyleRule;
@@ -80,7 +82,9 @@ export class AppliedTheme {
   }
 
   public get themeName(): string | undefined {
-    return this._rule?.style.getPropertyValue(define.propertyName(TYPE))?.trim();
+    return this._rule?.style
+      .getPropertyValue(define.propertyName(TYPE))
+      ?.trim();
   }
 
   public setTheme(themeName: string): void {
@@ -92,12 +96,11 @@ export class AppliedTheme {
       }
       this.addThemeListener();
     }
-
   }
 
   private addThemeListener() {
     this._themeSub?.unsubscribe();
-    this._themeSub = this.theme!.changes.subscribe(evt => {
+    this._themeSub = this.theme!.changes.subscribe((evt) => {
       if (evt instanceof ThemeCssChange) {
         this.disableTheme();
         if (this.enabled) {
@@ -123,8 +126,10 @@ export class AppliedTheme {
 
   private disableTheme(): void {
     if (this._rule) {
-      const styles = from(this._rule.style).where(_ => _.startsWith('--') && _ !== define.propertyName(TYPE)).toArray();
-      styles.forEach(_ => {
+      const styles = from(this._rule.style)
+        .where((_) => _.startsWith('--') && _ !== define.propertyName(TYPE))
+        .toArray();
+      styles.forEach((_) => {
         this._rule!.style.removeProperty(_);
       });
     }
@@ -139,11 +144,10 @@ export class AppliedTheme {
 
   private applyTheme(): void {
     const theme = this.theme;
-    if(theme){
+    if (theme) {
       this.applyTo(theme, this._rule!.style);
     }
   }
-
 
   private applyTo(theme: Theme, style: CSSStyleDeclaration): void {
     this.applyPalettesTo(theme, style);
@@ -152,19 +156,30 @@ export class AppliedTheme {
   }
 
   private applyPalettesTo(theme: Theme, style: CSSStyleDeclaration): void {
-
     for (const ref of theme.paletteRefs) {
       const palette = Palette.get(ref.palette);
       for (const variant of palette.variants) {
-        style.setProperty(applyColor.propertyName(ref.name, variant), applyColor.propertyValue(ref.palette, variant));
-        style.setProperty(applyColor.propertyName(ref.name, `${variant}-contrast`), applyColor.propertyValue(ref.palette, `${variant}-contrast`));
+        style.setProperty(
+          applyColor.propertyName(ref.name, variant),
+          applyColor.propertyValue(ref.palette, variant)
+        );
+        style.setProperty(
+          applyColor.propertyName(ref.name, `${variant}-contrast`),
+          applyColor.propertyValue(ref.palette, `${variant}-contrast`)
+        );
       }
 
       for (const variantName in ref.variants) {
         if (Object.prototype.hasOwnProperty.call(ref.variants, variantName)) {
           const variant = ref.variants[variantName];
-          style.setProperty(applyColor.propertyName(ref.name, variantName), applyColor.propertyValue(ref.palette, variant));
-          style.setProperty(applyColor.propertyName(ref.name, `${variantName}-contrast`), applyColor.propertyValue(ref.palette, `${variant}-contrast`));
+          style.setProperty(
+            applyColor.propertyName(ref.name, variantName),
+            applyColor.propertyValue(ref.palette, variant)
+          );
+          style.setProperty(
+            applyColor.propertyName(ref.name, `${variantName}-contrast`),
+            applyColor.propertyValue(ref.palette, `${variant}-contrast`)
+          );
         }
       }
     }
@@ -177,15 +192,23 @@ export class AppliedTheme {
     this.applyPlaneVariants(theme.getForegroundRef(), style, applyForeground);
   }
 
-  private applyPlaneVariants(ref: IThemePaletteRef, style: CSSStyleDeclaration, apply: typeof applyBackground | typeof applyForeground) {
+  private applyPlaneVariants(
+    ref: IThemePaletteRef,
+    style: CSSStyleDeclaration,
+    apply: typeof applyBackground | typeof applyForeground
+  ) {
     for (const variantName in ref.variants) {
       if (Object.prototype.hasOwnProperty.call(ref.variants, variantName)) {
         const variant = ref.variants[variantName];
-        style.setProperty(apply.propertyName(variantName), apply.propertyValue(ref.palette, variant));
-        style.setProperty(apply.propertyName(`${variantName}-contrast`), apply.propertyValue(ref.palette, `${variant}-contrast`));
+        style.setProperty(
+          apply.propertyName(variantName),
+          apply.propertyValue(ref.palette, variant)
+        );
+        style.setProperty(
+          apply.propertyName(`${variantName}-contrast`),
+          apply.propertyValue(ref.palette, `${variant}-contrast`)
+        );
       }
     }
   }
-
-
 }

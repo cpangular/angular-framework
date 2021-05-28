@@ -1,4 +1,3 @@
-
 export interface IColorList {
   [key: string]: string;
 }

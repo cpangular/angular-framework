@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
-  selector: 'cp-tray-section',
+  selector: 'app-tray-section',
   templateUrl: './tray.component.html',
-  styleUrls: ['./tray.component.scss']
+  styleUrls: ['./tray.component.scss'],
 })
-export class TrayComponent implements OnInit {
+export class TrayComponent {
+  public opened: boolean = false;
 
-  public opened:boolean = false;
-
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  constructor() {}
 }

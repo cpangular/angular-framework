@@ -12,21 +12,21 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'tray'
+        redirectTo: 'tray',
       },
       {
         path: 'tray',
         component: TrayComponent,
         resolve: {
-          test: TtttResolver
-        }
+          test: TtttResolver,
+        },
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ContainersRoutingModule { }
+export class ContainersRoutingModule {}

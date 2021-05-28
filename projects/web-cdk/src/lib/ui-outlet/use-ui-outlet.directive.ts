@@ -1,13 +1,23 @@
+/* eslint-disable @angular-eslint/no-inputs-metadata-property */
 import { UiOutletService } from './ui-outlet.service';
-import { Directive, ElementRef, EmbeddedViewRef, Input, Optional, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EmbeddedViewRef,
+  Input,
+  Optional,
+  TemplateRef,
+  ViewContainerRef,
+  ViewRef,
+} from '@angular/core';
 import { UiOutletAttachmentBaseDirective } from './ui-outlet-attachment-base.directive';
 
 @Directive({
   selector: '[cpUseUiOutlet]',
   inputs: [
-    "name:cpUseUiOutlet"
+    'name:cpUseUiOutlet',
     //"disabled:cpUseUiOutletDisable"
-  ]
+  ],
 })
 export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
   private _viewRef: EmbeddedViewRef<any>;
@@ -16,12 +26,12 @@ export class UseUiOutletDirective extends UiOutletAttachmentBaseDirective {
   constructor(
     outletService: UiOutletService,
     viewContainerRef: ViewContainerRef,
-    templateRef: TemplateRef<any>,
+    templateRef: TemplateRef<any>
   ) {
     super(outletService);
     this._viewRef = viewContainerRef.createEmbeddedView(templateRef);
     this._nodes = this._viewRef.rootNodes;
-    this.nodes.forEach(n => this.removeNode(n));
+    this.nodes.forEach((n) => this.removeNode(n));
   }
 
   public get nodes(): Node[] {

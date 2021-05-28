@@ -1,4 +1,4 @@
-export enum ApplicationLayoutOutlets{
+export enum ApplicationLayoutOutlets {
   MainLoadingOverlay = 'app.internal.main.loading',
   ModalLoadingOverlay = 'app.internal.modal.loading',
   Top = 'app.internal.top',

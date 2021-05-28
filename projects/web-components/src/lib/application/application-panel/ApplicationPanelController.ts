@@ -1,6 +1,12 @@
 import { NgZone } from '@angular/core';
 import { ApplicationPanelComponent } from './application-panel.component';
-import { Observable, BehaviorSubject, of, isObservable, Subscription } from 'rxjs';
+import {
+  Observable,
+  BehaviorSubject,
+  of,
+  isObservable,
+  Subscription,
+} from 'rxjs';
 import { Resolvable } from '../Resolvable';
 
 export interface IApplicationPanelControllerOptions {
@@ -10,7 +16,8 @@ export interface IApplicationPanelControllerOptions {
    readonly openedChange: Observable<boolean>;*/
 }
 
-export interface IApplicationPanelController extends IApplicationPanelControllerOptions {
+export interface IApplicationPanelController
+  extends IApplicationPanelControllerOptions {
   readonly isOpen: boolean;
   readonly isOpenChange: Observable<boolean>;
   readonly isLockedOpen: boolean;
@@ -41,25 +48,27 @@ export interface IInternalApplicationPanelController {
   */
 }
 
-export class ApplicationPanelController implements IApplicationPanelController, IInternalApplicationPanelController {
-  private _appPanelComponent?: ApplicationPanelComponent
-  private _isOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _canOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private _canToggle: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+export class ApplicationPanelController
+  implements IApplicationPanelController, IInternalApplicationPanelController
+{
+  private _appPanelComponent?: ApplicationPanelComponent;
+  private _isOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  private _canOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  private _canToggle: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   //private _allowToggle: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
 
   private _opened: boolean = false;
   private _openedDebounce: number = 0;
   private _elementCount: number = 0;
 
-
-
-  constructor(private readonly zone: NgZone) {
-
-  }
+  constructor(private readonly zone: NgZone) {}
 
   public get appPanelComponent(): ApplicationPanelComponent | undefined {
     return this._appPanelComponent;
@@ -84,10 +93,10 @@ export class ApplicationPanelController implements IApplicationPanelController, 
     return this._isOpen.asObservable();
   }
 
-
   private _allowToggle: Resolvable<boolean> = true;
   private _allowToggleSub: Subscription = new Subscription();
-  private _allowToggleChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _allowToggleChange: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   public get allowToggleChange(): Observable<boolean> {
     return this._allowToggleChange.asObservable();
@@ -102,7 +111,7 @@ export class ApplicationPanelController implements IApplicationPanelController, 
       this._allowToggle = val;
       this._allowToggleSub.unsubscribe();
       const obs = isObservable(val) ? val : of(val);
-      this._allowToggleSub = obs.subscribe(v => {
+      this._allowToggleSub = obs.subscribe((v) => {
         this._allowToggleChange.next(v);
         this.invalidateOpenState();
       });
@@ -111,7 +120,8 @@ export class ApplicationPanelController implements IApplicationPanelController, 
 
   private _lockOpen: Resolvable<boolean> = false;
   private _lockOpenSub: Subscription = new Subscription();
-  private _lockOpenChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _lockOpenChange: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
   public get lockOpenChange(): Observable<boolean> {
     return this._lockOpenChange.asObservable();
@@ -130,7 +140,7 @@ export class ApplicationPanelController implements IApplicationPanelController, 
       this._lockOpen = val;
       this._lockOpenSub.unsubscribe();
       const obs = isObservable(val) ? val : of(val);
-      this._lockOpenSub = obs.subscribe(v => {
+      this._lockOpenSub = obs.subscribe((v) => {
         this._lockOpenChange.next(v);
         this.invalidateOpenState();
       });
@@ -145,7 +155,6 @@ export class ApplicationPanelController implements IApplicationPanelController, 
     return this._canToggle.value;
   }
 
-
   public get canOpenChange(): Observable<boolean> {
     return this._canOpen.asObservable();
   }
@@ -157,7 +166,6 @@ export class ApplicationPanelController implements IApplicationPanelController, 
   public get canOpen(): boolean {
     return this._canOpen.value;
   }
-
 
   public open() {
     if (!this._opened && this.allowToggle) {
@@ -183,7 +191,7 @@ export class ApplicationPanelController implements IApplicationPanelController, 
   private invalidateOpenState() {
     cancelAnimationFrame(this._openedDebounce);
     this._openedDebounce = requestAnimationFrame(() => {
-      this.zone.run(()=>{
+      this.zone.run(() => {
         this.validateOpenState();
       });
     });
@@ -197,7 +205,7 @@ export class ApplicationPanelController implements IApplicationPanelController, 
     const isOpen = canOpen && (lockOpen || this._opened);
 
     if (this._canToggle.value !== canToggle) {
-        this._canToggle.next(canToggle);
+      this._canToggle.next(canToggle);
     }
 
     if (this._canOpen.value !== canOpen) {
@@ -206,5 +214,4 @@ export class ApplicationPanelController implements IApplicationPanelController, 
 
     this._isOpen.next(isOpen);
   }
-
 }
