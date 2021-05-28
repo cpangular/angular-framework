@@ -1,23 +1,53 @@
 <div class="fixed-container">
-  <cp-application-panel anchor="top" [inline]="true"  [controller]="appService.topPanel"></cp-application-panel>
-  <cp-application-panel anchor="bottom" [inline]="true"  [controller]="appService.bottomPanel"></cp-application-panel>
-  <cp-application-panel anchor="left" [inline]="leftPanelInline"  [controller]="appService.leftPanel"></cp-application-panel>
-  <cp-application-panel anchor="right" [inline]="rightPanelInline"  [controller]="appService.rightPanel"></cp-application-panel>
+  <cp-application-panel
+    anchor="top"
+    [inline]="true"
+    [controller]="appService.topPanel"
+  ></cp-application-panel>
+  <cp-application-panel
+    anchor="bottom"
+    [inline]="true"
+    [controller]="appService.bottomPanel"
+  ></cp-application-panel>
+  <cp-application-panel
+    anchor="left"
+    [inline]="leftPanelInline"
+    [controller]="appService.leftPanel"
+  ></cp-application-panel>
+  <cp-application-panel
+    anchor="right"
+    [inline]="rightPanelInline"
+    [controller]="appService.rightPanel"
+  ></cp-application-panel>
   <div class="content" (sizeChange)="handleContentAreaResize($event)"></div>
   <div class="modal-bg" *ngIf="showModalBg" @modalInOutAnimation></div>
   <div class="overlay-container overlay-content">
-    <div class="loading-overlay" *ngIf="mainNavigationState" @loadingInOutAnimation>
+    <div
+      class="loading-overlay"
+      *ngIf="mainNavigationState"
+      @loadingInOutAnimation
+    >
       <ng-container *cpUseUiOutlet="'app.internal.main.loading'"></ng-container>
-    </div>d
+    </div>
+    d
   </div>
   <div class="overlay-container overlay-modal">
-    <div class="loading-overlay" *ngIf="modalNavigationState" @loadingInOutAnimation>
-      <ng-container *cpUseUiOutlet="'app.internal.modal.loading'"></ng-container>
+    <div
+      class="loading-overlay"
+      *ngIf="modalNavigationState"
+      @loadingInOutAnimation
+    >
+      <ng-container
+        *cpUseUiOutlet="'app.internal.modal.loading'"
+      ></ng-container>
     </div>
   </div>
 </div>
 
-<cp-application-header *cpUseUiOutlet="'app.internal.top'" [scrollable]="contentContainer"></cp-application-header>
+<cp-application-header
+  *cpUseUiOutlet="'app.internal.top'"
+  [scrollable]="contentContainer"
+></cp-application-header>
 
 <div class="content-container" #content cdkScrollable>
   2222222222222
@@ -25,9 +55,8 @@
 </div>
 
 <div class="modal-route-container">
-<!--
+  <!--
 
   <router-outlet #modalOutlet="outlet" name="modal" (activate)="modalOutletActivate($event)"
   (deactivate)="modalOutletDeactivate($event)" (cpNavigationStateHandler)="modalRouterEvent($event)"></router-outlet>
--->
-</div>
+--></div>
