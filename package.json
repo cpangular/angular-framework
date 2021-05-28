@@ -60,7 +60,7 @@
     "git:precommit": "run-s git:precommit:*",
     "git:precommit:format-package": "syncpack format",
     "git:precommit:lint": "lint-staged",
-    "xgit:precommit:finalize": "git add -u",
+    "git:precommit:finalize": "git add -u",
     "postinstall": "syncpack fix-mismatches",
     "build": "lerna run build ",
     "start": "yarn run build && lerna run --stream --parallel start",
