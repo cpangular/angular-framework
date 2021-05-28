@@ -88,21 +88,27 @@ class ZoneAwareBreakpointObservable
     this.bpo = bpo;
     this.zone = zone;
   }
+
   get eq(): Observable<boolean> {
     return this.bpo.eq.pipe(runInZone(this.zone));
   }
+
   get not(): Observable<boolean> {
     return this.bpo.not.pipe(runInZone(this.zone));
   }
+
   get lt(): Observable<boolean> {
     return this.bpo.lt.pipe(runInZone(this.zone));
   }
+
   get ltEq(): Observable<boolean> {
     return this.bpo.ltEq.pipe(runInZone(this.zone));
   }
+
   get gt(): Observable<boolean> {
     return this.bpo.gt.pipe(runInZone(this.zone));
   }
+
   get gtEq(): Observable<boolean> {
     return this.bpo.gtEq.pipe(runInZone(this.zone));
   }
