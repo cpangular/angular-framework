@@ -6,23 +6,23 @@
     "./projects/*"
   ],
   "scripts": {
+    "postinstall": "syncpack fix-mismatches",
     "build": "lerna run build ",
     "start": "yarn run build && lerna run --stream --parallel start",
     "app:build": "ng build test-app",
-    "app:start": "ng serve test-app",
+    "app:serve": "ng serve test-app",
     "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
-    "dev:unlink": "lerna run --stream --parallel dev:unlink",
-    "_asdf": "asdf"
+    "dev:unlink": "lerna run --stream --parallel dev:unlink"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.0",
-    "@angular/cdk": "12.0.0",
-    "@angular/common": "~12.0.0",
+    "@angular/cdk": "^12.0.0",
+    "@angular/common": "^12.0.0",
     "@angular/compiler": "~12.0.0",
-    "@angular/core": "~12.0.0",
+    "@angular/core": "^12.0.0",
     "@angular/forms": "~12.0.0",
-    "@angular/material": "12.0.0",
+    "@angular/material": "^12.0.0",
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
@@ -50,6 +50,7 @@
     "ng-packagr": "^12.0.0",
     "npm-run-all2": "^5.0.2",
     "protractor": "~7.0.0",
+    "syncpack": "^5.7.11",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.2.4"
