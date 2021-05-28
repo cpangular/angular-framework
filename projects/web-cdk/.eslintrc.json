@@ -20,7 +20,6 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "cp",
             "style": "camelCase"
           }
         ],
