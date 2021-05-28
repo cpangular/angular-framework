@@ -1,6 +1,6 @@
 {
-  "version": "0.0.17",
   "name": "@cpangular/angular-framework",
+  "version": "0.0.17",
   "dependencies": {
     "@angular/animations": "~12.0.0",
     "@angular/cdk": "^12.0.0",
@@ -48,6 +48,7 @@
     "prepare": "husky install",
     "git:precommit": "run-s git:precommit:*",
     "git:precommit:format-package": "syncpack format",
+    "git:precommit:finalize": "git add -u",
     "postinstall": "syncpack fix-mismatches",
     "build": "lerna run build ",
     "start": "yarn run build && lerna run --stream --parallel start",
