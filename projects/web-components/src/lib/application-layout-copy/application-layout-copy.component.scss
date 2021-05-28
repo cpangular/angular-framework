@@ -103,9 +103,8 @@
   }
 }
 
-
-:host{
-  .loading-overlay{
+:host {
+  .loading-overlay {
     display: flex;
     flex-direction: column;
     gap: 0.5em;

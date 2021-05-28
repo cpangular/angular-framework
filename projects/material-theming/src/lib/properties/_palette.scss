@@ -4,7 +4,7 @@
 
 $_instances: ();
 
-@function _getInstance($name){
+@function _getInstance($name) {
   @return map.get($_instances, $name);
 }
 
@@ -16,10 +16,10 @@ $_instances: ();
   @return $inst;
 }
 
-@function _create($name, $colors){
+@function _create($name, $colors) {
   $inst: (
     name: $name,
-    colors: $colors
+    colors: $colors,
   );
   $_instances: map.set($_instances, $name, $inst) !global;
   @return $inst;
@@ -37,9 +37,12 @@ $_instances: ();
     /* #{$name} palette */
     #{define.propertyName('palette')}: #{define.propertyValue($name)};
     @each $key, $contrast in $contrasts {
-      #{color.propertyName($name, $key)}: #{color.propertyValue(map.get($colors, $key))};
-      #{color.propertyName($name, '#{$key}-contrast')}: #{color.propertyValue($contrast)};
+      #{color.propertyName($name, $key)}: #{color.propertyValue(
+          map.get($colors, $key)
+        )};
+      #{color.propertyName($name, '#{$key}-contrast')}: #{color.propertyValue(
+          $contrast
+        )};
     }
   }
-
 }

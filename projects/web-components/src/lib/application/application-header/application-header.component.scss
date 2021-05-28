@@ -1,7 +1,7 @@
-:host{
+:host {
   display: block;
   pointer-events: none;
-  cp-tray ::ng-deep > div > *{
+  cp-tray ::ng-deep > div > * {
     pointer-events: all;
   }
 }

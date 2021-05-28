@@ -14,7 +14,7 @@
       $p2: "#{$width},#{$height}";
       $p3: "0,#{$height}";
     }
-  }@else{
+  } @else {
     @if $slopeFactor >= 0 {
       $p1: "0,0";
       $p2: "#{$width},0";
@@ -25,7 +25,6 @@
       $p3: "#{$width},#{$height}";
     }
   }
-
 
   @return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{$width} #{$height}" version="1.1">' +
     '<polygon points="#{$p1} #{$p2} #{$p3}" style="fill:#{$color};stroke:none"/>' +

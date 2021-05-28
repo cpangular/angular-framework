@@ -4,7 +4,12 @@
 @use '../../properties/applied/color';
 @use 'sass:map';
 
-@function paletteOptions($default: 500, $lighter: 100, $darker: 700, $text: $default) {
+@function paletteOptions(
+  $default: 500,
+  $lighter: 100,
+  $darker: 700,
+  $text: $default
+) {
   @return (default: $default, lighter: $lighter, darker: $darker, text: $text);
 }
 
@@ -90,15 +95,23 @@
   @return (name: $paletteDef, options: $options);
 }
 
-@function themeOptions($palettes, $background:useBackgroundPalette('light-background'), $foreground:useForegroundPalette('light-background')) {
-  @return (palettes: $palettes, background: $background, foreground: $foreground);
+@function themeOptions(
+  $palettes,
+  $background: useBackgroundPalette("light-background"),
+  $foreground: useForegroundPalette("light-background")
+) {
+  @return (
+    palettes: $palettes,
+    background: $background,
+    foreground: $foreground
+  );
 }
 
-@mixin define($name, $options:themeOptions()) {
+@mixin define($name, $options: themeOptions()) {
   @include theme.define($name, $options);
 }
 
-@mixin apply($name, $selector:'') {
+@mixin apply($name, $selector: "") {
   @include theme.apply($name, $selector);
 }
 
@@ -108,14 +121,30 @@
 
   @each $key in variants.$basic {
     $palette: map.set($palette, $key, #{color.propertyLink($name, $key)});
-    $palette: map.set($palette, '#{$key}-contrast', #{color.propertyLink($name, '#{$key}-contrast')});
-    $contrast: map.set($contrast, $key, #{color.propertyLink($name, '#{$key}-contrast')});
+    $palette: map.set(
+      $palette,
+      "#{$key}-contrast",
+      #{color.propertyLink($name, "#{$key}-contrast")}
+    );
+    $contrast: map.set(
+      $contrast,
+      $key,
+      #{color.propertyLink($name, "#{$key}-contrast")}
+    );
   }
 
   @each $key in variants.$named {
     $palette: map.set($palette, $key, #{color.propertyLink($name, $key)});
-    $palette: map.set($palette, '#{$key}-contrast', #{color.propertyLink($name, '#{$key}-contrast')});
-    $contrast: map.set($contrast, $key, #{color.propertyLink($name, '#{$key}-contrast')});
+    $palette: map.set(
+      $palette,
+      "#{$key}-contrast",
+      #{color.propertyLink($name, "#{$key}-contrast")}
+    );
+    $contrast: map.set(
+      $contrast,
+      $key,
+      #{color.propertyLink($name, "#{$key}-contrast")}
+    );
   }
 
   @return map.set($palette, "contrast", $contrast);
@@ -124,12 +153,12 @@
 @function _build-theme-config($is-dark) {
   $foreground: ();
   @each $key in variants.$foreground {
-    $foreground: map.set($foreground, $key, #{'var(--foreground-#{$key})'});
+    $foreground: map.set($foreground, $key, #{"var(--foreground-#{$key})"});
   }
 
   $background: ();
   @each $key in variants.$background {
-    $background: map.set($background, $key, #{'var(--background-#{$key})'});
+    $background: map.set($background, $key, #{"var(--background-#{$key})"});
   }
 
   @return (
@@ -145,7 +174,6 @@
 @function _build() {
   @return (color: _build-theme-config(false));
 }
-
 
 @mixin create() {
   @include theming.mat-core();

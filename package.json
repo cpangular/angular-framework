@@ -52,7 +52,7 @@
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
-    "*.{ts,js,css,md}": "prettier --write"
+    "*.{ts,js,css,scss,md}": "prettier --write"
   },
   "private": true,
   "repository": "https://github.com/cpangular/angular-framework",
