@@ -1,6 +1,6 @@
 {
-  "name": "@cpangular/angular-framework",
   "version": "0.0.17",
+  "name": "@cpangular/angular-framework",
   "dependencies": {
     "@angular/animations": "~12.0.0",
     "@angular/cdk": "^12.0.0",
