@@ -17,7 +17,7 @@ jobs:
           node-version: "${{ env.NODE_VERSION }}"
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          scope: ${{ github.owner }}
+          scope: ${{ github.repository_owner }}
 
       - name: Get package version
         id: package_version_str
@@ -27,7 +27,7 @@ jobs:
         uses: mukunku/tag-exists-action@v1.0.0
         id: checkTag
         with:
-          tag: 'v${{ steps.package_version_str.outputs.current-version }}'
+          tag: "v${{ steps.package_version_str.outputs.current-version }}"
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -76,6 +76,4 @@ jobs:
           body: |
             Generated Release ${{ steps.pkgVersion.outputs.full }}
           draft: false
-          prerelease: ${{ steps.version.outputs.isPrerelease || steps.version.outputs.major == 0 }}
-
-
+          prerelease: ${{ steps.version.outputs.isPrerelease }}

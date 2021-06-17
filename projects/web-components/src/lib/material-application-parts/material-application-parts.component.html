@@ -1,8 +1,10 @@
-<div *cpUseUiOutlet="LayoutOutlet.Header" class="application-header">
+<div *cpUseUiOutlet="LayoutOutlet.Header" class="application-header-container">
   <ng-container cpUiOutlet="app.header"></ng-container>
   <div class="application-header-toolbar">
-    <mat-toolbar class="logo-container" color="accent">
-      LOGO
+    <mat-toolbar class="logo-container" color="primary">
+      <svg class="logo" src="assets/logos/logo.svg"></svg>
+
+      <ng-container cpUiOutlet="app.logo"></ng-container>
     </mat-toolbar>
     <mat-toolbar class="toolbar-container" color="primary">
       <div class="left">

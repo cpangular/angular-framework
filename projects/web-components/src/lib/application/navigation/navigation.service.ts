@@ -1,10 +1,16 @@
-import { ActivatedRouteSnapshot, Router, RoutesRecognized, NavigationEnd, NavigationCancel } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RoutesRecognized,
+  NavigationEnd,
+  NavigationCancel,
+} from '@angular/router';
 import { Injectable } from '@angular/core';
 import { NavigationStateHandlerDirective } from './navigation-state-handler.directive';
 
-
-
-function flattenActivatedRoute(r: ActivatedRouteSnapshot): ActivatedRouteSnapshot[] {
+function flattenActivatedRoute(
+  r: ActivatedRouteSnapshot
+): ActivatedRouteSnapshot[] {
   const arr: ActivatedRouteSnapshot[] = [];
   arr.push(r);
   if (r.children.length) {
@@ -15,7 +21,10 @@ function flattenActivatedRoute(r: ActivatedRouteSnapshot): ActivatedRouteSnapsho
   return arr;
 }
 
-function matchesUntil(aList: ActivatedRouteSnapshot[], bList: ActivatedRouteSnapshot[]): number {
+function matchesUntil(
+  aList: ActivatedRouteSnapshot[],
+  bList: ActivatedRouteSnapshot[]
+): number {
   for (let i = 0; i < aList.length; i++) {
     const a = aList[i];
     const b = bList[i];
@@ -26,17 +35,14 @@ function matchesUntil(aList: ActivatedRouteSnapshot[], bList: ActivatedRouteSnap
   return aList.length - 1;
 }
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private _eventDirectives: Set<NavigationStateHandlerDirective> = new Set();
   private target?: NavigationStateHandlerDirective;
-  constructor(
-    private readonly router: Router
-  ) {
-    router.events.subscribe(e => {
+  constructor(private readonly router: Router) {
+    router.events.subscribe((e) => {
       if (e instanceof RoutesRecognized) {
         const old = flattenActivatedRoute(router.routerState.root.snapshot);
         const cur = flattenActivatedRoute(e.state.root);
@@ -52,22 +58,22 @@ export class NavigationService {
         }
         this.target = directives[0];
         this.target?.activate(e);
-      } else if (
-        e instanceof NavigationEnd ||
-        e instanceof NavigationCancel
-      ) {
+      } else if (e instanceof NavigationEnd || e instanceof NavigationCancel) {
         this.target?.deactivate(e);
         this.target = undefined;
       }
     });
-
   }
 
-  public addNavigationEventsDirective(d: NavigationStateHandlerDirective): void {
+  public addNavigationEventsDirective(
+    d: NavigationStateHandlerDirective
+  ): void {
     this._eventDirectives.add(d);
   }
 
-  public removeNavigationEventsDirective(d: NavigationStateHandlerDirective): void {
+  public removeNavigationEventsDirective(
+    d: NavigationStateHandlerDirective
+  ): void {
     this._eventDirectives.delete(d);
   }
 }

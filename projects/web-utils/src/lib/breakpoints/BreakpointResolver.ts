@@ -13,8 +13,8 @@ export class BreakpointResolver<T> extends Observable<T> {
     dict: Record<string, BreakpointCheckFn> = {},
     element: Element = document.documentElement
   ) {
-    super(obs => {
-      const sub = this.conditionResolver.subscribe(val => {
+    super((obs) => {
+      const sub = this.conditionResolver.subscribe((val) => {
         obs.next(val);
       });
       return () => {
@@ -26,5 +26,4 @@ export class BreakpointResolver<T> extends Observable<T> {
       element
     ).pipe(share(), distinctUntilChanged());
   }
-
 }

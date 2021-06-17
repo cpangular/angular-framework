@@ -27,15 +27,16 @@
   .logo-container {
     flex: 0 0 0;
     padding: 0;
+    .logo {
+      height: 100%;
+    }
   }
   .toolbar-container {
     flex: 1 1 100%;
 
-    .left{
-
+    .left {
     }
-    .right{
-
+    .right {
     }
   }
 }

@@ -1,6 +1,4 @@
-import { Observable, Subscriber } from "rxjs";
-
-
+import { Observable, Subscriber } from 'rxjs';
 
 export class ResizeObservable extends Observable<ResizeObserverEntry> {
   private targets: Set<Element> = new Set();
@@ -8,11 +6,11 @@ export class ResizeObservable extends Observable<ResizeObserverEntry> {
   private observer!: ResizeObserver;
 
   constructor() {
-    super(sub => {
+    super((sub) => {
       this.subs.add(sub);
       return () => {
         this.subs.delete(sub);
-      }
+      };
     });
 
     this.observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
@@ -33,5 +31,4 @@ export class ResizeObservable extends Observable<ResizeObserverEntry> {
     this.targets.delete(target);
     this.observer.unobserve(target);
   }
-
 }

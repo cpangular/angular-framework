@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TtttResolver implements Resolve<any> {
-
-constructor() { }
+  constructor() {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return new Promise(res =>{
+    return new Promise((res) => {
       setTimeout(res, 1000);
-    })
+    });
   }
-
 }

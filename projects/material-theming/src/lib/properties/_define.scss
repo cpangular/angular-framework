@@ -1,8 +1,7 @@
-
-@function propertyName($type){
-  @return '--define-#{$type}';
+@function propertyName($type) {
+  @return "--define-#{$type}";
 }
 
 @function propertyValue($value) {
-  @return '#{$value}';
+  @return "#{$value}";
 }

@@ -13,7 +13,7 @@ yarn.lock
 /bazel-out
 
 # dependencies
-/node_modules
+node_modules/
 
 # profiling files
 chrome-profiler-events*.json
@@ -45,6 +45,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+.eslintcache
 
 # System Files
 .DS_Store

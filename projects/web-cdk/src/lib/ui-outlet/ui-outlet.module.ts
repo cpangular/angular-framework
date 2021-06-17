@@ -4,20 +4,17 @@ import { UiOutletDirective } from './ui-outlet.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [
     UiOutletDirective,
     UseUiOutletDirective,
-    IfUiOutletAttachmentsDirective
+    IfUiOutletAttachmentsDirective,
   ],
   exports: [
     UiOutletDirective,
     UseUiOutletDirective,
-    IfUiOutletAttachmentsDirective
-  ]
+    IfUiOutletAttachmentsDirective,
+  ],
 })
-export class UiOutletModule { }
+export class UiOutletModule {}

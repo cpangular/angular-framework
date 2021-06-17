@@ -1,12 +1,8 @@
 {
   "name": "@cpangular/material-theming",
   "version": "0.0.0",
-  "repository": "https://github.com/cpangular/angular-framework",
-  "scripts": {
-    "build": "ng build material-theming",
-    "start": "ng build material-theming --watch",
-    "dev:link": "cd ../../dist/material-theming && yarn link",
-    "dev:unlink": "cd ../../dist/material-theming && yarn unlink"
+  "dependencies": {
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "@angular/cdk": "^12.0.0",
@@ -15,11 +11,15 @@
     "@angular/material": "^12.0.0",
     "linq": "^3.2.3"
   },
-  "dependencies": {
-    "tslib": "^2.0.0"
-  },
   "publishConfig": {
     "access": "public",
     "directory": "../../dist/material-theming"
+  },
+  "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "build": "ng build material-theming",
+    "start": "ng build material-theming --watch",
+    "dev:link": "cd ../../dist/material-theming && yarn link",
+    "dev:unlink": "cd ../../dist/material-theming && yarn unlink"
   }
 }

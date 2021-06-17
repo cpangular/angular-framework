@@ -3,9 +3,9 @@ name: Build
 on:
   push:
     branches:
-    - "*"
-    - "!master"
-    - "!release/v*"
+      - "*"
+      - "!master"
+      - "!release/v*"
 
 env:
   NODE_VERSION: 14.x
@@ -20,7 +20,7 @@ jobs:
           node-version: "${{ env.NODE_VERSION }}"
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          scope: ${{ github.owner }}
+          scope: ${{ github.repository_owner }}
 
       - name: Init
         run: yarn --no-lockfile

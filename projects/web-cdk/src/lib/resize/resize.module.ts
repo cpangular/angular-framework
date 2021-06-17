@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [ResizeDirective],
-  exports: [ResizeDirective]
+  exports: [ResizeDirective],
 })
-export class ResizeModule { }
+export class ResizeModule {}

@@ -1,7 +1,6 @@
-
 @use '../../../../materialTheme';
 
-$theme:(
+$theme: (
   palettes: (
     primary: materialTheme.usePalette("orange"),
     accent: materialTheme.usePalette("blue"),
@@ -9,4 +8,4 @@ $theme:(
   ),
   background: materialTheme.useBackgroundPalette("bg-light"),
   foreground: materialTheme.useForegroundPalette("bg-light"),
-)
+);

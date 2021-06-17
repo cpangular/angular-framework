@@ -1,13 +1,23 @@
 import { ResolveStackMap } from '@cpangular/web-utils';
 import { Injectable, Type, NgZone } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router, RoutesRecognized } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+  RoutesRecognized,
+} from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ApplicationHeaderController, IApplicationHeaderController } from './application-header/ApplicationHeaderController';
+import {
+  ApplicationHeaderController,
+  IApplicationHeaderController,
+} from './application-header/ApplicationHeaderController';
 import { IApplicationLayoutComponent } from './application-layout/IApplicationLayoutComponent';
-import { ApplicationPanelController, IApplicationPanelController } from './application-panel/ApplicationPanelController';
+import {
+  ApplicationPanelController,
+  IApplicationPanelController,
+} from './application-panel/ApplicationPanelController';
 
-
-class ApplicationProperty<T>{
+class ApplicationProperty<T> {
   protected _change: BehaviorSubject<T>;
 
   constructor(startValue: T) {
@@ -29,24 +39,20 @@ class ApplicationProperty<T>{
   }
 }
 
-
-
-
-class ApplicationTitle extends ApplicationProperty<string>{
+class ApplicationTitle extends ApplicationProperty<string> {
   constructor() {
     super('');
-    this.valueChange.subscribe(title => {
+    this.valueChange.subscribe((title) => {
       document.title = title;
     });
   }
 }
 
-export interface INavigationController {
+export interface INavigationController {}
 
-}
-
-
-function flattenActivatedRoute(r: ActivatedRouteSnapshot): ActivatedRouteSnapshot[] {
+function flattenActivatedRoute(
+  r: ActivatedRouteSnapshot
+): ActivatedRouteSnapshot[] {
   const arr: ActivatedRouteSnapshot[] = [];
   arr.push(r);
   if (r.children.length) {
@@ -57,7 +63,10 @@ function flattenActivatedRoute(r: ActivatedRouteSnapshot): ActivatedRouteSnapsho
   return arr;
 }
 
-function matchesUntil(aList: ActivatedRouteSnapshot[], bList: ActivatedRouteSnapshot[]): number {
+function matchesUntil(
+  aList: ActivatedRouteSnapshot[],
+  bList: ActivatedRouteSnapshot[]
+): number {
   for (let i = 0; i < aList.length; i++) {
     const a = aList[i];
     const b = bList[i];
@@ -70,50 +79,44 @@ function matchesUntil(aList: ActivatedRouteSnapshot[], bList: ActivatedRouteSnap
 
 export class NavigationController implements INavigationController {
   //  public readonly navigationState: NavigationStateObservable = new NavigationStateObservable(this.router);
-  constructor(
-    private readonly router: Router
-  ) {
-    router.events.subscribe(e => {
+  constructor(private readonly router: Router) {
+    router.events.subscribe((e) => {
       if (e instanceof RoutesRecognized) {
         const old = flattenActivatedRoute(router.routerState.root.snapshot);
         const cur = flattenActivatedRoute(e.state.root);
         const lastMatch = matchesUntil(old, cur);
         const match = lastMatch === -1 ? null : old[lastMatch];
-
-
       }
     });
-
   }
 }
 
-export class ApplicationLayoutResolver extends ResolveStackMap<ActivatedRoute, Type<IApplicationLayoutComponent>>{
-
-}
-
-
+export class ApplicationLayoutResolver extends ResolveStackMap<
+  ActivatedRoute,
+  Type<IApplicationLayoutComponent>
+> {}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApplicationService {
   public readonly title: ApplicationTitle = new ApplicationTitle();
 
-  public readonly layout: ApplicationLayoutResolver = new ApplicationLayoutResolver();
+  public readonly layout: ApplicationLayoutResolver =
+    new ApplicationLayoutResolver();
 
-  public readonly header: IApplicationHeaderController = new ApplicationHeaderController();
-  public readonly leftPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
-  public readonly rightPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
-  public readonly topPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
-  public readonly bottomPanel: IApplicationPanelController = new ApplicationPanelController(this.zone);
-  public readonly navigation: INavigationController = new NavigationController(this.router);
-  constructor(
-    private readonly router: Router,
-    private readonly zone: NgZone,
-  ) { }
-
-
-
-
-
+  public readonly header: IApplicationHeaderController =
+    new ApplicationHeaderController();
+  public readonly leftPanel: IApplicationPanelController =
+    new ApplicationPanelController(this.zone);
+  public readonly rightPanel: IApplicationPanelController =
+    new ApplicationPanelController(this.zone);
+  public readonly topPanel: IApplicationPanelController =
+    new ApplicationPanelController(this.zone);
+  public readonly bottomPanel: IApplicationPanelController =
+    new ApplicationPanelController(this.zone);
+  public readonly navigation: INavigationController = new NavigationController(
+    this.router
+  );
+  constructor(private readonly router: Router, private readonly zone: NgZone) {}
 }

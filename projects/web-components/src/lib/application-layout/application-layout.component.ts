@@ -15,12 +15,12 @@ import { ModalInOutAnimation } from './animations/modal';
   selector: 'cp-application-layout',
   templateUrl: './application-layout.component.html',
   styleUrls: ['./application-layout.component.scss'],
-  animations: [
-    ModalInOutAnimation,
-    LoadingInOutAnimation
-  ]
+  animations: [ModalInOutAnimation, LoadingInOutAnimation],
 })
-export class ApplicationLayoutComponent extends ApplicationLayout implements IApplicationLayoutComponent {
+export class ApplicationLayoutComponent
+  extends ApplicationLayout
+  implements IApplicationLayoutComponent
+{
   public LayoutOutlet = ApplicationLayoutOutlets;
   @HostBinding('class.application-layout')
   private cssClass = true;
@@ -43,9 +43,11 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
 
   @HostBinding('class.modal')
   public get showModalBg(): boolean {
-    return this.appShell.modalRouteActive
-      || (this.appService.leftPanel.isOpen && !this.leftPanelInline)
-      || (this.appService.rightPanel.isOpen && !this.rightPanelInline)
+    return (
+      this.appShell.modalRouteActive ||
+      (this.appService.leftPanel.isOpen && !this.leftPanelInline) ||
+      (this.appService.rightPanel.isOpen && !this.rightPanelInline)
+    );
   }
   @HostBinding('attr.modalSize')
   protected get modalSize(): string {
@@ -55,26 +57,24 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     return 'content';
   }
 
-
   @ViewChild('content', { static: true, read: CdkScrollable })
   public contentContainer!: CdkScrollable;
-
 
   constructor(
     breakpointService: BreakpointService,
     router: Router,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly appShell: ApplicationShellComponent,
-    public readonly appService: ApplicationService,
+    public readonly appService: ApplicationService
   ) {
     super(breakpointService, router);
   }
 
-  public get mainNavigationState(){
+  public get mainNavigationState() {
     return this.appShell.mainNavigationState;
   }
 
-  public get modalNavigationState(){
+  public get modalNavigationState() {
     return this.appShell.modalNavigationState;
   }
 
@@ -105,7 +105,4 @@ export class ApplicationLayoutComponent extends ApplicationLayout implements IAp
     varTarget.style.setProperty('--content-height', height + 'px');
     varTarget.style.setProperty('--scrollbar-width', scrollBarWidth + 'px');
   }
-
-
-
 }

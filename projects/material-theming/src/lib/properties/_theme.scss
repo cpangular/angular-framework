@@ -61,9 +61,13 @@ $_instances: ();
 
     $palletName: map.get($paletteDef, "name");
     $opts: map.get($paletteDef, "options");
-    #{color.propertyName($name, $palletKey,'name')}: #{color.propertyValue($palletName)};
+    #{color.propertyName($name, $palletKey,'name')}: #{color.propertyValue(
+        $palletName
+      )};
     @each $key, $val in $opts {
-      #{color.propertyName($name, $palletKey, $key)}: #{color.propertyValue($val)};
+      #{color.propertyName($name, $palletKey, $key)}: #{color.propertyValue(
+          $val
+        )};
     }
   }
 }
@@ -97,7 +101,7 @@ $_instances: ();
   }
 }
 
-@mixin apply($name, $selector: '') {
+@mixin apply($name, $selector: "") {
   $theme: get($name);
   $root: ":root" #{$selector};
   @at-root #{$root} {
@@ -119,7 +123,10 @@ $_instances: ();
     $paletteContrast: map.get($paletteColors, "contrast");
 
     @each $key, $val in $paletteContrast {
-      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue($palletName, $key)};
+      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue(
+          $palletName,
+          $key
+        )};
       #{applyColor.propertyName($palleteKey, '#{$key}-contrast')}: #{applyColor.propertyValue(
           $palletName,
           "#{$key}-contrast"
@@ -129,7 +136,10 @@ $_instances: ();
     $opts: map.get($paletteDef, "options");
 
     @each $key, $val in $opts {
-      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue($palletName, $val)};
+      #{applyColor.propertyName($palleteKey, $key)}: #{applyColor.propertyValue(
+          $palletName,
+          $val
+        )};
       #{applyColor.propertyName($palleteKey, '#{$key}-contrast')}: #{applyColor.propertyValue(
           $palletName,
           "#{$val}-contrast"
@@ -145,7 +155,10 @@ $_instances: ();
   $opts: map.get($background, "options");
 
   @each $key, $val in $opts {
-    #{applyBackground.propertyName($key)}: #{applyBackground.propertyValue($paletteName, $val)};
+    #{applyBackground.propertyName($key)}: #{applyBackground.propertyValue(
+        $paletteName,
+        $val
+      )};
   }
 }
 
@@ -156,6 +169,9 @@ $_instances: ();
   $opts: map.get($foreground, "options");
 
   @each $key, $val in $opts {
-    #{applyForeground.propertyName($key)}: #{applyForeground.propertyValue($paletteName, $val)};
+    #{applyForeground.propertyName($key)}: #{applyForeground.propertyValue(
+        $paletteName,
+        $val
+      )};
   }
 }

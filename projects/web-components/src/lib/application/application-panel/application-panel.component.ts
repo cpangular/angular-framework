@@ -1,13 +1,24 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, NgZone } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  OnDestroy,
+  NgZone,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutOutlets } from '../application-layout/ApplicationLayoutOutlets';
-import { ApplicationPanelController, IApplicationPanelController } from './ApplicationPanelController';
+import {
+  ApplicationPanelController,
+  IApplicationPanelController,
+} from './ApplicationPanelController';
 
 @Component({
   selector: 'cp-application-panel',
   templateUrl: './application-panel.component.html',
   styleUrls: ['./application-panel.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicationPanelComponent implements OnDestroy {
   public LayoutOutlet = ApplicationLayoutOutlets;
@@ -15,7 +26,8 @@ export class ApplicationPanelComponent implements OnDestroy {
   private cssClass = true;
 
   private _controllerSubs: Subscription = new Subscription();
-  private _controller: ApplicationPanelController = new ApplicationPanelController(this.zone);
+  private _controller: ApplicationPanelController =
+    new ApplicationPanelController(this.zone);
 
   @Input()
   public get controller(): IApplicationPanelController {
@@ -28,13 +40,14 @@ export class ApplicationPanelComponent implements OnDestroy {
       this._controllerSubs = new Subscription();
       this._controller.appPanelComponent = this;
       const openObs = this._controller.isOpenChange;
-      this._controllerSubs.add(openObs.subscribe(_ => this.changeRef.markForCheck()))
+      this._controllerSubs.add(
+        openObs.subscribe((_) => this.changeRef.markForCheck())
+      );
     }
   }
 
   @Input()
   public anchor: 'top' | 'left' | 'bottom' | 'right' = 'top';
-
 
   public get isOpen(): boolean {
     return this._controller.isOpen;
@@ -53,8 +66,6 @@ export class ApplicationPanelComponent implements OnDestroy {
     }
   }
 
-
-
   @Input()
   @HostBinding('class.inline')
   public inline: boolean = true;
@@ -62,8 +73,7 @@ export class ApplicationPanelComponent implements OnDestroy {
   constructor(
     private readonly changeRef: ChangeDetectorRef,
     private readonly zone: NgZone
-  ) { }
-
+  ) {}
 
   ngOnDestroy(): void {
     this._controllerSubs.unsubscribe();

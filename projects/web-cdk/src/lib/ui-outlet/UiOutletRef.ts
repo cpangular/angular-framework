@@ -3,10 +3,9 @@ import { IUiOutlet } from './IUiOutlet';
 import { IUiOutletAttachment } from './IUiOutletAttachment';
 import { UiOutletService } from './ui-outlet.service';
 
-
 export interface IUiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> {
   readonly outlet?: TOutlet;
-  readonly attachments: IUiOutletAttachment[]
+  readonly attachments: IUiOutletAttachment[];
   readonly attachmentCreated: EventEmitter<IUiOutletAttachment>;
   readonly attachmentDestroyed: EventEmitter<IUiOutletAttachment>;
   readonly attachmentAttached: EventEmitter<IUiOutletAttachment>;
@@ -16,17 +15,22 @@ export interface IUiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> {
   readonly outletDestroyed: EventEmitter<TOutlet>;
 }
 
-export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOutletRef<TOutlet>{
+export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet>
+  implements IUiOutletRef<TOutlet>
+{
   private _attachments: Set<IUiOutletAttachment> = new Set();
 
-  public readonly attachmentCreated: EventEmitter<IUiOutletAttachment> = new EventEmitter();
-  public readonly attachmentDestroyed: EventEmitter<IUiOutletAttachment> = new EventEmitter();
-  public readonly attachmentAttached: EventEmitter<IUiOutletAttachment> = new EventEmitter();
-  public readonly attachmentDetached: EventEmitter<IUiOutletAttachment> = new EventEmitter();
+  public readonly attachmentCreated: EventEmitter<IUiOutletAttachment> =
+    new EventEmitter();
+  public readonly attachmentDestroyed: EventEmitter<IUiOutletAttachment> =
+    new EventEmitter();
+  public readonly attachmentAttached: EventEmitter<IUiOutletAttachment> =
+    new EventEmitter();
+  public readonly attachmentDetached: EventEmitter<IUiOutletAttachment> =
+    new EventEmitter();
 
   public readonly outletCreated: EventEmitter<TOutlet> = new EventEmitter();
   public readonly outletDestroyed: EventEmitter<TOutlet> = new EventEmitter();
-
 
   private _outlet?: TOutlet;
 
@@ -42,11 +46,7 @@ export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOu
     return this._attachments.size;
   }
 
-  public constructor(
-    public readonly name: string
-  ) {
-
-  }
+  public constructor(public readonly name: string) {}
 
   public setOutlet(outlet: TOutlet | undefined) {
     if (this.outlet !== outlet) {
@@ -58,7 +58,7 @@ export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOu
   private _removeOutlet() {
     if (this.outlet) {
       if (this.attachmentCount) {
-        this.attachments.forEach(attachment => {
+        this.attachments.forEach((attachment) => {
           this.outlet?.removeNodes(attachment.nodes);
           this.attachmentDetached.emit(attachment);
         });
@@ -71,7 +71,7 @@ export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOu
     if (outlet !== undefined) {
       this.outletCreated.emit(outlet);
       if (this.attachmentCount) {
-        this.attachments.forEach(attachment => {
+        this.attachments.forEach((attachment) => {
           outlet.addNodes(attachment.nodes);
           this.attachmentAttached.emit(attachment);
         });
@@ -101,6 +101,4 @@ export class UiOutletRef<TOutlet extends IUiOutlet = IUiOutlet> implements IUiOu
       this.attachmentDestroyed.emit(attachment);
     }
   }
-
-
 }

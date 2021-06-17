@@ -1,12 +1,11 @@
-
-@function propertyPrefix($theme){
-  @return '--theme-#{$theme}-palette-';
+@function propertyPrefix($theme) {
+  @return "--theme-#{$theme}-palette-";
 }
 
-@function propertyName($theme, $palette, $name){
-  @return '#{propertyPrefix($theme)}#{$palette}-#{$name}';
+@function propertyName($theme, $palette, $name) {
+  @return "#{propertyPrefix($theme)}#{$palette}-#{$name}";
 }
 
 @function propertyValue($value) {
-  @return '#{$value}';
+  @return "#{$value}";
 }

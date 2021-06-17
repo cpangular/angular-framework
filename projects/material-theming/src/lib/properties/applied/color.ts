@@ -1,6 +1,5 @@
 import * as color from '../palettes/color';
 
-
 export function propertyName(palette: string, variant: string): string {
   return `--color-${palette}-${variant}`;
 }

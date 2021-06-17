@@ -1,10 +1,9 @@
 @use '../palettes/color';
 
-
-@function propertyName($name){
-  @return '--background-#{$name}';
+@function propertyName($name) {
+  @return "--background-#{$name}";
 }
 
 @function propertyValue($palette, $variant) {
-  @return 'var(#{color.propertyName($palette, $variant)})';
+  @return "var(#{color.propertyName($palette, $variant)})";
 }

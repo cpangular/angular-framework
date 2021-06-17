@@ -1,6 +1,4 @@
-
 export class BreakpointUtil {
-
   public static eq(cmpResult: number): boolean {
     return cmpResult === 0;
   }
@@ -24,5 +22,4 @@ export class BreakpointUtil {
   public static gtEq(cmpResult: number): boolean {
     return cmpResult !== -1;
   }
-
 }

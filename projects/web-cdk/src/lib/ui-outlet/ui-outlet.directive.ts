@@ -6,17 +6,14 @@ import { UiOutletService } from './ui-outlet.service';
 
 @Directive({
   selector: 'ng-container[cpUiOutlet]',
-  exportAs: 'outlet'
+  exportAs: 'outlet',
 })
 export class UiOutletDirective extends UIOutletBaseDirective {
-
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('cpUiOutlet')
   public name!: string;
 
-  constructor(
-    outletService: UiOutletService,
-    elementRef: ElementRef<Comment>
-  ) {
+  constructor(outletService: UiOutletService, elementRef: ElementRef<Comment>) {
     super(outletService, elementRef);
   }
 
@@ -34,5 +31,4 @@ export class UiOutletDirective extends UIOutletBaseDirective {
       node.parentElement?.removeChild(node);
     }
   }
-
 }

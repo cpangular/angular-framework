@@ -1,24 +1,14 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.17",
-  "repository": "https://github.com/cpangular/angular-framework",
-  "scripts": {
-    "build": "lerna run  build ",
-    "start": "lerna run --stream --parallel start",
-    "app:build": "ng build test-app",
-    "app:start": "ng serve test-app",
-    "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
-    "dev:unlink": "lerna run --stream --parallel dev:unlink"
-  },
-  "private": true,
+  "version": "0.0.18",
   "dependencies": {
     "@angular/animations": "~12.0.0",
-    "@angular/cdk": "12.0.0",
-    "@angular/common": "~12.0.0",
+    "@angular/cdk": "^12.0.0",
+    "@angular/common": "^12.0.0",
     "@angular/compiler": "~12.0.0",
-    "@angular/core": "~12.0.0",
+    "@angular/core": "^12.0.0",
     "@angular/forms": "~12.0.0",
-    "@angular/material": "12.0.0",
+    "@angular/material": "^12.0.0",
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
@@ -29,12 +19,20 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.0.0",
+    "@angular-eslint/builder": "12.0.0",
+    "@angular-eslint/eslint-plugin": "12.0.0",
+    "@angular-eslint/eslint-plugin-template": "12.0.0",
+    "@angular-eslint/schematics": "12.0.0",
+    "@angular-eslint/template-parser": "12.0.0",
     "@angular/cli": "~12.0.0",
     "@angular/compiler-cli": "~12.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@types/resize-observer-browser": "^0.1.5",
-    "codelyzer": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
+    "eslint": "^7.26.0",
+    "husky": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.2",
@@ -43,11 +41,44 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "lerna": "^4.0.0",
+    "lint-staged": ">=10",
     "ng-packagr": "^12.0.0",
     "npm-run-all2": "^5.0.2",
+    "prettier": "^2.3.0",
     "protractor": "~7.0.0",
+    "syncpack": "^5.7.11",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
     "typescript": "~4.2.4"
-  }
+  },
+  "lint-staged": {
+    "*.{ts,js}": "eslint --cache --fix",
+    "*.{ts,js,css,scss,md,html,json}": "prettier --write"
+  },
+  "private": true,
+  "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "prepare": "husky install",
+    "git:precommit": "run-s git:precommit:*",
+    "git:precommit:format-package": "syncpack format",
+    "git:precommit:finalize": "git add -u",
+    "postinstall": "syncpack fix-mismatches",
+    "build": "lerna run build ",
+    "start": "yarn run build && lerna run --stream --parallel start",
+    "app:build": "ng build test-app",
+    "app:serve": "ng serve test-app",
+    "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
+    "dev:unlink": "lerna run --stream --parallel dev:unlink"
+  },
+  "syncpack": {
+    "sortAz": [
+      "contributors",
+      "dependencies",
+      "devDependencies",
+      "keywords",
+      "peerDependencies"
+    ]
+  },
+  "workspaces": [
+    "./projects/*"
+  ]
 }

@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,18 +6,15 @@ import { NavigationModule } from '@cpangular/web-components';
 import { WebCdkComponent } from './web-cdk.component';
 import { WebCdkRoutes } from './web-cdk.routing';
 
-
 @NgModule({
   imports: [
     CommonModule,
     WebCdkRoutes,
     MatListModule,
     MatButtonModule,
-    NavigationModule
+    NavigationModule,
   ],
   declarations: [WebCdkComponent],
-  providers: [
-
-  ]
+  providers: [],
 })
-export class WebCdkModule { }
+export class WebCdkModule {}

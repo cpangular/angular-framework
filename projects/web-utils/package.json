@@ -1,21 +1,21 @@
 {
   "name": "@cpangular/web-utils",
   "version": "0.0.0",
-  "repository": "https://github.com/cpangular/angular-framework",
-  "scripts": {
-    "build": "ng build web-utils",
-    "start": "ng build material-theming --watch",
-    "dev:link": "cd ../../dist/web-utils && yarn link",
-    "dev:unlink": "cd ../../dist/web-utils && yarn unlink"
+  "dependencies": {
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "rxjs": "~6.6.0"
   },
-  "dependencies": {
-    "tslib": "^2.0.0"
-  },
   "publishConfig": {
     "access": "public",
     "directory": "../../dist/web-utils"
+  },
+  "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "build": "ng build web-utils",
+    "start": "ng build web-utils --watch",
+    "dev:link": "cd ../../dist/web-utils && yarn link",
+    "dev:unlink": "cd ../../dist/web-utils && yarn unlink"
   }
 }

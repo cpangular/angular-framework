@@ -1,8 +1,7 @@
-
-@function propertyName($theme, $name){
-  @return '--theme-#{$theme}-foreground-#{$name}';
+@function propertyName($theme, $name) {
+  @return "--theme-#{$theme}-foreground-#{$name}";
 }
 
 @function propertyValue($value) {
-  @return '#{$value}';
+  @return "#{$value}";
 }
