@@ -100,9 +100,7 @@
               "projects/test-app/src/favicon.ico",
               "projects/test-app/src/assets"
             ],
-            "styles": [
-              "projects/test-app/src/styles.scss"
-            ],
+            "styles": ["projects/test-app/src/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -272,11 +270,51 @@
           }
         }
       }
+    },
+    "web-module-federation": {
+      "projectType": "library",
+      "root": "projects/web-module-federation",
+      "sourceRoot": "projects/web-module-federation/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/web-module-federation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web-module-federation/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/web-module-federation/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/web-module-federation/src/test.ts",
+            "tsConfig": "projects/web-module-federation/tsconfig.spec.json",
+            "karmaConfig": "projects/web-module-federation/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/web-module-federation/**/*.ts",
+              "projects/web-module-federation/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     }
   },
   "defaultProject": "web-utils",

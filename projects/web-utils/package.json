@@ -2,7 +2,7 @@
   "name": "@cpangular/web-utils",
   "version": "0.0.0",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.2.0"
   },
   "peerDependencies": {
     "rxjs": "~6.6.0"
