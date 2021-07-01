@@ -2,7 +2,7 @@
   "name": "@cpangular/material-theming",
   "version": "0.0.0",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.2.0"
   },
   "peerDependencies": {
     "@angular/cdk": "^12.1.1",

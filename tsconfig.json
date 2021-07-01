@@ -17,25 +17,21 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
       "@cpangular/material-theming": [
         "dist/material-theming/material-theming",
         "dist/material-theming"
       ],
-      "@cpangular/web-cdk": [
-        "dist/web-cdk/web-cdk",
-        "dist/web-cdk"
-      ],
+      "@cpangular/web-cdk": ["dist/web-cdk/web-cdk", "dist/web-cdk"],
       "@cpangular/web-components": [
         "dist/web-components/web-components",
         "dist/web-components"
       ],
-      "@cpangular/web-utils": [
-        "dist/web-utils"
+      "@cpangular/web-utils": ["dist/web-utils"],
+      "web-module-federation": [
+        "dist/web-module-federation/web-module-federation",
+        "dist/web-module-federation"
       ]
     }
   },

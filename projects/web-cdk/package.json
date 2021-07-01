@@ -2,7 +2,7 @@
   "name": "@cpangular/web-cdk",
   "version": "0.0.0",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@cpangular/web-utils": "0.0.0"
