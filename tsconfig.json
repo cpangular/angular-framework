@@ -24,14 +24,15 @@
         "dist/material-theming"
       ],
       "@cpangular/web-cdk": ["dist/web-cdk/web-cdk", "dist/web-cdk"],
-      "@cpangular/web-components": [
-        "dist/web-components/web-components",
-        "dist/web-components"
-      ],
+      "@cpangular/web-components": ["dist/web-components"],
       "@cpangular/web-utils": ["dist/web-utils"],
       "web-module-federation": [
         "dist/web-module-federation/web-module-federation",
         "dist/web-module-federation"
+      ],
+      "web-module-federation-loader": [
+        "dist/web-module-federation-loader/web-module-federation-loader",
+        "dist/web-module-federation-loader"
       ]
     }
   },

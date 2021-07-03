@@ -1,0 +1,23 @@
+{
+  "name": "@cpangular/web-module-federation-loader",
+  "version": "0.0.20",
+  "dependencies": {
+    "tslib": "^2.2.0"
+  },
+  "peerDependencies": {
+    "@angular-architects/module-federation": "^12.2.1",
+    "@angular/common": "^12.1.1",
+    "@angular/core": "^12.1.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "../../dist/web-module-federation-loader"
+  },
+  "repository": "https://github.com/cpangular/angular-framework",
+  "scripts": {
+    "build": "ng build web-module-federation-loader",
+    "start": "ng build web-module-federation-loader --watch",
+    "dev:link": "cd ../../dist/web-module-federation-loader && yarn link",
+    "dev:unlink": "cd ../../dist/web-module-federation-loader && yarn unlink"
+  }
+}
