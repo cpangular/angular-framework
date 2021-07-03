@@ -9,7 +9,10 @@ import {
 import { Router } from '@angular/router';
 
 import { loadRemoteModule } from '@angular-architects/module-federation';
-import { IRemote } from '@cpangular/web-module-federation-loader';
+import {
+  IRemote,
+  ModuleFederationLoader,
+} from '@cpangular/web-module-federation-loader';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -28,7 +31,7 @@ export class ApplicationLoaderComponent implements OnInit {
     private readonly injector: Injector,
     private readonly cfr: ComponentFactoryResolver
   ) {
-    ApplicationLoaderComponent.remotes.forEach((r) => {
+    ModuleFederationLoader.remotes.forEach((r) => {
       r.routes.forEach((mod) => {
         this.router.config.push({
           path: mod.path,
@@ -43,7 +46,7 @@ export class ApplicationLoaderComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.viewContainer.clear();
-    ApplicationLoaderComponent.remotes.forEach((r) => {
+    ModuleFederationLoader.remotes.forEach((r) => {
       r.loadComponents.forEach(async (comp) => {
         const mod = await loadRemoteModule({
           remoteName: r.name,

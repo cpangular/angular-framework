@@ -1,16 +1,16 @@
 {
   "name": "@cpangular/web-cdk",
-  "version": "0.0.20",
+  "version": "0.0.22",
   "dependencies": {
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@cpangular/web-utils": "^0.0.20"
+    "@cpangular/web-utils": "^0.0.22"
   },
   "peerDependencies": {
     "@angular/common": "^12.1.1",
     "@angular/core": "^12.1.1",
-    "@cpangular/web-utils": "0.0.20"
+    "@cpangular/web-utils": "0.0.21"
   },
   "publishConfig": {
     "access": "public",
