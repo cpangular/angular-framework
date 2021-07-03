@@ -1,7 +1,8 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "dependencies": {
+    "@angular-architects/module-federation": "^12.2.1",
     "@angular/animations": "~12.1.1",
     "@angular/cdk": "^12.1.1",
     "@angular/common": "^12.1.1",
@@ -11,7 +12,7 @@
     "@angular/material": "^12.1.1",
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
-    "@angular/router": "~12.1.1",
+    "@angular/router": "^12.1.1",
     "linq": "^3.2.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
@@ -62,7 +63,8 @@
     "git:precommit:format-package": "syncpack format",
     "git:precommit:finalize": "git add -u",
     "postinstall": "syncpack fix-mismatches",
-    "build": "lerna run build ",
+    "build": "ngcc && yarn ver  && lerna run build ",
+    "ver": "lerna version $(ts-node  .scripts/version.ts)  --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes",
     "start": "yarn run build && lerna run --stream --parallel start",
     "app:build": "ng build test-app",
     "app:serve": "ng serve test-app",

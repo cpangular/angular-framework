@@ -3,7 +3,7 @@ export enum ApplicationLayoutOutlets {
   ModalLoadingOverlay = 'app.internal.modal.loading',
   Top = 'app.internal.top',
   ModalRoute = 'app.internal.route.modal',
-  ContentRoute = 'app.internal.route.modal',
+  ContentRoute = 'app.internal.route.content',
   Header = 'app.internal.header',
   PanelLeft = 'app.internal.panel.left',
   PanelRight = 'app.internal.panel.right',

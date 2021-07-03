@@ -1,37 +1,37 @@
 import {
-  NavigationState,
-  NavigateStateInfo,
-} from './../navigation/NavigationState';
-import {
-  RouterEvent,
-  RoutesRecognized,
-  GuardsCheckStart,
-  ResolveStart,
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-} from '@angular/router';
-import { MaterialApplicationPartsComponent } from './../../material-application-parts/material-application-parts.component';
-import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ComponentRef,
   HostBinding,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   Type,
   ViewChild,
   ViewContainerRef,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy,
-  OnDestroy,
 } from '@angular/core';
+import {
+  GuardsCheckStart,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  ResolveStart,
+  RouterEvent,
+  RoutesRecognized,
+} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApplicationLayoutComponent } from '../../application-layout/application-layout.component';
 import { IApplicationLayoutComponent } from '../application-layout/IApplicationLayoutComponent';
 import { ApplicationService } from '../application.service';
+import { MaterialApplicationPartsComponent } from './../../material-application-parts/material-application-parts.component';
+import {
+  NavigateStateInfo,
+  NavigationState,
+} from './../navigation/NavigationState';
 import { ApplicationLayoutOptions } from './application-layout-options';
 
 @Component({
@@ -95,9 +95,12 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this._subs.add(
       this.appService.layout.subscribe((layout) => {
+        console.log('ngOnInit 1');
         this.createLayout();
+        console.log('ngOnInit 1.1');
       })
     );
+    console.log('ngOnInit 2');
     this.applyLayoutOptions();
   }
 
@@ -106,12 +109,14 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
       changes.applicationLayout &&
       !changes.applicationLayout.isFirstChange()
     ) {
+      console.log('ngOnChanges 1');
       this.createLayout();
     }
     if (
       changes.applicationLayoutOptions &&
       !changes.applicationLayoutOptions.isFirstChange()
     ) {
+      console.log('ngOnChanges 2');
       this.applyLayoutOptions();
     }
   }
@@ -129,20 +134,28 @@ export class ApplicationShellComponent implements OnInit, OnChanges, OnDestroy {
         this.applicationLayout
       );
     this.layoutRef.clear();
+    console.log(1, this.applicationLayout);
     this._applicationLayoutRef =
       this.layoutRef.createComponent(componentFactory);
+    console.log(2);
   }
 
   private applyLayoutOptions() {
-    this.applicationLayoutOptions ??= {
-      hideHeaderOnScroll: true,
-    };
-    for (const key in this.applicationLayoutOptions) {
-      if (
-        Object.prototype.hasOwnProperty.call(this.applicationLayoutOptions, key)
-      ) {
-        const val = (this.applicationLayoutOptions as any)[key];
-        (this._applicationLayoutRef!.instance as any)[key] = val;
+    console.log(3);
+    if (this._applicationLayoutRef) {
+      this.applicationLayoutOptions ??= {
+        hideHeaderOnScroll: true,
+      };
+      for (const key in this.applicationLayoutOptions) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            this.applicationLayoutOptions,
+            key
+          )
+        ) {
+          const val = (this.applicationLayoutOptions as any)[key];
+          (this._applicationLayoutRef.instance as any)[key] = val;
+        }
       }
     }
   }
