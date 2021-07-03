@@ -1,6 +1,6 @@
 {
   "name": "@cpangular/angular-framework",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "dependencies": {
     "@angular-architects/module-federation": "^12.2.1",
     "@angular/animations": "~12.1.1",
@@ -30,6 +30,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@types/resize-observer-browser": "^0.1.5",
+    "@types/sass": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "4.23.0",
     "@typescript-eslint/parser": "4.23.0",
     "eslint": "^7.26.0",
@@ -47,6 +48,7 @@
     "npm-run-all2": "^5.0.2",
     "prettier": "^2.3.0",
     "protractor": "~7.0.0",
+    "sass": "^1.35.1",
     "syncpack": "^5.7.11",
     "ts-node": "~8.3.0",
     "typescript": "~4.2.4"
@@ -62,10 +64,10 @@
     "git:precommit": "run-s git:precommit:*",
     "git:precommit:format-package": "syncpack format",
     "git:precommit:finalize": "git add -u",
-    "postinstall": "syncpack fix-mismatches",
-    "build": "ngcc && yarn ver  && lerna run build ",
+    "postinstall": "syncpack fix-mismatches && yarn ver",
+    "build": "ngcc && lerna run build ",
     "ver": "lerna version $(ts-node  .scripts/version.ts)  --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes",
-    "start": "yarn run build && lerna run --stream --parallel start",
+    "start": "yarn ver && yarn build && lerna run --stream --parallel start",
     "app:build": "ng build test-app",
     "app:serve": "ng serve test-app",
     "dev:link": "yarn run build && lerna run --stream --parallel dev:link",
