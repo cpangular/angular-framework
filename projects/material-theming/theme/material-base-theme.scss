@@ -1,0 +1,3 @@
+@use '../src/themes/material-base-theme/material-base-theme';
+
+@include material-base-theme.initTheme();

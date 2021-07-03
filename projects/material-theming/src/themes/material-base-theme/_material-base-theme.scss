@@ -1,0 +1,6 @@
+@use '../../lib/frameworks/ng-material/material';
+
+@mixin initTheme() {
+  @include material.create();
+  //@include p.define( "gray-plane", p.$gray-plane);
+}
