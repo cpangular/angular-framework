@@ -68,6 +68,7 @@
     "git:precommit:finalize": "git add -u",
     "postinstall": "syncpack fix-mismatches && yarn ver",
     "build": "ngcc && lerna run build ",
+    "release:build": "ngcc && lerna run release:build ",
     "ver": "lerna version $(ts-node  .scripts/version.ts)  --force-publish --no-commit-hooks --no-git-tag-version --no-push --yes",
     "start": "yarn ver && yarn build && lerna run --stream --parallel start",
     "app:build": "ng build test-app",

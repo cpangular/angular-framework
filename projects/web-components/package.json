@@ -23,6 +23,7 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-components",
+    "release:build": "ng build web-components --configuration=production",
     "start": "ng build web-components --watch",
     "dev:link": "cd ../../dist/web-components && yarn link",
     "dev:unlink": "cd ../../dist/web-components && yarn unlink"

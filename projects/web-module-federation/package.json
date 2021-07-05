@@ -23,6 +23,7 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-module-federation",
+    "release:build": "ng build web-module-federation --configuration=production",
     "start": "ng build web-module-federation --watch",
     "dev:link": "cd ../../dist/web-module-federation && yarn link",
     "dev:unlink": "cd ../../dist/web-module-federation && yarn unlink"

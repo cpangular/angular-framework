@@ -14,6 +14,7 @@
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
     "build": "ng build web-utils",
+    "release:build": "ng build web-utils  --configuration=production",
     "start": "ng build web-utils --watch",
     "dev:link": "cd ../../dist/web-utils && yarn link",
     "dev:unlink": "cd ../../dist/web-utils && yarn unlink"

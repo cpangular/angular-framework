@@ -52,7 +52,7 @@ jobs:
           git diff-index --quiet HEAD || git commit -a -m versions
 
       - name: Build
-        run: yarn run build -- -- --prod
+        run: yarn release:build
 
       - name: Publish
         env:
