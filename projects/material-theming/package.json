@@ -17,8 +17,12 @@
   },
   "repository": "https://github.com/cpangular/angular-framework",
   "scripts": {
-    "build": "ng build material-theming && ts-node --project=.scripts/tsconfig.json .scripts/compile-base-themes.ts",
-    "start": "ng build material-theming --watch",
+    "build": "run-s build:*",
+    "build:baseTheme": "ts-node --project=.scripts/tsconfig.json .scripts/compile-base-themes.ts",
+    "build:ng": "ng build material-theming",
+    "start": "run-p start:*",
+    "start:baseTheme": "gulp watchThemes",
+    "start:ng": "ng build material-theming --watch",
     "dev:link": "cd ../../dist/material-theming && yarn link",
     "dev:unlink": "cd ../../dist/material-theming && yarn unlink"
   }

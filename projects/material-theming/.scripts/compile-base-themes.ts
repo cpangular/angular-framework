@@ -12,10 +12,9 @@ const files = readdirSync(basePath);
 
 for (const f of files) {
   if (f.endsWith('.scss')) {
-    console.log('-------------------', resolve(cwd, '../../'));
     const file = join(basePath, f);
     const outFile = join(outPath, f.replace('.scss', '.css'));
-
+    console.info(`Building theme '${file}'...`);
     const result = renderSync({
       file,
       outFile,
@@ -32,6 +31,7 @@ for (const f of files) {
     });
 
     writeFileSync(outFile, result.css, 'utf8');
+    console.info(`Created '${resolve(outFile)}'.`);
     writeFileSync(
       outFile + '.map',
       result.map
@@ -39,5 +39,7 @@ for (const f of files) {
         .replace(new RegExp(`file://${resolve(cwd, '../../')}`, 'g'), '.'),
       'utf8'
     );
+    console.info(`Created '${resolve(outFile)}.map'.`);
+    console.info(`Completed building theme '${file}'.`);
   }
 }
