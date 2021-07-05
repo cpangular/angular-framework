@@ -6,15 +6,15 @@
 
 @mixin initTheme() {
   @include materialTheme.create();
-  @include p.define("bg-light", palettes.$light-bg-palette);
 }
 
-@mixin applyTheme() {
+@mixin applyTheme($selector: null) {
+  @include p.define("bg-light", palettes.$light-bg-palette);
   @include p.define("orange", palettes.$orange-palette);
   @include p.define("blue", palettes.$blue-palette);
   @include p.define("red", palettes.$red-palette);
   @include materialTheme.define("orange-blue", themes.$light-theme);
-  @include materialTheme.apply("orange-blue");
+  @include materialTheme.apply("orange-blue", $selector);
   html {
     background-color: var(--background-background);
   }
