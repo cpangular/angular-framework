@@ -10,7 +10,7 @@ export class ModuleFederationLoader {
   ) {
     const bs = await bootstrap();
     if (!this._load) {
-      this._load = fetch('assets/remotes.json')
+      this._load = fetch('remotes.json')
         .then((r) => r.json())
         .catch((err) => console.error('Error loading remotes list', err))
         .then(async (r: IRemote[]) => {
